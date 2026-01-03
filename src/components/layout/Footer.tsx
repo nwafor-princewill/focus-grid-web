@@ -1,4 +1,5 @@
 import React from 'react';
+import focusGridLogo from '../../assets/images/focus-grid-logo.png';
 
 const Footer: React.FC = () => {
   return (
@@ -14,7 +15,7 @@ const Footer: React.FC = () => {
               Where talent grows, & brands get results.<br />Everyone wins.
             </h2>
             
-            <button className="w-[199.67px] h-[64.07px] bg-[#00A550] border-[1.94px] border-[#33B773] rounded-[38.83px] px-[38.83px] py-[15.53px] shadow-[0px_7.77px_194.17px_0px_rgba(0,0,0,0.25)] flex items-center justify-center">
+            <button className="w-[203.67px] h-[64.07px] bg-[#00A550] border-[1.94px] border-[#33B773] rounded-[38.83px] px-[38.83px] py-[15.53px] shadow-[0px_7.77px_194.17px_0px_rgba(0,0,0,0.25)] flex items-center justify-center">
               <span 
                 className="w-[122px] h-[33px] text-[23.3px] font-normal leading-[140%] text-white"
                 style={{ fontFamily: 'Funnel Display, sans-serif' }}
@@ -33,8 +34,8 @@ const Footer: React.FC = () => {
           {/* Focus Grid Section */}
           <div className="w-[348.58px] h-[226.16px] flex flex-col gap-[31.69px]">
             {/* Logo Placeholder */}
-            <div className="w-[178.25px] h-[73.02px] bg-gray-200 flex items-center justify-center text-sm text-gray-500">
-              Logo Here
+            <div className="w-[178.25px] h-[73.02px] flex items-center justify-center text-sm ">
+              <img src={focusGridLogo}  alt="" />
             </div>
             
             {/* Description */}
@@ -57,7 +58,7 @@ const Footer: React.FC = () => {
           {/* Quick Links */}
           <div className="w-[178.25px] h-[210.46px] flex flex-col gap-[23.77px]">
             <h3 
-              className="w-[177px] h-[45px] text-[32px] font-semibold leading-[140%] text-[#333333]"
+              className="w-[185px] h-[45px] text-[32px] font-semibold leading-[140%] text-[#333333]"
               style={{ fontFamily: 'Funnel Display, sans-serif' }}
             >
               Quick Links

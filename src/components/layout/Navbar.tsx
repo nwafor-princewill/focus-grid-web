@@ -1,4 +1,5 @@
 import React from 'react';
+import focusGridLogo from '../../assets/images/focus-grid-logo.png';
 
 const Navbar: React.FC = () => {
   return (
@@ -6,9 +7,9 @@ const Navbar: React.FC = () => {
       <div className="w-full max-w-[1247px] h-[81px] bg-[#E6F6EE] rounded-[100px] px-5 py-5 flex items-center justify-between gap-[253px]">
         {/* Logo */}
         <div className="flex items-center">
-          <div className="w-[100px] h-[41px]">
+          <div className="w-[100px] h-[40.96px]">
             <img 
-              src="/logo.svg" 
+              src={focusGridLogo} 
               alt="Focus Grid" 
               className="w-full h-full object-contain"
             />

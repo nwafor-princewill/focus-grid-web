@@ -1,6 +1,11 @@
 import React from 'react';
 import targetGreen from '../../assets/images/target green.png';
 import cursor from '../../assets/images/cursor.png';
+import uber from '../../assets/images/uber.png';
+import chodweck from '../../assets/images/chodweck.png';
+import uber1 from '../../assets/images/uber1.png';
+import man from '../../assets/images/man.jpg';
+import woman from '../../assets/images/woman.jpg';
 
 const Hero: React.FC = () => {
   return (
@@ -65,19 +70,31 @@ const Hero: React.FC = () => {
         <div className="w-[268.65px] h-[52px] flex items-center gap-5">
           {/* Overlapping Avatar Images */}
           <div className="relative w-[117.65px] h-[52px]">
-            {/* Avatar 1 */}
-            <div className="absolute left-0 w-[52px] h-[52px] rounded-full bg-gray-300 border-2 border-white z-30">
-              {/* Image will go here */}
+            {/* Avatar 1 - Man */}
+            <div className="absolute left-0 w-[52px] h-[52px] rounded-full border-2 border-white z-30 overflow-hidden">
+              <img 
+                src={man}
+                alt="Client 1"
+                className="w-full h-full object-cover"
+              />
             </div>
             
-            {/* Avatar 2 */}
-            <div className="absolute left-[32.82px] w-[52px] h-[52px] rounded-full bg-gray-400 border-2 border-white z-20">
-              {/* Image will go here */}
+            {/* Avatar 2 - Woman */}
+            <div className="absolute left-[32.82px] w-[52px] h-[52px] rounded-full border-2 border-white z-20 overflow-hidden">
+              <img 
+                src={woman}
+                alt="Client 2"
+                className="w-full h-full object-cover"
+              />
             </div>
             
-            {/* Avatar 3 */}
-            <div className="absolute left-[65.65px] w-[52px] h-[52px] rounded-full bg-gray-500 border-2 border-white z-10">
-              {/* Image will go here */}
+            {/* Avatar 3 - Woman */}
+            <div className="absolute left-[65.65px] w-[52px] h-[52px] rounded-full border-2 border-white z-10 overflow-hidden">
+              <img 
+                src={woman}
+                alt="Client 3"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
@@ -114,6 +131,41 @@ const Hero: React.FC = () => {
         alt="Target"
         className="absolute w-[350px] h-[363.02px] top-[150.93px] left-[985px] z-10"
       />
+
+      {/* Trusted By Amazing Brands Section */}
+      <div className="absolute top-[623.84px] left-[805px] w-[529.82px] h-[58.62px] flex flex-col gap-[10px]">
+        {/* Text */}
+        <p 
+          className="w-[186px] h-5 text-sm font-light leading-[140%] text-[#1E1E1E]"
+          style={{ fontFamily: 'Funnel Display, sans-serif' }}
+        >
+          Trusted By  Amazing Brands
+        </p>
+        
+        {/* Brand Logos */}
+        <div className="w-[529.82px] h-[28.62px] flex items-center gap-10">
+          {/* Uber Logo */}
+          <img 
+            src={uber}
+            alt="Uber Eats"
+            className="w-[150px] h-[24.66px] object-contain"
+          />
+          
+          {/* Chodweck Logo */}
+          <img 
+            src={chodweck}
+            alt="Chodweck"
+            className="w-[149.82px] h-[28.62px] object-contain"
+          />
+          
+          {/* Uber Logo 2 */}
+          <img 
+            src={uber1}
+            alt="Uber Eats"
+            className="w-[150px] h-[24.66px] object-contain"
+          />
+        </div>
+      </div>
     </section>
   );
 };
