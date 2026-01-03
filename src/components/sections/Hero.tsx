@@ -133,10 +133,10 @@ const Hero: React.FC = () => {
       />
 
       {/* Trusted By Amazing Brands Section */}
-      <div className="absolute top-[623.84px] left-[805px] w-[529.82px] h-[58.62px] flex flex-col gap-[10px]">
-        {/* Text */}
+      <div className="absolute top-[623.84px] left-[805px] w-[529.82px] h-[58.62px] flex flex-col justify-between">
+        {/* Text - Updated with text-right and self-end */}
         <p 
-          className="w-[186px] h-5 text-sm font-light leading-[140%] text-[#1E1E1E]"
+          className="w-[186px] h-5 text-sm font-light leading-[140%] text-[#1E1E1E] text-right self-end"
           style={{ fontFamily: 'Funnel Display, sans-serif' }}
         >
           Trusted By  Amazing Brands

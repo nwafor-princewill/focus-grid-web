@@ -1,5 +1,9 @@
 import React from 'react';
 import focusGridLogo from '../../assets/images/focus-grid-logo.png';
+import facebookIcon from '../../assets/images/facebook.png';
+import instagramIcon from '../../assets/images/instagram.png';
+import linkedinIcon from '../../assets/images/linkedin.png';
+import dribbleIcon from '../../assets/images/dribble.png';
 
 const Footer: React.FC = () => {
   return (
@@ -33,9 +37,9 @@ const Footer: React.FC = () => {
         <div className="w-[1237px] h-[253.89px] py-[13.86px] flex justify-between gap-[99px]">
           {/* Focus Grid Section */}
           <div className="w-[348.58px] h-[226.16px] flex flex-col gap-[31.69px]">
-            {/* Logo Placeholder */}
-            <div className="w-[178.25px] h-[73.02px] flex items-center justify-center text-sm ">
-              <img src={focusGridLogo}  alt="" />
+            {/* Logo */}
+            <div className="w-[178.25px] h-[73.02px] flex items-center justify-center">
+              <img src={focusGridLogo} alt="Focus Grid Logo" />
             </div>
             
             {/* Description */}
@@ -48,27 +52,35 @@ const Footer: React.FC = () => {
             
             {/* Social Media Icons */}
             <div className="w-[186.17px] h-[31.69px] flex gap-[19.81px]">
-              <div className="w-[31.69px] h-[31.69px] bg-[#333333] rounded-full"></div>
-              <div className="w-[31.69px] h-[31.69px] bg-[#333333] rounded-full"></div>
-              <div className="w-[31.69px] h-[31.69px] bg-[#333333] rounded-full"></div>
-              <div className="w-[31.69px] h-[31.69px] bg-[#333333] rounded-full"></div>
+              <a href="#" className="w-[31.69px] h-[31.69px]">
+                <img src={facebookIcon} alt="Facebook" className="w-full h-full" />
+              </a>
+              <a href="#" className="w-[31.69px] h-[31.69px]">
+                <img src={instagramIcon} alt="Instagram" className="w-full h-full" />
+              </a>
+              <a href="#" className="w-[31.69px] h-[31.69px]">
+                <img src={linkedinIcon} alt="LinkedIn" className="w-full h-full" />
+              </a>
+              <a href="#" className="w-[31.69px] h-[31.69px]">
+                <img src={dribbleIcon} alt="Dribble" className="w-full h-full" />
+              </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links - FIXED: Added text-right and items-end */}
           <div className="w-[178.25px] h-[210.46px] flex flex-col gap-[23.77px]">
             <h3 
-              className="w-[185px] h-[45px] text-[32px] font-semibold leading-[140%] text-[#333333]"
+              className="w-[185px] h-[45px] text-[32px] font-semibold leading-[140%] text-[#333333] text-right ml-auto"
               style={{ fontFamily: 'Funnel Display, sans-serif' }}
             >
               Quick Links
             </h3>
-            <div className="w-[178.25px] h-[141.69px] flex flex-col gap-[7.92px]">
-              <a href="#home" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Home</a>
-              <a href="#how-it-works" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>How it works</a>
-              <a href="#services" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Services</a>
-              <a href="#about" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>About us</a>
-              <a href="#faqs" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>FAQs</a>
+            <div className="w-[178.25px] h-[141.69px] flex flex-col gap-[7.92px] items-end">
+              <a href="#home" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Home</a>
+              <a href="#how-it-works" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>How it works</a>
+              <a href="#services" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Services</a>
+              <a href="#about" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>About us</a>
+              <a href="#faqs" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>FAQs</a>
             </div>
           </div>
 
@@ -81,11 +93,11 @@ const Footer: React.FC = () => {
               For you
             </h3>
             <div className="w-[178.25px] flex flex-col gap-[7.92px] items-end">
-              <a href="#start-project" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Start a Project</a>
-              <a href="#join-intern" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Join as an Intern</a>
-              <a href="#testimonials" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Testimonials</a>
-              <a href="#community" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Community</a>
-              <a href="#support" className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Support</a>
+              <a href="#start-project" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Start a Project</a>
+              <a href="#join-intern" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Join as an Intern</a>
+              <a href="#testimonials" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Testimonials</a>
+              <a href="#community" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Community</a>
+              <a href="#support" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Support</a>
             </div>
           </div>
 
@@ -103,7 +115,7 @@ const Footer: React.FC = () => {
                 <span className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+123 456 7890</span>
                 <div className="w-[23.77px] h-[23.77px] flex items-center justify-center">
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[17.83px] h-[17.83px]">
-                    <path d="M16.5 12.5v2.25a1.5 1.5 0 01-1.635 1.493 14.76 14.76 0 01-6.428-2.287 14.535 14.535 0 01-4.462-4.463A14.76 14.76 0 011.687 3.135 1.5 1.5 0 013.172 1.5h2.25a1.5 1.5 0 011.5 1.29 9.638 9.638 0 00.525 2.107 1.5 1.5 0 01-.338 1.583l-.952.952a12 12 0 004.462 4.463l.952-.952a1.5 1.5 0 011.583-.338 9.638 9.638 0 002.107.525 1.5 1.5 0 011.29 1.52z" fill="#333333"/>
+                    <path d="M16.5 12.5v2.25a1.5 1.5 0 01-1.635 1.493 14.76 14.76 0 01-6.428-2.287 14.535 14.535 0 01-4.462-4.463A14.76 14.76 0 011.687 3.135 1.5 1.5 0 013.172 1.5h2.25a1.5 1.5 0 011.5 1.29 9.638 9.638 0 00.525 2.107 1.5 1.5 0 01-.338 1.583l-.952.952a12 12 0 004.462 4.463l.952-.952a1.5 1.5 0 011.583-.338 9.638 9.638 0 002.107.525 1.5 1.5 0 011.29 1.5z" fill="#333333"/>
                   </svg>
                 </div>
               </div>
@@ -124,8 +136,8 @@ const Footer: React.FC = () => {
         {/* Bottom Line */}
         <div className="w-[1239px] h-[1px] border-t border-[#333333]"></div>
 
-        {/* Copyright Section */}
-        <div className="w-[1245px] h-[24px] flex justify-between items-center">
+        {/* Copyright Section - MOVED UP: Reduced the gap */}
+        <div className="w-[1245px] h-[24px] flex justify-between items-center mt-[-80px]">
           <p 
             className="w-[235px] h-[20px] text-sm font-light leading-[140%] text-[#333333]"
             style={{ fontFamily: 'Funnel Display, sans-serif' }}
