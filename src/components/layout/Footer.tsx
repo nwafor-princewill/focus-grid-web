@@ -7,6 +7,7 @@ import dribbleIcon from '../../assets/images/dribble.png';
 
 const Footer: React.FC = () => {
   return (
+  <div className="w-full bg-[#F9F9F9]">
     <footer className="w-full max-w-[1437px] h-[877.64px] mx-auto bg-[#F9F9F9] pt-[114px] pr-[100px] pb-[114px] pl-[100px]">
       <div className="w-[1237px] h-[649.64px] flex flex-col gap-[122px]">
         {/* Top Section - Heading and Contact Button */}
@@ -153,6 +154,7 @@ const Footer: React.FC = () => {
         </div>
       </div>
     </footer>
+  </div>
   );
 };
 

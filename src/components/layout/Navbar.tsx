@@ -8,6 +8,14 @@ const Navbar: React.FC = () => {
 
   const isActive = (path: string) => currentPath === path;
 
+  const navLinks = [
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About Us' },
+    { path: '/how-it-works', label: 'How It Works' },
+    { path: '/services', label: 'Services' },
+    { path: '/faqs', label: 'FAQs' }
+  ];
+
   return (
     <nav className="sticky top-9 left-0 right-0 z-50 flex justify-center px-6">
       <div className="w-full max-w-[1247px] h-[81px] bg-[#E6F6EE] rounded-[100px] px-5 py-5 flex items-center justify-between gap-[253px]">
@@ -24,75 +32,31 @@ const Navbar: React.FC = () => {
 
         {/* Navigation Links */}
         <div className="flex items-center gap-8">
-          {isActive('/') ? (
-            <div className="bg-white/10 rounded-[10px] px-[10px] py-[2px] shadow-[0px_4px_10px_0px_rgba(0,165,80,1)]">
-              <Link 
-                to="/" 
-                className="text-[#00A550] text-sm font-bold leading-[140%]"
-                style={{ fontFamily: 'Funnel Display, sans-serif' }}
-              >
-                Home
-              </Link>
-            </div>
-          ) : (
-            <Link 
-              to="/" 
-              className="text-[#545454] text-base font-light leading-[140%]"
-              style={{ fontFamily: 'Funnel Display, sans-serif' }}
-            >
-              Home
-            </Link>
-          )}
-          
-          {isActive('/about') ? (
-            <div className="bg-white/10 rounded-[10px] px-[10px] py-[2px] shadow-[0px_4px_10px_0px_rgba(0,165,80,1)]">
-              <Link 
-                to="/about" 
-                className="text-[#00A550] text-sm font-bold leading-[140%]"
-                style={{ fontFamily: 'Funnel Display, sans-serif' }}
-              >
-                About Us
-              </Link>
-            </div>
-          ) : (
-            <Link 
-              to="/about" 
-              className="text-[#545454] text-base font-light leading-[140%]"
-              style={{ fontFamily: 'Funnel Display, sans-serif' }}
-            >
-              About Us
-            </Link>
-          )}
-          
-          <Link 
-            to="/how-it-works" 
-            className={`text-base font-light leading-[140%] whitespace-nowrap ${
-              isActive('/how-it-works') ? 'text-[#00A550] font-bold' : 'text-[#545454]'
-            }`}
-            style={{ fontFamily: 'Funnel Display, sans-serif' }}
-          >
-            How It Works
-          </Link>
-          
-          <Link 
-            to="/services" 
-            className={`text-base font-light leading-[140%] ${
-              isActive('/services') ? 'text-[#00A550] font-bold' : 'text-[#545454]'
-            }`}
-            style={{ fontFamily: 'Funnel Display, sans-serif' }}
-          >
-            Services
-          </Link>
-          
-          <Link 
-            to="/faqs" 
-            className={`text-base font-light leading-[140%] ${
-              isActive('/faqs') ? 'text-[#00A550] font-bold' : 'text-[#545454]'
-            }`}
-            style={{ fontFamily: 'Funnel Display, sans-serif' }}
-          >
-            FAQs
-          </Link>
+          {navLinks.map((link) => (
+            <React.Fragment key={link.path}>
+              {isActive(link.path) ? (
+                <div className="bg-white/10 rounded-[10px] px-[10px] py-[2px] shadow-[0px_4px_10px_0px_rgba(0,165,80,1)]">
+                  <Link 
+                    to={link.path} 
+                    className="text-[#00A550] text-sm font-bold leading-[140%]"
+                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                  >
+                    {link.label}
+                  </Link>
+                </div>
+              ) : (
+                <Link 
+                  to={link.path} 
+                  className={`text-[#545454] text-base font-light leading-[140%] ${
+                    link.label === 'How It Works' ? 'whitespace-nowrap' : ''
+                  }`}
+                  style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                >
+                  {link.label}
+                </Link>
+              )}
+            </React.Fragment>
+          ))}
         </div>
 
         {/* Contact Button */}
