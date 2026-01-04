@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import manQuest from '../../assets/images/man-quest.png';
 
 const AboutPageHero: React.FC = () => {
@@ -47,6 +48,7 @@ const AboutPageHero: React.FC = () => {
               </button>
 
               {/* Apply for Internship Button */}
+            <Link to="/apply">
               <button className="w-[250px] h-12 rounded-[20px] p-[10px] border border-[#00A550] flex items-center justify-center gap-[10px] bg-transparent">
                 <span 
                   className="w-[167px] h-5 text-[#007539] text-sm font-medium leading-[140%]"
@@ -55,6 +57,7 @@ const AboutPageHero: React.FC = () => {
                   APPLY FOR INTERNSHIP
                 </span>
               </button>
+            </Link>
             </div>
           </div>
 

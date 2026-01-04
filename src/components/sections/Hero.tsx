@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import targetGreen from '../../assets/images/target green.png';
 import cursor from '../../assets/images/cursor.png';
 import uber from '../../assets/images/uber.png';
@@ -56,6 +57,7 @@ const Hero: React.FC = () => {
           </button>
 
           {/* Apply for Internship Button */}
+        <Link to="/apply">
           <button className="w-[250px] h-12 rounded-[20px] p-[10px] border border-[#00A550] flex items-center justify-center gap-[10px] bg-transparent">
             <span 
               className="w-[167px] h-5 text-[#007539] text-sm font-medium leading-[140%]"
@@ -64,6 +66,7 @@ const Hero: React.FC = () => {
               APPLY FOR INTERNSHIP
             </span>
           </button>
+        </Link>
         </div>
 
         {/* Trusted By Section */}

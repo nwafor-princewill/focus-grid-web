@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const WeAreHiring: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const WeAreHiring: React.FC = () => {
           </p>
 
           {/* Apply Button */}
+        <Link to="/apply">
           <button className="w-[207px] h-[48px] bg-[#00A550] border border-[#00A550] rounded-[20px] px-[10px] py-[10px] flex items-center justify-center">
             <span 
               className="text-sm font-medium leading-[140%] text-[#E6F6EE]"
@@ -33,6 +35,7 @@ const WeAreHiring: React.FC = () => {
               APPLY FOR INTERNSHIP
             </span>
           </button>
+        </Link>
         </div>
       </div>
     </section>
