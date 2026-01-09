@@ -8,6 +8,9 @@ const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Check if we are specifically on the About Us page
+  const isAboutPage = location.pathname === '/about';
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
@@ -32,7 +35,10 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav className={`sticky top-0 lg:top-9 z-50 w-full transition-all duration-500 ${scrolled ? 'py-2' : 'py-0'}`}>
+    <nav 
+      className={`sticky top-0 lg:top-9 z-50 w-full transition-all duration-500 
+        ${scrolled ? 'py-2 bg-white shadow-sm' : isAboutPage ? 'py-0 bg-white' : 'py-0'}`}
+    >
       <div className="max-w-[1240px] mx-auto px-4">
         <div 
           className={`flex items-center justify-between px-5 py-5 transition-all duration-500 rounded-[1000px] 
@@ -120,7 +126,7 @@ const Navbar: React.FC = () => {
             </button>
           </Link>
 
-          {/* Mobile Menu Button - Morphing Hamburger */}
+          {/* Mobile Menu Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden relative z-[70] p-2 text-[#00A550]"
@@ -134,7 +140,7 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay - Full Design Content Restored */}
+      {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ${mobileMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}>
         <div className="absolute inset-0 bg-white" onClick={() => setMobileMenuOpen(false)}></div>
         
@@ -157,7 +163,6 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
             
-            {/* Mobile Services Trigger */}
             <button 
               className={`text-3xl font-semibold text-[#545454] text-left transition-all duration-500 delay-[250ms] ${mobileMenuOpen ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}
               style={{ fontFamily: 'Funnel Display, sans-serif' }}

@@ -1,78 +1,96 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import manQuest from '../../assets/images/man-quest.png';
+import blob from '../../assets/images/blob.png';
+import aboutUsImg from '../../assets/images/about-us.png';
 
-const AboutPageHero: React.FC = () => {
+const AboutHero: React.FC = () => {
   return (
-    <section className="w-full bg-white">
-      <div className="w-full max-w-[1440px] mx-auto flex items-center justify-center py-20">
-        <div className="w-[1160px] h-[450px] flex items-center gap-[150px]">
-          {/* Left Side - Content */}
-          <div className="w-[560px] h-[260px] flex flex-col gap-6">
-            {/* Heading */}
+    <section className="relative w-full min-h-[700px] overflow-hidden bg-white">
+      {/* Main Container */}
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-[119px] pt-[100px] md:pt-[150px] lg:pt-[216px] pb-20 relative">
+        
+        {/* Added md:items-center for tablet centering */}
+        <div className="flex flex-col lg:flex-row items-start md:items-center lg:items-start justify-between">
+          
+          {/* Left Content Column - Added md:text-center and md:items-center */}
+          <div className="w-full max-w-[560px] flex flex-col gap-[40px] z-10 items-start md:items-center lg:items-start text-left md:text-center lg:text-left">
+            
+            {/* Heading: Who We Are. */}
             <h1 
-              className="w-[560px] h-[124px] text-[52px] font-semibold leading-[120%] text-[#333333]"
+              className="text-[#333333] font-semibold text-[48px] leading-[120%]"
               style={{ fontFamily: 'Funnel Display, sans-serif' }}
             >
-              What you should know about us
+              Who We Are.
             </h1>
 
-            {/* Description */}
+            {/* Subtext Paragraph */}
             <p 
-              className="w-[560px] h-[44px] text-base font-light leading-[140%] text-[#333333]"
+              className="text-[#545454] font-light text-[16px] leading-[140%]"
               style={{ fontFamily: 'Funnel Display, sans-serif' }}
             >
-              We develop custom software, train junior developers through real-world internships, and deploy ready talent to your team — all under one roof.
+              We are custom developers of software products, advanced trainers of tech talents 
+              through real-world internships, and talent networkers bringing experienced talent 
+              to your team — all under one roof.
             </p>
 
-            {/* Buttons Container */}
-            <div className="w-[449px] h-12 flex gap-5">
-              {/* Let's Build Button */}
-              <button className="w-[179px] h-12 bg-[#00A550] rounded-[20px] p-[10px] flex items-center justify-center gap-[10px]">
-                <span 
-                  className="w-[83px] h-5 text-white text-sm font-medium leading-[140%]"
-                  style={{ fontFamily: 'Funnel Display, sans-serif' }}
-                >
-                  LET'S BUILD
-                </span>
-                <svg 
-                  width="10" 
-                  height="10" 
-                  viewBox="0 0 10 10" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-[10px] h-[10px]"
-                >
-                  <path d="M5 0L4.29289 0.707107L7.58579 4H0V5H7.58579L4.29289 8.29289L5 9L10 4L5 0Z" fill="white"/>
-                </svg>
-              </button>
+            {/* Buttons Layout - Added md:justify-center */}
+            <div className="flex flex-wrap items-center justify-start md:justify-center lg:justify-start gap-[20px]">
+              {/* LET'S BUILD Button */}
+              <Link to="/contact">
+                <button className="h-[48px] bg-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center gap-2 transition-all duration-300 hover:bg-[#008f44] hover:scale-105 hover:shadow-lg group">
+                  <span 
+                    className="text-sm font-medium leading-[140%] text-white whitespace-nowrap uppercase"
+                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                  >
+                    LET'S BUILD
+                  </span>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-transform duration-300 group-hover:translate-y-[-2px]">
+                    <path d="M8 3.33334V12.6667M12.6667 8L8 3.33334L3.33333 8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </Link>
 
-              {/* Apply for Internship Button */}
-            <Link to="/apply">
-              <button className="w-[250px] h-12 rounded-[20px] p-[10px] border border-[#00A550] flex items-center justify-center gap-[10px] bg-transparent">
-                <span 
-                  className="w-[167px] h-5 text-[#007539] text-sm font-medium leading-[140%]"
-                  style={{ fontFamily: 'Funnel Display, sans-serif' }}
-                >
-                  APPLY FOR INTERNSHIP
-                </span>
-              </button>
-            </Link>
+              {/* APPLY FOR INTERNSHIP Button */}
+              <Link to="/internship">
+                <button className="h-[48px] bg-[#E6F6EE] rounded-[100px] px-[30px] py-[10px] flex items-center gap-2 transition-all duration-300 hover:bg-[#d5f0e4] hover:scale-105 group">
+                  <span 
+                    className="text-sm font-medium leading-[140%] text-[#00A550] whitespace-nowrap uppercase"
+                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                  >
+                    APPLY FOR INTERNSHIP
+                  </span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    <path d="M3.5 10.5L10.5 3.5M10.5 3.5H5.25M10.5 3.5V8.75" stroke="#00A550" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </Link>
             </div>
           </div>
 
-          {/* Right Side - Image */}
-          <div className="w-[450px] h-[450px]">
+          {/* Right Image Section */}
+          <div className="relative mt-20 lg:mt-[-34px] lg:mr-[-40px]">
+            {/* Blob Background */}
             <img 
-              src={manQuest}
-              alt="Man with magnifying glass"
-              className="w-full h-full object-contain"
+              src={blob} 
+              alt="" 
+              className="absolute top-[65%] left-[50%] -translate-x-1/2 -translate-y-1/2 min-w-[310px] h-auto opacity-50 z-0"
+              style={{ width: '310.1px', height: '431.4px' }}
             />
+            
+            {/* Main Image */}
+            <div className="relative z-10 w-[332px] h-[332px]">
+              <img 
+                src={aboutUsImg} 
+                alt="About Us" 
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
+
         </div>
       </div>
     </section>
   );
 };
 
-export default AboutPageHero;
+export default AboutHero;
