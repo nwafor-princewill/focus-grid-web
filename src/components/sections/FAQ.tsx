@@ -1,7 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const FAQ: React.FC = () => {
   const [expandedCard, setExpandedCard] = useState<number | null>(1);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Intersection Observer to trigger entrance animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const toggleCard = (cardNumber: number) => {
     setExpandedCard(expandedCard === cardNumber ? null : cardNumber);
@@ -31,84 +45,106 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section className="w-full max-w-[1440px] h-[920.69px] mx-auto bg-[#F9F9F9] pt-20 pr-[95px] pb-20 pl-[95px] rounded-br-[80px] rounded-bl-[80px]">
-      <div className="w-[1250px] h-[760.69px] flex flex-col gap-10">
+    <section 
+      ref={sectionRef}
+      className="w-full max-w-[1440px] mx-auto bg-[#F9F9F9] py-16 px-6 md:px-[95px] rounded-br-[40px] md:rounded-br-[80px] rounded-bl-[40px] md:rounded-bl-[80px] overflow-hidden"
+    >
+      <div className={`w-full max-w-[1240px] mx-auto flex flex-col gap-8 md:gap-10 items-center transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        
+        {/* FAQs Badge with Pulse Animation */}
+        <div className="relative">
+          <div className="absolute inset-0 rounded-[100px] border border-[#00A550] animate-ping opacity-20"></div>
+          <div className="h-[28px] px-5 py-2.5 border border-[#00A550] rounded-[100px] flex items-center justify-center bg-white relative z-10 hover:bg-[#E6F6EE] transition-colors duration-300">
+            <span 
+              className="text-[12px] font-medium text-[#00A550]"
+              style={{ fontFamily: 'Funnel Display, sans-serif' }}
+            >
+              FAQs
+            </span>
+          </div>
+        </div>
+
         {/* Header Section */}
-        <div className="w-[1220px] h-[132px] flex flex-col gap-5">
+        <div className="w-full flex flex-col gap-4 md:gap-5 items-center">
           <h2 
-            className="w-[1220px] h-12 text-[40px] font-semibold leading-[120%] text-[#333333]"
+            className="text-[28px] md:text-[40px] font-semibold leading-[120%] text-[#333333] text-center"
             style={{ fontFamily: 'Funnel Display, sans-serif' }}
           >
-            Questions We are Asked Often.
+            Questions We're Asked Often.
           </h2>
           <p 
-            className="w-[1120px] h-11 text-base font-light leading-[140%] text-[#333333]"
+            className="max-w-[857px] text-sm md:text-base font-light leading-[140%] text-[#545454] text-center"
             style={{ fontFamily: 'Funnel Display, sans-serif' }}
           >
-            Focus Grid is a software development institution that builds digital products and trains tech talent. We help clients bring ideas to life and help learners grow into world-class tech professionals.
+            Focus Grid is a software development institution that builds digital products and trains tech talent.
           </p>
-          {/* Underline after description */}
-          <div className="w-[1220px] h-[1px] border-t border-[#8A8A8A]"></div>
+          <div className={`h-[1px] bg-[#8A8A8A]/30 mt-5 transition-all duration-1000 delay-500 ${isVisible ? 'w-full max-w-[1220px]' : 'w-0'}`}></div>
         </div>
 
         {/* FAQ Cards Container */}
-        <div className="w-[1220px] flex flex-col">
-          {faqData.map((faq, index) => (
-            <div key={index}>
+        <div className="w-full max-w-[1220px] flex flex-col">
+          {faqData.map((faq, index) => {
+            const isExpanded = expandedCard === index + 1;
+            return (
               <div 
-                className={`w-[1220px] ${expandedCard === index + 1 ? 'bg-[#E6F6EE]' : 'bg-[#F9F9F9]'} rounded-[20px] p-10 flex items-start gap-10 cursor-pointer transition-all duration-300`}
-                onClick={() => toggleCard(index + 1)}
+                key={index} 
+                className={`transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
+                style={{ transitionDelay: `${(index + 1) * 200}ms` }} // Staggered delay for each card
               >
-                {/* Number */}
-                <span 
-                  className="text-[40px] font-semibold leading-[120%] text-[#333333] flex-shrink-0"
-                  style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                <div 
+                  className={`w-full rounded-[20px] p-5 md:p-10 flex items-start gap-4 md:gap-10 cursor-pointer transition-all duration-500 ease-in-out ${isExpanded ? 'bg-[#54C38A] shadow-xl translate-y-[-4px]' : 'bg-transparent hover:bg-white hover:shadow-md'}`}
+                  onClick={() => toggleCard(index + 1)}
                 >
-                  {faq.number}
-                </span>
-
-                {/* Content */}
-                <div className="flex-1 flex flex-col gap-[40px]">
-                  <h3 
-                    className="text-[32.35px] font-semibold leading-[140%] text-[#333333]"
+                  {/* Number */}
+                  <span 
+                    className={`text-xl md:text-[40px] font-semibold leading-none ${isExpanded ? 'text-white' : 'text-[#333333]'} transition-colors duration-300`}
                     style={{ fontFamily: 'Funnel Display, sans-serif' }}
                   >
-                    {faq.question}
-                  </h3>
-                  
-                  {/* Answer - Only show when expanded */}
-                  {expandedCard === index + 1 && (
-                    <p 
-                      className="text-[16.17px] font-light leading-[140%] text-[#333333]"
+                    {faq.number}
+                  </span>
+
+                  {/* Content Container */}
+                  <div className="flex-1 flex flex-col">
+                    <h3 
+                      className={`text-lg md:text-[32.35px] font-semibold leading-[130%] ${isExpanded ? 'text-white' : 'text-[#333333]'} transition-colors duration-300`}
                       style={{ fontFamily: 'Funnel Display, sans-serif' }}
                     >
-                      {faq.answer}
-                    </p>
-                  )}
+                      {faq.question}
+                    </h3>
+                    
+                    <div className={`grid transition-all duration-500 ease-in-out overflow-hidden ${isExpanded ? 'grid-rows-[1fr] mt-4 md:mt-10 opacity-100' : 'grid-rows-[0fr] mt-0 opacity-0'}`}>
+                      <div className="overflow-hidden">
+                        <p 
+                          className="text-sm md:text-[16.17px] font-light leading-[150%] text-white/90"
+                          style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                        >
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Icon - Rotating Animation */}
+                  <div className={`flex-shrink-0 transition-transform duration-500 ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0'}`}>
+                    {isExpanded ? (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    ) : (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5V19M5 12H19" stroke="#333333" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    )}
+                  </div>
                 </div>
 
-                {/* Icon - Plus or Close */}
-                <div className="flex-shrink-0">
-                  {expandedCard === index + 1 ? (
-                    // Close Icon (×)
-                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M18.75 6.25L6.25 18.75M6.25 6.25L18.75 18.75" stroke="#333333" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                  ) : (
-                    // Plus Icon (+)
-                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12.5 6.25V18.75M6.25 12.5H18.75" stroke="#333333" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                  )}
-                </div>
+                {/* Line separator */}
+                {index < faqData.length - 1 && !isExpanded && (
+                  <div className="w-full h-[1px] bg-[#D4D2E3] my-2 opacity-50"></div>
+                )}
               </div>
-
-              {/* Line separator (except after last card) */}
-              {index < faqData.length - 1 && (
-                <div className="w-[1220px] h-[1px] bg-[#D4D2E3] my-5"></div>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

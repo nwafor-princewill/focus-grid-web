@@ -1,160 +1,206 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import focusGridLogo from '../../assets/images/focus-grid-logo.png';
 import facebookIcon from '../../assets/images/facebook.png';
 import instagramIcon from '../../assets/images/instagram.png';
 import linkedinIcon from '../../assets/images/linkedin.png';
-import dribbleIcon from '../../assets/images/dribble.png';
+import xIcon from '../../assets/images/x.png';
+import underline from '../../assets/images/underline.png';
+import footerBackground from '../../assets/images/footer-background.jpg';
 
 const Footer: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (footerRef.current) observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-  <div className="w-full bg-[#F9F9F9]">
-    <footer className="w-full max-w-[1437px] h-[877.64px] mx-auto bg-[#F9F9F9] pt-[114px] pr-[100px] pb-[114px] pl-[100px]">
-      <div className="w-[1237px] h-[649.64px] flex flex-col gap-[122px]">
-        {/* Top Section - Heading and Contact Button */}
-        <div className="w-[1237px] h-[150.52px] flex flex-col gap-[39.61px]">
-          <div className="w-full flex justify-between items-start">
-            <h2 
-              className="w-[822.93px] h-[110.91px] text-[39.61px] font-normal leading-[140%] text-[#333333]"
-              style={{ fontFamily: 'Funnel Display, sans-serif' }}
-            >
-              Where talent grows, & brands get results.<br />Everyone wins.
-            </h2>
-            
-            <button className="w-[203.67px] h-[64.07px] bg-[#00A550] border-[1.94px] border-[#33B773] rounded-[38.83px] px-[38.83px] py-[15.53px] shadow-[0px_7.77px_194.17px_0px_rgba(0,0,0,0.25)] flex items-center justify-center">
-              <span 
-                className="w-[122px] h-[33px] text-[23.3px] font-normal leading-[140%] text-white"
-                style={{ fontFamily: 'Funnel Display, sans-serif' }}
-              >
-                Contact Us
-              </span>
-            </button>
-          </div>
+    <div ref={footerRef} className="w-full bg-[#F9F9F9] relative overflow-hidden">
+      {/* Background Image with Parallax Scale */}
+      <div 
+        className={`absolute inset-0 w-full h-full bg-cover bg-center opacity-20 transition-transform duration-[3000ms] ease-out ${isVisible ? 'scale-100 translate-y-0' : 'scale-125 translate-y-10'}`}
+        style={{ backgroundImage: `url(${footerBackground})` }}
+      />
+      
+      <footer className="relative z-10 w-full max-w-[1437px] mx-auto bg-transparent pt-16 md:pt-20 lg:pt-[114px] px-4 md:px-8 lg:px-16 xl:px-[100px] pb-12 md:pb-16 lg:pb-[114px]">
+        <div className="w-full max-w-[1237px] mx-auto flex flex-col gap-16 md:gap-20 lg:gap-[122px]">
           
-          {/* Line */}
-          <div className="w-[1237px] h-[0.99px] border-t border-[#333333]"></div>
-        </div>
-
-        {/* Main Footer Content */}
-        <div className="w-[1237px] h-[253.89px] py-[13.86px] flex justify-between gap-[99px]">
-          {/* Focus Grid Section */}
-          <div className="w-[348.58px] h-[226.16px] flex flex-col gap-[31.69px]">
-            {/* Logo */}
-            <div className="w-[178.25px] h-[73.02px] flex items-center justify-center">
-              <img src={focusGridLogo} alt="Focus Grid Logo" />
-            </div>
-            
-            {/* Description */}
-            <p 
-              className="w-[348.58px] h-[66px] text-base font-light leading-[140%] text-[#333333]"
-              style={{ fontFamily: 'Funnel Display, sans-serif' }}
-            >
-              Focus Grid is a software development institution that builds digital products and trains tech talent
-            </p>
-            
-            {/* Social Media Icons */}
-            <div className="w-[186.17px] h-[31.69px] flex gap-[19.81px]">
-              <a href="#" className="w-[31.69px] h-[31.69px]">
-                <img src={facebookIcon} alt="Facebook" className="w-full h-full" />
-              </a>
-              <a href="#" className="w-[31.69px] h-[31.69px]">
-                <img src={instagramIcon} alt="Instagram" className="w-full h-full" />
-              </a>
-              <a href="#" className="w-[31.69px] h-[31.69px]">
-                <img src={linkedinIcon} alt="LinkedIn" className="w-full h-full" />
-              </a>
-              <a href="#" className="w-[31.69px] h-[31.69px]">
-                <img src={dribbleIcon} alt="Dribble" className="w-full h-full" />
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links - FIXED: Added text-right and items-end */}
-          <div className="w-[178.25px] h-[210.46px] flex flex-col gap-[23.77px]">
-            <h3 
-              className="w-[185px] h-[45px] text-[32px] font-semibold leading-[140%] text-[#333333] text-right ml-auto"
-              style={{ fontFamily: 'Funnel Display, sans-serif' }}
-            >
-              Quick Links
-            </h3>
-            <div className="w-[178.25px] h-[141.69px] flex flex-col gap-[7.92px] items-end">
-              <a href="#home" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Home</a>
-              <a href="#how-it-works" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>How it works</a>
-              <a href="#services" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Services</a>
-              <a href="#about" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>About us</a>
-              <a href="#faqs" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>FAQs</a>
-            </div>
-          </div>
-
-          {/* For you */}
-          <div className="w-[178.25px] h-[210.46px] flex flex-col gap-[23.77px]">
-            <h3 
-              className="w-[116px] h-[45px] text-[32px] font-semibold leading-[140%] text-right text-[#333333] ml-auto"
-              style={{ fontFamily: 'Funnel Display, sans-serif' }}
-            >
-              For you
-            </h3>
-            <div className="w-[178.25px] flex flex-col gap-[7.92px] items-end">
-              <a href="#start-project" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Start a Project</a>
-              <a href="#join-intern" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Join as an Intern</a>
-              <a href="#testimonials" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Testimonials</a>
-              <a href="#community" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Community</a>
-              <a href="#support" className="text-base font-light leading-[140%] text-[#333333] text-right" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Support</a>
-            </div>
-          </div>
-
-          {/* Contact Us */}
-          <div className="w-[253.51px] h-[212.30px] flex flex-col gap-[23.77px]">
-            <h3 
-              className="w-[253.51px] h-[45px] text-[32px] font-semibold leading-[140%] text-right text-[#333333]"
-              style={{ fontFamily: 'Funnel Display, sans-serif' }}
-            >
-              Contact Us
-            </h3>
-            <div className="flex flex-col gap-[23.77px] items-end">
-              {/* Phone */}
-              <div className="w-[253.51px] h-[23.77px] flex items-center justify-end gap-[7.92px]">
-                <span className="text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+123 456 7890</span>
-                <div className="w-[23.77px] h-[23.77px] flex items-center justify-center">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[17.83px] h-[17.83px]">
-                    <path d="M16.5 12.5v2.25a1.5 1.5 0 01-1.635 1.493 14.76 14.76 0 01-6.428-2.287 14.535 14.535 0 01-4.462-4.463A14.76 14.76 0 011.687 3.135 1.5 1.5 0 013.172 1.5h2.25a1.5 1.5 0 011.5 1.29 9.638 9.638 0 00.525 2.107 1.5 1.5 0 01-.338 1.583l-.952.952a12 12 0 004.462 4.463l.952-.952a1.5 1.5 0 011.583-.338 9.638 9.638 0 002.107.525 1.5 1.5 0 011.29 1.5z" fill="#333333"/>
-                  </svg>
-                </div>
+          {/* Top Section - Heading and Contact Button */}
+          <div className={`w-full flex flex-col gap-6 md:gap-8 lg:gap-[39.61px] transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-4">
+              <div className="relative">
+                <h2 
+                  className="text-[28px] md:text-[32px] lg:text-[39.61px] font-normal leading-[140%] text-[#333333]"
+                  style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                >
+                  Where talent grows, & brands get results.<br />
+                  <span className="relative inline-block group">
+                    Everyone wins.
+                    {/* Animated Underline */}
+                    <img 
+                      src={underline} 
+                      alt="" 
+                      className={`absolute -bottom-1 left-0 w-full h-auto transition-all duration-1000 delay-700 origin-left ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}
+                    />
+                  </span>
+                </h2>
               </div>
               
-              {/* Email */}
-              <p className="w-[253.51px] h-[22px] text-base font-light leading-[140%] text-right text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
-                info@Loremipsum.com
+              <button 
+                onClick={() => {/* Navigate to contact page */}}
+                className="w-full sm:w-auto h-[60px] bg-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center justify-center gap-2 transition-all duration-300 hover:bg-[#008f44] hover:scale-105 hover:shadow-lg whitespace-nowrap active:scale-95 group"
+              >
+                <span 
+                  className="text-[18px] md:text-[20px] font-medium leading-[140%] text-white"
+                  style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                >
+                  LET'S WORK TOGETHER
+                </span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                  <path d="M4 12L12 4M12 4H6M12 4V10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            
+            {/* Animated Divider Line */}
+            <div className={`w-full h-[1px] bg-[#333333] transition-all duration-1000 delay-500 origin-left transform ${isVisible ? 'scale-x-100' : 'scale-x-0'}`}></div>
+          </div>
+
+          {/* Main Footer Content */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 xl:gap-[99px]">
+            {/* Focus Grid Section */}
+            <div className={`flex flex-col gap-6 lg:gap-[31.69px] transition-all duration-700 delay-[200ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <div className="w-[150px] md:w-[178.25px] h-auto transition-transform duration-300 hover:scale-105">
+                <img src={focusGridLogo} alt="Focus Grid Logo" className="w-full h-auto" />
+              </div>
+              
+              <p 
+                className="text-sm md:text-base font-light leading-[140%] text-[#333333]"
+                style={{ fontFamily: 'Funnel Display, sans-serif' }}
+              >
+                Focus Grid is a software development institution that builds digital products and trains tech talent
               </p>
               
-              {/* Address */}
-              <p className="w-[221.83px] h-[44px] text-base font-light leading-[140%] text-right text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
-                123 Travel Street,<br />Wanderland, 45678
-              </p>
+              <div className="flex gap-4 lg:gap-[19.81px]">
+                {[
+                  { icon: facebookIcon, label: "Facebook" },
+                  { icon: instagramIcon, label: "Instagram" },
+                  { icon: linkedinIcon, label: "LinkedIn" },
+                  { icon: xIcon, label: "X" }
+                ].map((social, i) => (
+                  <a key={i} href="#" className="w-[28px] h-[28px] lg:w-[31.69px] lg:h-[31.69px] transition-all duration-300 hover:scale-125 hover:-translate-y-1 hover:brightness-110">
+                    <img src={social.icon} alt={social.label} className="w-full h-full" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Links Column */}
+            <div className={`flex flex-col gap-4 lg:gap-[23.77px] transition-all duration-700 delay-[400ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <h3 className="text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                Quick Links
+              </h3>
+              <div className="flex flex-col gap-2 lg:gap-[7.92px]">
+                {["Home", "How it works", "Services", "About us", "FAQs"].map((link) => (
+                  <a 
+                    key={link}
+                    href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} 
+                    className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" 
+                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                  >
+                    <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
+                    {link}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* For you Column */}
+            <div className={`flex flex-col gap-4 lg:gap-[23.77px] transition-all duration-700 delay-[600ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <h3 className="text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                For you
+              </h3>
+              <div className="flex flex-col gap-2 lg:gap-[7.92px]">
+                {["Start a Project", "Join as an Intern", "Testimonials", "Community", "Support"].map((link) => (
+                  <a 
+                    key={link}
+                    href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} 
+                    className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" 
+                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                  >
+                    <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
+                    {link}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact Us Section */}
+            <div className={`flex flex-col gap-4 lg:gap-[23.77px] transition-all duration-700 delay-[800ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <h3 className="text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                Contact Us
+              </h3>
+              <div className="flex flex-col gap-4 lg:gap-[23.77px]">
+                {/* Phone Numbers */}
+                <a href="tel:+2348125376775" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
+                  <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current"><path d="M18.333 14.167v2.5a1.667 1.667 0 01-1.817 1.658 16.4 16.4 0 01-7.142-2.542 16.15 16.15 0 01-4.958-4.958A16.4 16.4 0 011.874 3.683 1.667 1.667 0 013.525 1.667h2.5a1.667 1.667 0 011.667 1.433 10.708 10.708 0 00.583 2.342 1.667 1.667 0 01-.375 1.758l-1.058 1.058a13.333 13.333 0 004.958 4.959l1.058-1.059a1.667 1.667 0 011.759-.375 10.708 10.708 0 002.341.583 1.667 1.667 0 011.434 1.667z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
+                  <span className="text-sm md:text-base font-light" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+234 812 537 6775</span>
+                </a>
+                
+                <a href="tel:+2348085167132" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
+                  <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current"><path d="M18.333 14.167v2.5a1.667 1.667 0 01-1.817 1.658 16.4 16.4 0 01-7.142-2.542 16.15 16.15 0 01-4.958-4.958A16.4 16.4 0 011.874 3.683 1.667 1.667 0 013.525 1.667h2.5a1.667 1.667 0 011.667 1.433 10.708 10.708 0 00.583 2.342 1.667 1.667 0 01-.375 1.758l-1.058 1.058a13.333 13.333 0 004.958 4.959l1.058-1.059a1.667 1.667 0 011.759-.375 10.708 10.708 0 002.341.583 1.667 1.667 0 011.434 1.667z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
+                  <span className="text-sm md:text-base font-light" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+234 808 516 7132</span>
+                </a>
+                
+                {/* Email */}
+                <a href="mailto:focusgrid5@gmail.com" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
+                  <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current"><path d="M3.333 3.333h13.334c.916 0 1.666.75 1.666 1.667v10c0 .917-.75 1.667-1.666 1.667H3.333c-.916 0-1.666-.75-1.666-1.667V5c0-.917.75-1.667 1.666-1.667z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M18.333 5l-8.333 5.833L1.667 5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
+                  <span className="text-sm md:text-base font-light" style={{ fontFamily: 'Funnel Display, sans-serif' }}>focusgrid5@gmail.com</span>
+                </a>
+                
+                {/* Address */}
+                <div className="flex items-start gap-2 lg:gap-[7.92px] group/contact">
+                  <div className="p-1 flex-shrink-0 mt-1">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-[#333333]"><path d="M17.5 8.333c0 5.834-7.5 10.834-7.5 10.834s-7.5-5-7.5-10.834a7.5 7.5 0 0115 0z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 10.833a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
+                  <p className="text-sm md:text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                    63 Akpo street, Agbani,<br />Nkanu West, Enugu State,<br />Nigeria
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Divider */}
+          <div className={`w-full h-[1px] bg-[#333333] transition-all duration-1000 delay-[900ms] origin-center transform ${isVisible ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'}`}></div>
+
+          {/* Copyright Section */}
+          <div className={`w-full flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 -mt-8 lg:-mt-12 transition-all duration-1000 delay-[1000ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <p className="text-xs md:text-sm font-light text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+              2025 Focus Grid. All rights reserved.
+            </p>
+            <div className="flex items-center gap-4 md:gap-6">
+              <a href="#privacy" className="text-xs md:text-sm font-light text-[#333333] transition-colors hover:text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Privacy Policy</a>
+              <a href="#terms" className="text-xs md:text-sm font-light text-[#333333] transition-colors hover:text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Terms and Conditions</a>
             </div>
           </div>
         </div>
-
-        {/* Bottom Line */}
-        <div className="w-[1239px] h-[1px] border-t border-[#333333]"></div>
-
-        {/* Copyright Section - MOVED UP: Reduced the gap */}
-        <div className="w-[1245px] h-[24px] flex justify-between items-center mt-[-80px]">
-          <p 
-            className="w-[235px] h-[20px] text-sm font-light leading-[140%] text-[#333333]"
-            style={{ fontFamily: 'Funnel Display, sans-serif' }}
-          >
-            2025 Focus Grid. All rights reserved.
-          </p>
-          <p 
-            className="w-[196px] h-[24px] text-base leading-[24px] text-[#333333]"
-            style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-          >
-            Privacy Policy / Disclaimer
-          </p>
-        </div>
-      </div>
-    </footer>
-  </div>
+      </footer>
+    </div>
   );
 };
 
