@@ -9,90 +9,100 @@ const WhyFocusGrid: React.FC = () => {
     {
       id: 1,
       title: "Fast Execution",
+      desc: "We turn your ideas into reality with speed and precision.",
       icon: lightning,
-      width: "105.47493743896484px"
     },
     {
       id: 2,
-      title: "Structured workflow",
+      title: "Structured Workflow",
+      desc: "Our process ensures clarity and efficiency at every stage.",
       icon: structure,
-      width: "127.77044677734375px"
     },
     {
       id: 3,
       title: "Scalable Products",
+      desc: "Built to grow alongside your business and user base.",
       icon: scalable,
-      width: "105.47493743896484px"
     },
     {
       id: 4,
       title: "Real-world Standards",
       icon: world,
-      width: "105.47493743896484px"
+      desc: "Engineered to meet the highest industry benchmarks.",
     }
   ];
 
   return (
-    <section className="w-full bg-[#E6F6EE] py-20"> {/* Outer background */}
-      <div className="max-w-[1440px] mx-auto flex justify-center px-4">
-        {/* White rounded container */}
-        <div 
-          className="w-full max-w-[1320px] bg-white rounded-[40px] px-10 py-20 flex flex-col items-center gap-[59px]"
-          style={{
-            height: '486.4775695800781px'
-          }}
-        >
+    <section className="w-full bg-[#E6F6EE] py-16 md:py-24 px-4 overflow-hidden">
+      <div className="max-w-[1440px] mx-auto">
+        
+        {/* Main Rounded Container */}
+        <div className="relative w-full max-w-[1320px] mx-auto bg-white rounded-[40px] px-6 md:px-10 py-16 md:py-24 flex flex-col items-center overflow-hidden shadow-sm">
+          
+          {/* BACKGROUND PATTERN: Subtle Grid Lines */}
+          <div 
+            className="absolute inset-0 opacity-[0.03] pointer-events-none"
+            style={{
+              backgroundImage: `radial-gradient(#00A550 0.8px, transparent 0.8px)`,
+              backgroundSize: '24px 24px'
+            }}
+          ></div>
+
           {/* Header Section */}
-          <div className="w-[597px] flex flex-col items-center gap-5">
+          <div className="relative z-10 max-w-[650px] flex flex-col items-center gap-5 mb-16 animate-in fade-in slide-in-from-top-10 duration-1000">
             <h2 
-              className="w-[574px] h-12 text-[40px] font-semibold leading-[120%] text-center text-[#333333]"
+              className="text-[32px] md:text-[45px] font-semibold leading-[110%] text-center text-[#333333]"
               style={{ fontFamily: 'Funnel Display, sans-serif' }}
             >
               Why Focus Grid works for you
             </h2>
-            
             <p 
-              className="w-[597px] h-11 text-base font-light leading-[140%] text-center text-[#333333]"
+              className="text-[15px] md:text-base font-light leading-[140%] text-center text-[#545454] max-w-[550px]"
               style={{ fontFamily: 'Funnel Display, sans-serif' }}
             >
-              Engineers, designers, and strategists united by one mission—innovation.
-              <br />
+              Engineers, designers, and strategists united by one mission—innovation. 
               Together, we turn bold ideas into real solutions.
             </p>
           </div>
 
-          {/* Features Grid */}
-          <div className="flex justify-center items-start gap-20">
-            {features.map((feature) => (
+          {/* Redesigned Features Grid */}
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-[1200px]">
+            {features.map((feature, index) => (
               <div 
                 key={feature.id}
-                className="flex flex-col items-center gap-[13.72px]"
-                style={{
-                  width: feature.width,
-                  height: '155.47756958007812px'
-                }}
+                className="group relative bg-white border border-gray-100 rounded-[24px] p-8 flex flex-col items-center text-center gap-6 transition-all duration-500 hover:border-[#00A550]/30 hover:shadow-2xl hover:shadow-[#00A550]/10 hover:-translate-y-2 animate-in fade-in zoom-in"
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {/* Black Circle */}
-                <div 
-                  className="w-[101.18733215332031px] h-[97.75725555419922px] bg-[#333333] rounded-full flex items-center justify-center p-[18.87px_20.58px]"
-                >
-                  {/* Icon */}
-                  <div className="w-full h-full flex items-center justify-center">
+                {/* Icon Container with Glow */}
+                <div className="relative w-[80px] h-[80px]">
+                  <div className="absolute inset-0 bg-[#00A550] opacity-0 group-hover:opacity-20 blur-2xl rounded-full transition-opacity duration-500" />
+                  <div className="relative w-full h-full bg-[#333333] rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:rotate-[10deg]">
                     <img 
                       src={feature.icon}
                       alt={feature.title}
-                      className="w-[40px] h-[40px] object-contain"
+                      className="w-[32px] h-[32px] object-contain"
                     />
                   </div>
                 </div>
 
-                {/* Feature Title */}
-                <p 
-                  className="w-full h-11 text-base font-light leading-[140%] text-center text-[#333333]"
-                  style={{ fontFamily: 'Funnel Display, sans-serif' }}
-                >
-                  {feature.title}
-                </p>
+                {/* Text Content */}
+                <div className="flex flex-col gap-3">
+                  <h3 
+                    className="text-lg font-semibold text-[#333333] group-hover:text-[#00A550] transition-colors"
+                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                  >
+                    {feature.title}
+                  </h3>
+                  <p 
+                    className="text-sm font-light text-[#545454] leading-[150%]"
+                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
+                  >
+                    {feature.desc}
+                  </p>
+                </div>
+
+                {/* Subtle bottom indicator */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[3px] bg-[#00A550] transition-all duration-500 group-hover:w-1/3 rounded-t-full" />
               </div>
             ))}
           </div>

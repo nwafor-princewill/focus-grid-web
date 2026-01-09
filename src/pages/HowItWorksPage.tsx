@@ -9,7 +9,7 @@ const HowItWorksPage: React.FC = () => {
     <div className="min-h-screen bg-[#F9F9F9]">
       <Navbar />
       <HowItWorksPageHero />
-        <WhyFocusGrid />
+    <WhyFocusGrid />
       <Footer />
     </div>
   );

@@ -7,13 +7,13 @@ import Footer from '../components/layout/Footer';
 const FAQsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
-      <div className="relative">
+      {/* Navbar stays here so it can be sticky */}
+      <Navbar /> 
+      <main className="-mt-[80px] lg:-mt-[116px]"> 
+        {/* Negative margin pulls the Hero UP under the Navbar */}
         <FAQsPageHero />
-        <div className="absolute top-9 left-0 right-0">
-          <Navbar />
-        </div>
-      </div>
-      <FAQsSection />
+        <FAQsSection />
+      </main>
       <Footer />
     </div>
   );

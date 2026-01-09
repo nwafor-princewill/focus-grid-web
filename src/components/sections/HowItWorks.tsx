@@ -1,6 +1,7 @@
 import React from 'react';
 import learning from '../../assets/images/learning.png';
 import northEast from '../../assets/images/north-east.png';
+import { Link } from 'react-router-dom';
 
 const HowItWorks: React.FC = () => {
   return (
@@ -119,6 +120,7 @@ const HowItWorks: React.FC = () => {
             </div>
 
             {/* LEARN MORE Button */}
+          <Link to="/about">
             <button className="w-full h-[56px] md:h-[62px] bg-[#E6F6EE] rounded-[20px] flex items-center justify-center gap-3 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] group">
               <span 
                 className="text-sm md:text-base font-medium leading-[140%] text-[#00A550]"
@@ -132,6 +134,7 @@ const HowItWorks: React.FC = () => {
                 className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
               />
             </button>
+          </Link>
           </div>
         </div>
       </div>
