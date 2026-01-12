@@ -51,7 +51,7 @@ const AboutHero: React.FC = () => {
               </Link>
 
               {/* APPLY FOR INTERNSHIP Button */}
-              <Link to="/internship">
+              <Link to="/apply">
                 <button className="h-[48px] bg-[#E6F6EE] rounded-[100px] px-[30px] py-[10px] flex items-center gap-2 transition-all duration-300 hover:bg-[#d5f0e4] hover:scale-105 group">
                   <span 
                     className="text-sm font-medium leading-[140%] text-[#00A550] whitespace-nowrap uppercase"
