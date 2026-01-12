@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import focusGridLogo from '../../assets/images/focus-grid-logo.png';
+import OurServices from '../sections/OurServices';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
@@ -103,7 +104,8 @@ const Navbar: React.FC = () => {
               {/* Reduced Height Desktop Dropdown */}
               <div className={`absolute top-[calc(100%+15px)] left-1/2 -translate-x-1/2 w-[900px] bg-white rounded-[32px] shadow-2xl border border-gray-100 p-8 transition-all duration-500 origin-top
                 ${showServicesDropdown ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible pointer-events-none'}`}>
-                <div className="grid grid-cols-2 gap-4">
+                  <OurServices />
+                {/* <div className="grid grid-cols-2 gap-4">
                   {serviceData.map((service, idx) => (
                     <div key={idx} className="group/card p-6 rounded-[24px] bg-[#F5F5F5] border border-transparent hover:border-[#00A550]/30 hover:bg-[#E6F6EE] transition-all duration-300 cursor-default">
                       <div className="w-12 h-12 rounded-full bg-[#333333] group-hover/card:bg-[#00A550] flex items-center justify-center text-white mb-4 transition-colors duration-300">
@@ -113,7 +115,7 @@ const Navbar: React.FC = () => {
                       <p className="text-xs text-[#545454] font-light leading-relaxed">{service.desc}</p>
                     </div>
                   ))}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -121,6 +123,21 @@ const Navbar: React.FC = () => {
           <Link to="/contact" className="hidden lg:block">
             <button className="h-[40px] bg-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center gap-2 transition-all duration-300 hover:bg-[#008f44] hover:scale-105 group">
               <span className="text-sm font-medium text-white" style={{ fontFamily: 'Funnel Display, sans-serif' }}>CONTACT US</span>
+              {/* RESTORED ARROW ICON */}
+                <svg 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="white" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
             </button>
           </Link>
 

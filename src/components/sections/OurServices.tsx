@@ -3,7 +3,7 @@ import spannerScrew from '../../assets/images/spanner-screw.png';
 import brush from '../../assets/images/brush.png';
 
 const OurServices: React.FC = () => {
-  const [activeCard, setActiveCard] = useState(1);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const servicesData = [
     {
@@ -14,107 +14,99 @@ const OurServices: React.FC = () => {
     },
     {
       id: 2,
-      title: "UI/UX Design",
+      title: "UI/uX Design",
       description: "We take your idea from rough concept to a fully launched digital product. Our team handles strategy, design, development, and deployment.",
       icon: brush
     },
     {
       id: 3,
-      title: "Training & Skill Acceleration",
+      title: "Training & skill acceleration",
       description: "We take your idea from rough concept to a fully launched digital product. Our team handles strategy, design, development, and deployment.",
       icon: spannerScrew
+    },
+    {
+      id: 4,
+      title: "Branding & graphic Design",
+      description: "We take your idea from rough concept to a fully launched digital product. Our team handles strategy, design, development, and deployment.",
+      icon: brush
     }
   ];
 
   return (
-    <section className="w-full bg-white"> {/* Full width background */}
-      <div className="max-w-[1440px] mx-auto h-[608.81px] pt-[80px] pr-[99px] pb-[80px] pl-[99px] mt-[180px]"> {/* Centered content container */}
-        {/* Main container */}
-        <div className="w-[1242px] h-[448.81px] flex flex-col gap-[70px]">
-          {/* Header section */}
-          <div className="w-[1242px] h-[112px] flex justify-between items-start">
-            {/* Left side - Heading and description */}
-            <div className="w-[597px] flex flex-col">
-              <h2 
-                className="w-[597px] h-[48px] text-[40px] font-semibold leading-[120%] text-[#333333] mb-4"
-                style={{ fontFamily: 'Funnel Display, sans-serif' }}
-              >
-                Our services
-              </h2>
-              
-              <p 
-                className="w-[597px] h-[44px] text-base font-light leading-[140%] text-[#333333]"
-                style={{ fontFamily: 'Funnel Display, sans-serif' }}
-              >
-                We offer end-to-end digital solutions — from strategy and design to development and deployment.
-              </p>
+    <div 
+      className="bg-white rounded-[20px] p-5 flex flex-col animate-in fade-in zoom-in duration-300"
+      style={{
+        width: '678px',
+        height: 'auto', // Adjusted for content flow
+        gap: '35px',
+        boxShadow: '0px 1px 3px 0px #0000004D, 0px 4px 8px 3px #00000026'
+      }}
+    >
+      {/* Header section inside dropdown */}
+      <div className="flex flex-col gap-1">
+        <h2 
+          className="text-[24px] font-semibold leading-[140%] text-[#333333]"
+          style={{ fontFamily: 'Funnel Display, sans-serif' }}
+        >
+          Our services
+        </h2>
+        <p 
+          className="text-[14px] font-light leading-[140%] text-[#333333] opacity-80"
+          style={{ fontFamily: 'Funnel Display, sans-serif' }}
+        >
+          We offer end-to-end digital solutions — from strategy and design to development and deployment.
+        </p>
+      </div>
+
+      {/* Cards Grid */}
+      <div className="grid grid-cols-2 gap-[14px]">
+        {servicesData.map((service) => (
+          <div
+            key={service.id}
+            onMouseEnter={() => setHoveredCard(service.id)}
+            onMouseLeave={() => setHoveredCard(null)}
+            className={`transition-all duration-300 cursor-default rounded-[14.85px] p-[14.85px] border-[0.74px] flex flex-col items-center text-center gap-3
+              ${hoveredCard === service.id 
+                ? 'bg-[#E6F6EE] border-[#00A550] shadow-sm scale-[1.02]' 
+                : 'bg-white border-transparent hover:border-[#00A550]/20'
+              }`}
+            style={{
+              width: '300px',
+              height: '186.3px'
+            }}
+          >
+            {/* Icon Circle */}
+            <div 
+              className={`w-[48px] h-[48px] rounded-full flex items-center justify-center transition-colors duration-300 ${
+                hoveredCard === service.id ? 'bg-[#00A550]' : 'bg-[#333333]'
+              }`}
+            >
+              <img 
+                src={service.icon} 
+                alt="" 
+                className="w-6 h-6 object-contain brightness-0 invert" 
+              />
             </div>
 
-            {/* Right side - Let's Build button */}
-            <button 
-              className="w-[130px] h-[42px] rounded-[10px] flex items-center justify-center text-white px-5 py-[10px] bg-[#009649]"
-              style={{ fontFamily: 'Funnel Display, sans-serif' }}
-            >
-              Let's Build
-            </button>
-          </div>
-
-          {/* Cards container */}
-          <div className="w-[1242px] h-[266.81px] flex gap-[14px]">
-            {servicesData.map((service) => (
-              <div
-                key={service.id}
-                onClick={() => setActiveCard(service.id)}
-                className={`w-[404px] h-[266.81px] rounded-[20px] p-5 flex flex-col gap-6 cursor-pointer transition-all ${
-                  activeCard === service.id
-                    ? 'bg-[#E6F6EE] border border-[#00A550]'  // Active card: green background with green border
-                    : 'bg-white border border-[#333333]'      // Inactive card: white background with light green border
-                }`}
+            {/* Content */}
+            <div className="flex flex-col gap-2">
+              <h3 
+                className="text-[14px] font-semibold text-[#333333]"
+                style={{ fontFamily: 'Funnel Display, sans-serif' }}
               >
-                {/* Icon Circle */}
-                <div 
-                  className={`w-[60px] h-[56.81px] rounded-full flex items-center justify-center ${
-                    activeCard === service.id ? 'bg-[#33B773]' : 'bg-[#545454]'
-                  }`}
-                >
-                  <img 
-                    src={service.icon}
-                    alt={service.title}
-                    className="w-[25.53px] h-[25.53px] object-contain"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="w-[335px] h-[102px] flex flex-col gap-5">
-                  <h3 
-                    className="w-[335px] h-[28px] text-[20px] font-semibold leading-[140%] text-[#333333]"
-                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
-                  >
-                    {service.title}
-                  </h3>
-                  
-                  <p 
-                    className="w-[335px] h-[54px] text-[12.88px] font-light leading-[140%] text-[#333333]"
-                    style={{ fontFamily: 'Funnel Display, sans-serif' }}
-                  >
-                    {service.description}
-                  </p>
-                </div>
-
-                {/* Build With us link */}
-                <a 
-                  href="#" 
-                  className="w-[89px] h-[20px] text-[14px] font-medium leading-[140%] text-[#333333] underline"
-                  style={{ fontFamily: 'Funnel Display, sans-serif' }}
-                >
-                  Build With us
-                </a>
-              </div>
-            ))}
+                {service.title}
+              </h3>
+              <p 
+                className="text-[9.57px] font-light leading-[140%] text-[#333333]/70 px-2"
+                style={{ fontFamily: 'Funnel Display, sans-serif' }}
+              >
+                {service.description}
+              </p>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 

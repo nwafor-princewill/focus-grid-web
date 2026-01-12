@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/layout/Navbar';
 import FAQsPageHero from '../components/sections/FAQsPageHero';
 import FAQsSection from '../components/sections/FAQsSection';
+import FAQContactCTA from '../components/sections/FAQContactCTA';
 import Footer from '../components/layout/Footer';
 
 const FAQsPage: React.FC = () => {
@@ -13,6 +14,7 @@ const FAQsPage: React.FC = () => {
         {/* Negative margin pulls the Hero UP under the Navbar */}
         <FAQsPageHero />
         <FAQsSection />
+        <FAQContactCTA />
       </main>
       <Footer />
     </div>
