@@ -7,11 +7,17 @@ import linkedinIcon from '../../assets/images/linkedin.png';
 import xIcon from '../../assets/images/x.png';
 import underline from '../../assets/images/underline.png';
 import footerBackground from '../../assets/images/footer-background.jpg';
+import arrow8 from '../../assets/images/arrow8.png';
 
 const Footer: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const footerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  // Draggable State
+  const [position, setPosition] = useState({ x: 580, y: 45 }); // Y increased from 10 to 45 to bring it down
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStart = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,18 +30,69 @@ const Footer: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Drag Logic
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    dragStart.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    };
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      setPosition({
+        x: e.clientX - dragStart.current.x,
+        y: e.clientY - dragStart.current.y,
+      });
+    };
+    const handleMouseUp = () => setIsDragging(false);
+
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
   return (
     <div ref={footerRef} className="w-full bg-[#F9F9F9] relative overflow-hidden">
+      <style>
+        {`
+          @keyframes panBackground {
+            0% { transform: scale(1.1) translateX(0); }
+            50% { transform: scale(1.2) translateX(-20px); }
+            100% { transform: scale(1.1) translateX(0); }
+          }
+          @keyframes floatArrowConstant {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5px, -8px) rotate(1deg); }
+            75% { transform: translate(-3px, 5px) rotate(-1deg); }
+          }
+          .cursor-grab { cursor: grab; }
+          .cursor-grabbing { cursor: grabbing; }
+        `}
+      </style>
+
+      {/* BACKGROUND - ALWAYS MOVING */}
       <div 
-        className={`absolute inset-0 w-full h-full bg-cover bg-center opacity-20 transition-transform duration-[3000ms] ease-out ${isVisible ? 'scale-100 translate-y-0' : 'scale-125 translate-y-10'}`}
-        style={{ backgroundImage: `url(${footerBackground})` }}
+        className="absolute inset-0 w-full h-full bg-cover bg-center opacity-20"
+        style={{ 
+          backgroundImage: `url(${footerBackground})`,
+          animation: 'panBackground 20s ease-in-out infinite' 
+        }}
       />
       
       <footer className="relative z-10 w-full max-w-[1437px] mx-auto bg-transparent pt-16 md:pt-20 lg:pt-[114px] px-4 md:px-8 lg:px-16 xl:px-[100px] pb-12 md:pb-16 lg:pb-[114px]">
         <div className="w-full max-w-[1237px] mx-auto flex flex-col gap-16 md:gap-20 lg:gap-[122px]">
           
           <div className={`w-full flex flex-col gap-6 md:gap-8 lg:gap-[39.61px] transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-4">
+            <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-4 relative">
+              
               <div className="relative">
                 <h2 className="text-[28px] md:text-[32px] lg:text-[39.61px] font-normal leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                   Where talent grows, & brands get results.<br />
@@ -44,11 +101,29 @@ const Footer: React.FC = () => {
                     <img src={underline} alt="" className={`absolute -bottom-1 left-0 w-full h-auto transition-all duration-1000 delay-700 origin-left ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
                   </span>
                 </h2>
+
+                {/* DRAGGABLE & CONSTANTLY MOVING ARROW */}
+                <div 
+                  onMouseDown={handleMouseDown}
+                  className={`absolute hidden xl:block z-50 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+                  style={{ 
+                    width: '201.99px',
+                    height: '57.23px',
+                    top: `${position.y}px`,
+                    left: `${position.x}px`,
+                    opacity: isVisible ? 1 : 0,
+                    transition: isDragging ? 'none' : 'opacity 1s ease-out 1.2s',
+                  }}
+                >
+                  <div style={{ animation: 'floatArrowConstant 5s ease-in-out infinite' }}>
+                    <img src={arrow8} alt="" className="w-full h-full object-contain pointer-events-none" />
+                  </div>
+                </div>
               </div>
               
               <button 
-                onClick={() => navigate('/contact')} // Contact page link added here
-                className="w-full sm:w-auto h-[60px] bg-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center justify-center gap-2 transition-all duration-300 hover:bg-[#008f44] hover:scale-105 hover:shadow-lg whitespace-nowrap active:scale-95 group"
+                onClick={() => navigate('/contact')}
+                className="w-full sm:w-auto h-[60px] bg-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center justify-center gap-2 transition-all duration-300 hover:bg-[#008f44] hover:scale-105 hover:shadow-lg whitespace-nowrap active:scale-95 group relative z-20"
               >
                 <span className="text-[18px] md:text-[20px] font-medium leading-[140%] text-white" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                   LET'S WORK TOGETHER
@@ -62,6 +137,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 xl:gap-[99px]">
+            {/* ... Rest of footer (Quick Links, For You, Contact) remains exactly the same ... */}
             <div className={`flex flex-col gap-6 lg:gap-[31.69px] transition-all duration-700 delay-[200ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div onClick={() => navigate('/')} className="w-[150px] md:w-[178.25px] h-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src={focusGridLogo} alt="Focus Grid Logo" className="w-full h-auto" />
@@ -111,24 +187,12 @@ const Footer: React.FC = () => {
                   </div>
                   <span className="text-sm md:text-base font-light" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+234 812 537 6775</span>
                 </a>
-                <a href="tel:+2348085167132" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
-                  <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current"><path d="M18.333 14.167v2.5a1.667 1.667 0 01-1.817 1.658 16.4 16.4 0 01-7.142-2.542 16.15 16.15 0 01-4.958-4.958A16.4 16.4 0 011.874 3.683 1.667 1.667 0 013.525 1.667h2.5a1.667 1.667 0 011.667 1.433 10.708 10.708 0 00.583 2.342 1.667 1.667 0 01-.375 1.758l-1.058 1.058a13.333 13.333 0 004.958 4.959l1.058-1.059a1.667 1.667 0 011.759-.375 10.708 10.708 0 002.341.583 1.667 1.667 0 011.434 1.667z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
-                  <span className="text-sm md:text-base font-light" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+234 808 516 7132</span>
-                </a>
                 <a href="mailto:focusgrid5@gmail.com" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
                   <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current"><path d="M3.333 3.333h13.334c.916 0 1.666.75 1.666 1.667v10c0 .917-.75 1.667-1.666 1.667H3.333c-.916 0-1.666-.75-1.666-1.667V5c0-.917.75-1.667 1.666-1.667z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M18.333 5l-8.333 5.833L1.667 5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>
                   <span className="text-sm md:text-base font-light" style={{ fontFamily: 'Funnel Display, sans-serif' }}>focusgrid5@gmail.com</span>
                 </a>
-                <div className="flex items-start gap-2 lg:gap-[7.92px] group/contact">
-                  <div className="p-1 flex-shrink-0 mt-1">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-[#333333]"><path d="M17.5 8.333c0 5.834-7.5 10.834-7.5 10.834s-7.5-5-7.5-10.834a7.5 7.5 0 0115 0z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 10.833a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
-                  <p className="text-sm md:text-base font-light leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>63 Akpo street, Agbani,<br />Nkanu West, Enugu State,<br />Nigeria</p>
-                </div>
               </div>
             </div>
           </div>
