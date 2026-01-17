@@ -5,6 +5,7 @@ import doodle1 from '../../assets/images/doodle1.png';
 import doodle2 from '../../assets/images/doodle2.png';
 import northEastIcon from '../../assets/images/north-east.png';
 import fileOpen from '../../assets/images/file-open.png';
+import logoBackground from '../../assets/images/focus-grid-logo.png'; 
 
 const ContactForm: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +38,6 @@ const ContactForm: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Form Logic
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors(prev => {
@@ -78,7 +78,6 @@ const ContactForm: React.FC = () => {
     setShowSuccess(true);
   };
 
-  // UI Utilities
   const getInputClass = (field: string) => `
     w-full h-[56px] px-6 rounded-[16px] transition-all duration-300 outline-none border text-[#333333] font-light
     ${errors[field] ? 'border-red-500 bg-red-50 focus:ring-4 focus:ring-red-100' : 
@@ -88,8 +87,24 @@ const ContactForm: React.FC = () => {
 
   if (showSuccess) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center p-6 pt-60">
-        <div className="bg-white rounded-[32px] p-12 text-center max-w-[500px] shadow-2xl border border-[#E6F6EE] animate-in fade-in zoom-in duration-500">
+      <div className="min-h-screen bg-white flex items-center justify-center p-6 pt-60 relative overflow-hidden">
+        {/* LOGO IN BACKGROUND WITH CREATIVE PULSE */}
+        <style>{`
+          @keyframes logo-float {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.04; }
+            50% { transform: translate(-50%, -52%) scale(1.08); opacity: 0.08; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.04; }
+          }
+          .animate-logo-pulse { animation: logo-float 10s ease-in-out infinite; }
+        `}</style>
+        
+        <img 
+          src={logoBackground} 
+          alt="" 
+          className="absolute top-1/2 left-1/2 w-[800px] md:w-[1100px] h-auto pointer-events-none select-none animate-logo-pulse z-0" 
+        />
+        
+        <div className="relative z-10 bg-white/90 backdrop-blur-md rounded-[32px] p-12 text-center max-w-[500px] shadow-2xl border border-[#E6F6EE] animate-in fade-in zoom-in duration-500">
           <div className="w-20 h-20 bg-[#00A550] rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg shadow-[#00A550]/30">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
               <polyline points="20 6 9 17 4 12"></polyline>
@@ -109,7 +124,6 @@ const ContactForm: React.FC = () => {
     <section ref={sectionRef} className="relative w-full pt-60 pb-24 px-6 overflow-hidden bg-white">
       <div className={`max-w-[1240px] mx-auto transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         
-        {/* Header Section */}
         <div className="mb-16">
           <h1 className="text-[40px] md:text-[52px] font-semibold text-[#333333] leading-[120%] mb-4" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
             Let’s build something <span className="text-[#00A550]">great together.</span>
@@ -119,7 +133,6 @@ const ContactForm: React.FC = () => {
           </p>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="grid lg:grid-cols-2 gap-x-12 gap-y-8">
           <div className="space-y-6">
             <div className="flex flex-col gap-2">
@@ -144,28 +157,27 @@ const ContactForm: React.FC = () => {
               <input type="text" placeholder="Enter address or location" className={getInputClass('address')} onFocus={() => setFocusedField('address')} onBlur={() => setFocusedField('')} />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-               <div className="flex flex-col gap-2 relative">
+            <div className="grid grid-cols-12 gap-4">
+               <div className="col-span-4 flex flex-col gap-2 relative">
                   <label className="text-sm font-medium text-[#333333]">Team Size</label>
                   <select className={getInputClass('teamSize') + " appearance-none cursor-pointer"} onFocus={() => setFocusedField('teamSize')} onBlur={() => setFocusedField('')}>
                     <option value="">Select range</option>
-                    <option>1-10 Employees</option>
-                    <option>11-50 Employees</option>
-                    <option>51-200 Employees</option>
-                    <option>200+ Employees</option>
+                    <option>1-3 people</option>
+                    <option>4-6 people</option>
+                    <option>0ver 10 people</option>
+                    <option>&gt;11 people</option>
                   </select>
                   <div className="absolute right-4 top-[48px] pointer-events-none opacity-50"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                </div>
-               <div className="flex flex-col gap-2 relative">
-                  <label className="text-sm font-medium text-[#333333]">Service Type</label>
+               <div className="col-span-8 flex flex-col gap-2 relative">
+                  <label className="text-sm font-medium text-[#333333]">What type of service(s) do you require? <span className="text-red-500">*</span></label>
                   <select className={getInputClass('service') + " appearance-none cursor-pointer"} onFocus={() => setFocusedField('service')} onBlur={() => setFocusedField('')}>
                     <option value="">Select at least one</option>
-                    <option>Product Design (UI/UX)</option>
-                    <option>Web Development</option>
-                    <option>Mobile App Development</option>
-                    <option>Brand Identity</option>
-                    <option>MVP Development</option>
-                    <option>Maintenance & Support</option>
+                    <option>Product & software development</option>
+                    <option>UI/UX design</option>
+                    <option>Graphic design</option>
+                    <option>Branding</option>
+                    <option>Internship</option>
                   </select>
                   <div className="absolute right-4 top-[48px] pointer-events-none opacity-50"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                </div>
@@ -185,8 +197,6 @@ const ContactForm: React.FC = () => {
                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A550" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
                 </div>
                 <p className="text-[#333333] font-medium text-xs">Click to upload files</p>
-                
-                {/* --- RESTORED FILE LISTING --- */}
                 {formData.portfolio.length > 0 && (
                   <div className="mt-4 flex flex-wrap gap-2 justify-center">
                     {formData.portfolio.map((f, i) => (
@@ -221,7 +231,6 @@ const ContactForm: React.FC = () => {
         </div>
       </div>
 
-      {/* MODAL */}
       {showUploadModal && (
         <div className="fixed inset-0 bg-[#333333]/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 animate-in fade-in duration-300">
           <div className="w-full max-w-[600px] bg-white rounded-[32px] p-12 relative shadow-2xl animate-in zoom-in-95 duration-300">

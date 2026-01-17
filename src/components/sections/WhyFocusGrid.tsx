@@ -4,13 +4,13 @@ import fastIcon from '../../assets/images/fast.png';
 import workflowIcon from '../../assets/images/workflow.png';
 import scaleIcon from '../../assets/images/scale.png';
 import worldIcon from '../../assets/images/focus-world.png';
+import sprinkle1 from '../../assets/images/sprinkle1.png';
+import sprinkle5 from '../../assets/images/sprinkle5.png';
 
 const WhyFocusGrid: React.FC = () => {
-  const [isHovered, setIsHovered] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Intersection Observer to wake up the smiley face on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -31,14 +31,68 @@ const WhyFocusGrid: React.FC = () => {
 
   return (
     <section className="w-full bg-white py-20 px-4 overflow-hidden flex justify-center">
-      {/* MAIN CONTAINER: #E6F6EE Background */}
+      <style>{`
+        @keyframes feature-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+        @keyframes drift {
+          0% { transform: translate(0, 0) rotate(0deg); }
+          50% { transform: translate(10px, -15px) rotate(8deg); }
+          100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-feature-float {
+          animation: feature-float 5s infinite ease-in-out;
+        }
+        .animate-drift {
+          animation: drift 7s infinite ease-in-out;
+        }
+        .animate-spin-slow {
+          animation: spin-slow 15s linear infinite;
+        }
+        .white-sprinkle {
+          filter: brightness(0) invert(1); /* Forces the image to be pure white */
+          pointer-events: none;
+        }
+      `}</style>
+
+      {/* MAIN CONTAINER */}
       <div 
         ref={sectionRef}
         className="relative w-full max-w-[1240px] min-h-[530px] bg-[#E6F6EE] rounded-[40px] 
                    pt-[60px] pr-[40px] pb-[80px] pl-[40px] flex flex-col items-center gap-[60px] 
-                   shadow-sm transition-all duration-700"
+                   shadow-sm transition-all duration-700 overflow-hidden"
       >
         
+        {/* --- TOP SPRINKLES --- */}
+        <img 
+          src={sprinkle5} 
+          alt="" 
+          className={`absolute top-8 left-10 w-20 h-20 opacity-60 white-sprinkle transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-60' : '-translate-y-10 opacity-0'} animate-drift`}
+        />
+        <img 
+          src={sprinkle1} 
+          alt="" 
+          className="absolute top-10 right-10 w-14 h-14 opacity-50 white-sprinkle animate-spin-slow" 
+        />
+
+        {/* --- BOTTOM CORNER SPRINKLES (Enhanced Visibility) --- */}
+        <img 
+          src={sprinkle1} 
+          alt="" 
+          className="absolute bottom-6 left-6 w-16 h-16 opacity-70 white-sprinkle animate-drift" 
+          style={{ animationDelay: '0.5s' }}
+        />
+        <img 
+          src={sprinkle5} 
+          alt="" 
+          className="absolute bottom-[-20px] right-4 w-32 h-32 opacity-80 white-sprinkle animate-feature-float" 
+        />
+
         {/* Header Section */}
         <div className="text-center z-10 animate-in fade-in slide-in-from-bottom-10 duration-1000">
           <h2 
@@ -46,7 +100,6 @@ const WhyFocusGrid: React.FC = () => {
             style={{ fontFamily: 'Funnel Display, sans-serif' }}
           >
             Why <span className="relative">Focus Grid
-              {/* BENT GREEN UNDERLINE */}
               <svg className="absolute -bottom-2 left-0 w-full h-[8px]" viewBox="0 0 200 8" fill="none" preserveAspectRatio="none">
                 <path d="M2 6C50 2 150 2 198 6" stroke="#00A550" strokeWidth="4" strokeLinecap="round" />
               </svg>
@@ -91,39 +144,7 @@ const WhyFocusGrid: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* ANIMATED SMILEY FACE (Easter Egg) */}
-        <div 
-          className={`absolute top-8 left-8 transition-all duration-1000 ease-out pointer-events-none
-            ${isVisible ? 'opacity-20 translate-y-0 rotate-0' : 'opacity-0 -translate-y-10 rotate-[-20deg]'}`}
-        >
-            <svg width="60" height="60" viewBox="0 0 100 100" fill="none" className="animate-bounce-slow">
-                <circle cx="50" cy="50" r="45" stroke="#00A550" strokeWidth="2" strokeDasharray="4 4" />
-                {/* Eyes */}
-                <circle cx="35" cy="40" r="5" fill="#00A550" />
-                <circle cx="65" cy="40" r="5" fill="#00A550" />
-                {/* Smile Path */}
-                <path d="M30 65 C 40 75, 60 75, 70 65" stroke="#00A550" strokeWidth="3" strokeLinecap="round" />
-            </svg>
-        </div>
       </div>
-
-      <style>{`
-        @keyframes feature-float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
-        }
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
-        }
-        .animate-feature-float {
-          animation: feature-float 5s infinite ease-in-out;
-        }
-        .animate-bounce-slow {
-          animation: bounce-slow 3s infinite ease-in-out;
-        }
-      `}</style>
     </section>
   );
 };
