@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import focusGridLogo from '../assets/images/focus-grid-logo.png';
 import greenCard from '../assets/images/green-card.png';

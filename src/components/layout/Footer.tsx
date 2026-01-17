@@ -14,8 +14,8 @@ const Footer: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // Draggable State
-  const [position, setPosition] = useState({ x: 580, y: 45 }); // Y increased from 10 to 45 to bring it down
+  // Draggable State - Brought y down slightly more to 65
+  const [position, setPosition] = useState({ x: 580, y: 65 }); 
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
 
@@ -137,7 +137,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 xl:gap-[99px]">
-            {/* ... Rest of footer (Quick Links, For You, Contact) remains exactly the same ... */}
+            {/* Logo Section */}
             <div className={`flex flex-col gap-6 lg:gap-[31.69px] transition-all duration-700 delay-[200ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div onClick={() => navigate('/')} className="w-[150px] md:w-[178.25px] h-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src={focusGridLogo} alt="Focus Grid Logo" className="w-full h-auto" />
@@ -147,13 +147,20 @@ const Footer: React.FC = () => {
               </p>
               <div className="flex gap-4 lg:gap-[19.81px]">
                 {[{ icon: facebookIcon, label: "Facebook" }, { icon: instagramIcon, label: "Instagram" }, { icon: linkedinIcon, label: "LinkedIn" }, { icon: xIcon, label: "X" }].map((social, i) => (
-                  <a key={i} href="#" className="w-[28px] h-[28px] lg:w-[31.69px] lg:h-[31.69px] transition-all duration-300 hover:scale-125 hover:-translate-y-1 hover:brightness-110">
+                  <a 
+                    key={i} 
+                    href="#!" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-[28px] h-[28px] lg:w-[31.69px] lg:h-[31.69px] transition-all duration-300 hover:scale-125 hover:-translate-y-1 hover:brightness-110"
+                  >
                     <img src={social.icon} alt={social.label} className="w-full h-full" />
                   </a>
                 ))}
               </div>
             </div>
 
+            {/* Quick Links */}
             <div className={`flex flex-col gap-4 lg:gap-[23.77px] transition-all duration-700 delay-[400ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <h3 className="text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Quick Links</h3>
               <div className="flex flex-col gap-2 lg:gap-[7.92px]">
@@ -166,6 +173,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
 
+            {/* For You */}
             <div className={`flex flex-col gap-4 lg:gap-[23.77px] transition-all duration-700 delay-[600ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <h3 className="text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>For you</h3>
               <div className="flex flex-col gap-2 lg:gap-[7.92px]">
@@ -178,21 +186,38 @@ const Footer: React.FC = () => {
               </div>
             </div>
 
+            {/* Contact Us Section */}
             <div className={`flex flex-col gap-4 lg:gap-[23.77px] transition-all duration-700 delay-[800ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <h3 className="text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Contact Us</h3>
               <div className="flex flex-col gap-4 lg:gap-[23.77px]">
-                <a href="tel:+2348125376775" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
-                  <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current"><path d="M18.333 14.167v2.5a1.667 1.667 0 01-1.817 1.658 16.4 16.4 0 01-7.142-2.542 16.15 16.15 0 01-4.958-4.958A16.4 16.4 0 011.874 3.683 1.667 1.667 0 013.525 1.667h2.5a1.667 1.667 0 011.667 1.433 10.708 10.708 0 00.583 2.342 1.667 1.667 0 01-.375 1.758l-1.058 1.058a13.333 13.333 0 004.958 4.959l1.058-1.059a1.667 1.667 0 011.759-.375 10.708 10.708 0 002.341.583 1.667 1.667 0 011.434 1.667z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
-                  <span className="text-sm md:text-base font-light" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+234 812 537 6775</span>
-                </a>
+                <div className="flex flex-col gap-2">
+                  <a href="tel:+2348125376775" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
+                    <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors shrink-0">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current"><path d="M18.333 14.167v2.5a1.667 1.667 0 01-1.817 1.658 16.4 16.4 0 01-7.142-2.542 16.15 16.15 0 01-4.958-4.958A16.4 16.4 0 011.874 3.683 1.667 1.667 0 013.525 1.667h2.5a1.667 1.667 0 011.667 1.433 10.708 10.708 0 00.583 2.342 1.667 1.667 0 01-.375 1.758l-1.058 1.058a13.333 13.333 0 004.958 4.959l1.058-1.059a1.667 1.667 0 011.759-.375 10.708 10.708 0 002.341.583 1.667 1.667 0 011.434 1.667z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
+                    <span className="text-sm md:text-base font-light whitespace-nowrap" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+234 812 537 6775</span>
+                  </a>
+                  <a href="tel:+2348085167132" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact ml-0">
+                    <div className="p-1 opacity-0 shrink-0"><div className="w-5 h-5"></div></div>
+                    <span className="text-sm md:text-base font-light whitespace-nowrap" style={{ fontFamily: 'Funnel Display, sans-serif' }}>+234 808 516 7132</span>
+                  </a>
+                </div>
+
                 <a href="mailto:focusgrid5@gmail.com" className="flex items-center gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
-                  <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors">
+                  <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors shrink-0">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current"><path d="M3.333 3.333h13.334c.916 0 1.666.75 1.666 1.667v10c0 .917-.75 1.667-1.666 1.667H3.333c-.916 0-1.666-.75-1.666-1.667V5c0-.917.75-1.667 1.666-1.667z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M18.333 5l-8.333 5.833L1.667 5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>
-                  <span className="text-sm md:text-base font-light" style={{ fontFamily: 'Funnel Display, sans-serif' }}>focusgrid5@gmail.com</span>
+                  <span className="text-sm md:text-base font-light truncate" style={{ fontFamily: 'Funnel Display, sans-serif' }}>focusgrid5@gmail.com</span>
                 </a>
+
+                <div className="flex items-start gap-2 lg:gap-[7.92px] transition-all duration-300 hover:text-[#00A550] group/contact">
+                  <div className="p-1 rounded-full group-hover/contact:bg-[#E6F6EE] transition-colors mt-1 shrink-0">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  </div>
+                  <span className="text-sm md:text-base font-light leading-[140%]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                    63 Akpo street, Agbani, Nkanu West, Enugu State, Nigeria
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -202,8 +227,8 @@ const Footer: React.FC = () => {
           <div className={`w-full flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 -mt-8 lg:-mt-12 transition-all duration-1000 delay-[1000ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
             <p className="text-xs md:text-sm font-light text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>2025 Focus Grid. All rights reserved.</p>
             <div className="flex items-center gap-4 md:gap-6">
-              <a href="#privacy" className="text-xs md:text-sm font-light text-[#333333] transition-colors hover:text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Privacy Policy</a>
-              <a href="#terms" className="text-xs md:text-sm font-light text-[#333333] transition-colors hover:text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Terms and Conditions</a>
+              <a href="#!privacy" className="text-xs md:text-sm font-light text-[#333333] transition-colors hover:text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Privacy Policy</a>
+              <a href="#!terms" className="text-xs md:text-sm font-light text-[#333333] transition-colors hover:text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Terms and Conditions</a>
             </div>
           </div>
         </div>
