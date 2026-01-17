@@ -113,7 +113,7 @@ const ContactForm: React.FC = () => {
           <h2 className="text-3xl font-bold text-[#333333] mb-4" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Message Sent!</h2>
           <p className="text-[#545454] mb-8 font-light">Thank you for reaching out. Our team will review your inquiry and get back to you within 24 hours.</p>
           <button onClick={() => setShowSuccess(false)} className="w-full bg-[#00A550] text-white h-[56px] rounded-xl font-medium hover:bg-[#008f44] transition-all active:scale-95">
-             Close
+              Close
           </button>
         </div>
       </div>
@@ -157,29 +157,37 @@ const ContactForm: React.FC = () => {
               <input type="text" placeholder="Enter address or location" className={getInputClass('address')} onFocus={() => setFocusedField('address')} onBlur={() => setFocusedField('')} />
             </div>
 
-            <div className="grid grid-cols-12 gap-4">
-               <div className="col-span-4 flex flex-col gap-2 relative">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+               <div className="md:col-span-4 flex flex-col gap-2">
                   <label className="text-sm font-medium text-[#333333]">Team Size</label>
-                  <select className={getInputClass('teamSize') + " appearance-none cursor-pointer"} onFocus={() => setFocusedField('teamSize')} onBlur={() => setFocusedField('')}>
-                    <option value="">Select range</option>
-                    <option>1-3 people</option>
-                    <option>4-6 people</option>
-                    <option>0ver 10 people</option>
-                    <option>&gt;11 people</option>
-                  </select>
-                  <div className="absolute right-4 top-[48px] pointer-events-none opacity-50"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
+                  <div className="relative w-full">
+                    <select className={getInputClass('teamSize') + " appearance-none cursor-pointer pr-12"} onFocus={() => setFocusedField('teamSize')} onBlur={() => setFocusedField('')}>
+                      <option value="">Select range</option>
+                      <option>1-3 people</option>
+                      <option>4-6 people</option>
+                      <option>0ver 10 people</option>
+                      <option>&gt;11 people</option>
+                    </select>
+                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#333333]/40">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                  </div>
                </div>
-               <div className="col-span-8 flex flex-col gap-2 relative">
+               <div className="md:col-span-8 flex flex-col gap-2">
                   <label className="text-sm font-medium text-[#333333]">What type of service(s) do you require? <span className="text-red-500">*</span></label>
-                  <select className={getInputClass('service') + " appearance-none cursor-pointer"} onFocus={() => setFocusedField('service')} onBlur={() => setFocusedField('')}>
-                    <option value="">Select at least one</option>
-                    <option>Product & software development</option>
-                    <option>UI/UX design</option>
-                    <option>Graphic design</option>
-                    <option>Branding</option>
-                    <option>Internship</option>
-                  </select>
-                  <div className="absolute right-4 top-[48px] pointer-events-none opacity-50"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
+                  <div className="relative w-full">
+                    <select className={getInputClass('service') + " appearance-none cursor-pointer pr-12"} onFocus={() => setFocusedField('service')} onBlur={() => setFocusedField('')}>
+                      <option value="">Select at least one</option>
+                      <option>Product & software development</option>
+                      <option>UI/UX design</option>
+                      <option>Graphic design</option>
+                      <option>Branding</option>
+                      <option>Internship</option>
+                    </select>
+                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#333333]/40">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                  </div>
                </div>
             </div>
           </div>
