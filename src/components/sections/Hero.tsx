@@ -47,7 +47,7 @@ const Hero: React.FC = () => {
           {/* Heading with Animation */}
           <div className="text-center animate-[fadeInUp_0.8s_ease-out_forwards]">
             <h1 
-              className="text-[52px] lg:text-[48px] md:text-[40px] sm:text-[32px] font-semibold leading-[120%] text-[#333333]"
+              className="text-[32px] md:text-[40px] lg:text-[48px] font-semibold leading-[120%] text-[#333333]"
               style={{ fontFamily: 'Funnel Display, sans-serif' }}
             >
               Build the Future Intentionally<br />
@@ -103,10 +103,10 @@ const Hero: React.FC = () => {
             </p>
           </div>
 
-          {/* Buttons - Added stagger and hover intensity */}
-          <div className="flex flex-wrap gap-5 justify-center animate-[fadeInUp_1.2s_ease-out_forwards]">
-            <Link to="/contact">
-              <button className="group h-[48px] bg-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center gap-2 transition-all duration-300 hover:bg-[#008f44] hover:scale-110 hover:shadow-[0_10px_20px_rgba(0,165,80,0.3)]">
+          {/* Buttons - Fixed Mobile Visibility */}
+          <div className="flex flex-col sm:flex-row items-center gap-5 justify-center w-full animate-[fadeInUp_1.2s_ease-out_forwards]">
+            <Link to="/contact" className="w-full sm:w-auto">
+              <button className="group w-full h-[48px] bg-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center justify-center gap-2 transition-all duration-300 hover:bg-[#008f44] hover:scale-105 md:hover:scale-110 hover:shadow-[0_10px_20px_rgba(0,165,80,0.3)]">
                 <span 
                   className="text-sm font-medium leading-[140%] text-white whitespace-nowrap"
                   style={{ fontFamily: 'Funnel Display, sans-serif' }}
@@ -119,8 +119,8 @@ const Hero: React.FC = () => {
               </button>
             </Link>
 
-            <Link to="/apply">
-              <button className="group h-[48px] border-2 border-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center gap-2 bg-transparent transition-all duration-300 hover:bg-[#00A550] hover:scale-110 hover:shadow-[0_10px_20px_rgba(0,165,80,0.2)]">
+            <Link to="/apply" className="w-full sm:w-auto">
+              <button className="group w-full h-[48px] border-2 border-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center justify-center gap-2 bg-transparent transition-all duration-300 hover:bg-[#00A550] hover:scale-105 md:hover:scale-110 hover:shadow-[0_10px_20px_rgba(0,165,80,0.2)]">
                 <span 
                   className="text-sm font-medium leading-[140%] text-[#00A550] whitespace-nowrap group-hover:text-white transition-colors duration-300"
                   style={{ fontFamily: 'Funnel Display, sans-serif' }}
