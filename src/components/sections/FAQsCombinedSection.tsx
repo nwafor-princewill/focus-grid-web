@@ -45,7 +45,7 @@ const FAQsCombinedSection: React.FC = () => {
       <div 
         className="absolute left-1/2 -translate-x-1/2 bg-white z-20 flex flex-col items-center"
         style={{
-          top: '350px', // Adjusted for mobile visibility
+          top: '350px',
           width: 'min(1240px, 92%)',
           minHeight: '804px',
           borderRadius: '30px',
