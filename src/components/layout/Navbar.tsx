@@ -7,8 +7,6 @@ const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const isAboutPage = location.pathname === '/about';
-
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
@@ -33,10 +31,10 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav className={`sticky top-0 lg:top-9 z-50 w-full transition-all duration-500 ${scrolled ? 'py-2' : 'py-0'}`}>
+    <nav className={`sticky top-0 lg:top-9 z-50 w-full transition-all duration-500 bg-transparent ${scrolled ? 'py-2' : 'py-0'}`}>
       <div className="max-w-[1240px] mx-auto px-4 relative">
         <div className={`flex items-center justify-between px-5 py-5 transition-all duration-500 rounded-[1000px] 
-            ${scrolled || mobileMenuOpen ? 'bg-white shadow-lg border border-gray-100' : isAboutPage ? 'bg-white/80 backdrop-blur-md border border-gray-100' : 'bg-[#E6F6EE]/90 backdrop-blur-md border border-transparent'}`}>
+            ${scrolled || mobileMenuOpen ? 'bg-white shadow-lg border border-gray-100' : 'bg-[#E6F6EE]/90 backdrop-blur-md border border-transparent'}`}>
           
           <Link to="/" className="relative z-[70] transition-transform duration-300 hover:scale-105">
             <img src={focusGridLogo} alt="Focus Grid" className="w-[93px] h-[38px] object-contain cursor-pointer" />
