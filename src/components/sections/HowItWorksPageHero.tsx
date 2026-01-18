@@ -151,7 +151,7 @@ const HowItWorksHero: React.FC = () => {
 
         <div className="w-full max-w-[650px] z-10 animate-in fade-in slide-in-from-left duration-1000">
           <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-[#E6F6EE] border border-[#00A550]/20 text-[#00A550] text-sm font-medium tracking-wide">
-             OUR WORKFLOW & PROCESS
+              OUR WORKFLOW & PROCESS
           </div>
           
           <h1 className="text-[38px] md:text-[56px] font-bold leading-[115%] mb-6 shine-text" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
@@ -193,7 +193,8 @@ const HowItWorksHero: React.FC = () => {
           <img src={blob1} alt="" className="absolute z-0 animate-float" style={{ width: '300px', opacity: 0.4, filter: 'hue-rotate(90deg)', left: '10%' }} />
           <div className="relative z-10 w-full h-full flex items-center justify-center group">
             <div className="absolute inset-0 bg-[#00A550]/10 rounded-full blur-[80px]" />
-            <img src={howItWorksImg} alt="Workflow" className="relative z-10 w-[85%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)] animate-in zoom-in duration-1000" />
+            {/* ADDED animate-float CLASS BELOW */}
+            <img src={howItWorksImg} alt="Workflow" className="relative z-10 w-[85%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)] animate-in zoom-in duration-1000 animate-float" />
           </div>
         </div>
       </section>
