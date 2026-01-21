@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // REMOVED 'Link' FROM HERE
 import focusGridLogo from '../../assets/images/focus-grid-logo.png';
 import facebookIcon from '../../assets/images/facebook.png';
 import instagramIcon from '../../assets/images/instagram.png';
@@ -189,12 +189,10 @@ const Footer: React.FC = () => {
                   <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
                   Join as an Intern
                 </button>
-                {/* Updated Testimonials to take user to Section on Home Page */}
                 <a href="/#testimonials" className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                   <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
                   Testimonials
                 </a>
-                {/* Updated Community to Discord Link */}
                 <a href="https://discord.com/invite/Ymnc8gRaWj" target="_blank" rel="noopener noreferrer" className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                   <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
                   Community
