@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+
+// Importing all testimonial images
 import testimonialPic from '../../assets/images/testimonial-pic.jpg';
+import testimonial1 from '../../assets/images/testimonial1.png';
+import testimonial2 from '../../assets/images/testimonial2.png';
+import testimonial3 from '../../assets/images/testimonial3.png';
+import testimonial4 from '../../assets/images/testimonial4.png';
+import testimonial5 from '../../assets/images/testimonial5.png';
 
 const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -21,17 +28,38 @@ const Testimonials: React.FC = () => {
     {
       name: "Osamoghena E...",
       role: "Payloop | founder | fintech",
+      image: testimonial1,
       testimonial: "Focus Grid didn't just build our product — they refined our idea. In 8 weeks, we went from a concept on paper to a functional MVP that impressed investors. Their attention to detail and speed is unmatched."
     },
     {
       name: "Sarah Jenkins",
       role: "EdTech Startup | CEO",
+      image: testimonial2,
       testimonial: "The level of talent Focus Grid provides is exceptional. They didn't just code; they thought about the user experience. Our platform's engagement grew by 40% within the first month of launch."
     },
     {
       name: "David Chen",
       role: "Creative Director | Global Studio",
+      image: testimonial3,
       testimonial: "Speed usually sacrifices quality, but not here. Focus Grid delivered a complex design system and website in record time. They are now our go-to partner for all high-stakes digital projects."
+    },
+    {
+      name: "Anita B. Johnson",
+      role: "UI/UX Intern | Focus Grid Academy",
+      image: testimonial4,
+      testimonial: "The internship program is intense but rewarding. Working on real client deliverables under the guidance of senior mentors taught me more in 3 months than a year of self-study."
+    },
+    {
+      name: "Marcus Thorne",
+      role: "CTO | TechStream Labs",
+      image: testimonial5,
+      testimonial: "Hiring from the Focus Grid Talent Network saved us months of recruitment. The developers we onboarded were project-ready from day one, with a deep understanding of modern workflows."
+    },
+    {
+      name: "Linda Nwosu",
+      role: "Founder | GreenRoot E-commerce",
+      image: testimonialPic, // Using the original pic for the 6th spot
+      testimonial: "They took my vague vision and turned it into a high-converting digital store. The team is professional, communicative, and truly understands the startup hustle. Highly recommended!"
     }
   ];
 
@@ -61,7 +89,6 @@ const Testimonials: React.FC = () => {
         
         {/* Header Section */}
         <div className="w-full max-w-[672px] flex flex-col items-center gap-4 md:gap-5">
-          {/* Enhanced Ping Badge */}
           <div className="relative group cursor-pointer">
             <div className="absolute inset-0 rounded-[100px] border-2 border-[#00A550] opacity-30" style={{ animation: 'multiPing 2s infinite' }}></div>
             <div className="absolute inset-0 rounded-[100px] border border-[#00A550] opacity-20" style={{ animation: 'multiPing 2s infinite 0.5s' }}></div>
@@ -89,7 +116,7 @@ const Testimonials: React.FC = () => {
               <div className="hidden lg:flex items-center justify-center">
                 <div 
                   className="flex items-center transition-transform duration-1000 cubic-bezier(0.23, 1, 0.32, 1)"
-                  style={{ transform: `translateX(calc(-${currentIndex * 33.33}% + 33.33%))` }}
+                  style={{ transform: `translateX(calc(-${currentIndex * (100 / testimonialData.length)}% + 33.33%))` }}
                 >
                   {testimonialData.map((testimonial, index) => {
                     const isActive = index === currentIndex;
@@ -111,7 +138,7 @@ const Testimonials: React.FC = () => {
                           <div className="w-full flex items-center justify-between">
                             <div className="flex items-center gap-5">
                               <div className="w-[70px] h-[70px] rounded-full overflow-hidden flex-shrink-0 border-2 border-[#33B773] shadow-lg">
-                                <img src={testimonialPic} alt="" className="w-full h-full object-cover" />
+                                <img src={testimonial.image} alt="" className="w-full h-full object-cover" />
                               </div>
                               <div className="flex flex-col">
                                 <h3 className={`text-xl font-bold ${isActive ? 'text-white' : 'text-[#333333]'}`} style={{ fontFamily: 'Funnel Display, sans-serif' }}>
@@ -150,7 +177,7 @@ const Testimonials: React.FC = () => {
                     <div key={index} className="flex-shrink-0 w-full px-2">
                       <div className="w-full min-h-[250px] rounded-[24px] p-8 bg-[#333333] border-b-4 border-[#33B773] flex flex-col gap-6 shadow-xl">
                         <div className="flex items-center gap-4">
-                          <img src={testimonialPic} className="w-[50px] h-[50px] rounded-full object-cover border border-[#33B773]" alt="" />
+                          <img src={testimonial.image} className="w-[50px] h-[50px] rounded-full object-cover border border-[#33B773]" alt="" />
                           <div>
                             <h3 className="text-white font-bold">{testimonial.name}</h3>
                             <p className="text-[#33B773] text-xs font-medium uppercase">{testimonial.role}</p>
@@ -165,7 +192,7 @@ const Testimonials: React.FC = () => {
             </div>
           </div>
 
-          {/* Navigation Controls - Shifted to the RIGHT card position */}
+          {/* Navigation Controls */}
           <div className="w-full max-w-[1140px] flex justify-center lg:justify-end pr-0 lg:pr-[120px]">
             <div className="flex items-center gap-4">
               <button

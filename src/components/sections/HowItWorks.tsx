@@ -143,7 +143,7 @@ const HowItWorks: React.FC = () => {
 
             {/* LEARN MORE BUTTON */}
             <div className={`relative transition-all duration-700 delay-[1500ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-              <Link to="/about" className="block w-full">
+              <Link to="/how-it-works" className="block w-full">
                 <button className="w-full h-[56px] md:h-[62px] bg-[#E6F6EE] hover:bg-[#00A550] rounded-[20px] flex items-center justify-center gap-3 transition-all duration-500 hover:scale-[1.01] hover:shadow-xl group">
                   <span className="text-sm md:text-base font-bold text-[#00A550] group-hover:text-white transition-colors duration-300" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                     LEARN MORE
