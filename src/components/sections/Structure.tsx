@@ -42,21 +42,24 @@ const Structure: React.FC = () => {
       icon: development,
       desc: "We take your idea from rough concept to a fully launched digital product. Our team handles strategy, design, development, and deployment.",
       link: "/contact",
-      cta: "Build With Us"
+      cta: "Build With Us",
+      isExternal: false
     },
     {
       title: "Internships",
       icon: internship,
       desc: "Join our community of critical thinkers and problem solvers. Build, learn and earn while taking your skills to the next level.",
       link: "/apply",
-      cta: "Grow With Us"
+      cta: "Grow With Us",
+      isExternal: false
     },
     {
       title: "Talent Network",
       icon: network,
       desc: "Leverage on our vast pool of talents and problem-solvers. Skilled and ready to build digital products to solve real-world problems.",
-      link: "/talent-network",
-      cta: "Connect With Us"
+      link: "https://discord.com/invite/Ymnc8gRaWj",
+      cta: "Connect With Us",
+      isExternal: true
     }
   ];
 
@@ -91,12 +94,11 @@ const Structure: React.FC = () => {
           backgroundImage: `url(${structureBackground})`,
           opacity: isVisible ? 0.3 : 0,
           animation: 'bgMove 15s ease-in-out infinite',
-          // Subtle background parallax
           transform: `translate(${mousePos.x * 10}px, ${mousePos.y * 10}px)`
         }}
       />
 
-      {/* Left Sprinkle - Moves opposite to mouse */}
+      {/* Left Sprinkle */}
       <div 
         className="absolute left-6 bottom-12 w-12 md:w-20 lg:w-24 opacity-70 pointer-events-none transition-transform duration-300 ease-out"
         style={{ 
@@ -109,7 +111,7 @@ const Structure: React.FC = () => {
         </div>
       </div>
 
-      {/* Right Star - Reduced Size & Follows mouse */}
+      {/* Right Star */}
       <div 
         className="absolute right-10 bottom-24 w-8 md:w-12 lg:w-16 opacity-80 pointer-events-none transition-transform duration-500 ease-out"
         style={{ 
@@ -166,12 +168,21 @@ const Structure: React.FC = () => {
                 {card.desc}
               </p>
 
-              <Link to={card.link} className="flex items-center gap-2 group/link w-fit group-hover:translate-x-1 transition-transform">
-                <span className="text-[14px] font-bold text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
-                  {card.cta}
-                </span>
-                <img src={northEast} alt="" className="w-4 h-4 transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
-              </Link>
+              {card.isExternal ? (
+                <a href={card.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group/link w-fit group-hover:translate-x-1 transition-transform">
+                  <span className="text-[14px] font-bold text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                    {card.cta}
+                  </span>
+                  <img src={northEast} alt="" className="w-4 h-4 transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                </a>
+              ) : (
+                <Link to={card.link} className="flex items-center gap-2 group/link w-fit group-hover:translate-x-1 transition-transform">
+                  <span className="text-[14px] font-bold text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                    {card.cta}
+                  </span>
+                  <img src={northEast} alt="" className="w-4 h-4 transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                </Link>
+              )}
             </div>
           ))}
         </div>

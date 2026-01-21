@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import focusGridLogo from '../../assets/images/focus-grid-logo.png';
 import facebookIcon from '../../assets/images/facebook.png';
 import instagramIcon from '../../assets/images/instagram.png';
@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // Draggable State - Brought y down slightly more to 65
+  // Draggable State
   const [position, setPosition] = useState({ x: 580, y: 65 }); 
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
@@ -102,7 +102,6 @@ const Footer: React.FC = () => {
                   </span>
                 </h2>
 
-                {/* DRAGGABLE & CONSTANTLY MOVING ARROW */}
                 <div 
                   onMouseDown={handleMouseDown}
                   className={`absolute hidden xl:block z-50 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
@@ -146,10 +145,15 @@ const Footer: React.FC = () => {
                 Focus Grid is a software development institution that builds digital products and trains tech talent
               </p>
               <div className="flex gap-4 lg:gap-[19.81px]">
-                {[{ icon: facebookIcon, label: "Facebook" }, { icon: instagramIcon, label: "Instagram" }, { icon: linkedinIcon, label: "LinkedIn" }, { icon: xIcon, label: "X" }].map((social, i) => (
+                {[
+                  { icon: facebookIcon, label: "Facebook", link: "https://www.facebook.com/profile.php?id=61578334966397" }, 
+                  { icon: instagramIcon, label: "Instagram", link: "https://www.instagram.com/focus_grid5?igsh=MW4zajJ6d3FtazV2OA==" }, 
+                  { icon: linkedinIcon, label: "LinkedIn", link: "https://www.linkedin.com/company/focus-grid" }, 
+                  { icon: xIcon, label: "X", link: "https://x.com/thefocusgrid" }
+                ].map((social, i) => (
                   <a 
                     key={i} 
-                    href="#!" 
+                    href={social.link} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-[28px] h-[28px] lg:w-[31.69px] lg:h-[31.69px] transition-all duration-300 hover:scale-125 hover:-translate-y-1 hover:brightness-110"
@@ -177,12 +181,28 @@ const Footer: React.FC = () => {
             <div className={`flex flex-col gap-4 lg:gap-[23.77px] transition-all duration-700 delay-[600ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <h3 className="text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>For you</h3>
               <div className="flex flex-col gap-2 lg:gap-[7.92px]">
-                {[{l: "Start a Project", p: "/contact"}, {l: "Join as an Intern", p: "/apply"}, {l: "Testimonials", p: "/#testimonials"}, {l: "Community", p: "/#community"}, {l: "Support", p: "/contact"}].map((link) => (
-                  <button key={link.l} onClick={() => navigate(link.p)} className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
-                    <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
-                    {link.l}
-                  </button>
-                ))}
+                <button onClick={() => navigate('/contact')} className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                  <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
+                  Start a Project
+                </button>
+                <button onClick={() => navigate('/apply')} className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                  <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
+                  Join as an Intern
+                </button>
+                {/* Updated Testimonials to take user to Section on Home Page */}
+                <a href="/#testimonials" className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                  <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
+                  Testimonials
+                </a>
+                {/* Updated Community to Discord Link */}
+                <a href="https://discord.com/invite/Ymnc8gRaWj" target="_blank" rel="noopener noreferrer" className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                  <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
+                  Community
+                </a>
+                <button onClick={() => navigate('/contact')} className="text-sm md:text-base font-light text-[#333333] transition-all duration-300 hover:text-[#00A550] hover:translate-x-2 flex items-center group/link" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                  <span className="w-0 h-[1px] bg-[#00A550] transition-all duration-300 group-hover/link:w-3 group-hover/link:mr-2"></span>
+                  Support
+                </button>
               </div>
             </div>
 

@@ -56,9 +56,9 @@ const Testimonials: React.FC = () => {
       testimonial: "Hiring from the Focus Grid Talent Network saved us months of recruitment. The developers we onboarded were project-ready from day one, with a deep understanding of modern workflows."
     },
     {
-      name: "Linda Nwosu",
+      name: "Francis Nwosu",
       role: "Founder | GreenRoot E-commerce",
-      image: testimonialPic, // Using the original pic for the 6th spot
+      image: testimonialPic, 
       testimonial: "They took my vague vision and turned it into a high-converting digital store. The team is professional, communicative, and truly understands the startup hustle. Highly recommended!"
     }
   ];
@@ -72,7 +72,12 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#FFFFFF] pt-16 md:pt-20 lg:pt-[100px] overflow-hidden">
+    /* ADDED ID="testimonials" HERE */
+    <section 
+      ref={sectionRef} 
+      id="testimonials" 
+      className="w-full bg-[#FFFFFF] pt-16 md:pt-20 lg:pt-[100px] overflow-hidden"
+    >
       <style>
         {`
           @keyframes multiPing {
