@@ -41,14 +41,14 @@ const Structure: React.FC = () => {
       title: "Product Development",
       icon: development,
       desc: "We take your idea from rough concept to a fully launched digital product. Our team handles strategy, design, development, and deployment.",
-      link: "/build",
+      link: "/contact",
       cta: "Build With Us"
     },
     {
       title: "Internships",
       icon: internship,
       desc: "Join our community of critical thinkers and problem solvers. Build, learn and earn while taking your skills to the next level.",
-      link: "/internships",
+      link: "/apply",
       cta: "Grow With Us"
     },
     {

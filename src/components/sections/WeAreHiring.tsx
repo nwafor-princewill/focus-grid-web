@@ -76,7 +76,7 @@ const WeAreHiring: React.FC = () => {
             </div>
 
             <div className="flex-shrink-0">
-              <Link to="/contact">
+              <Link to="/apply">
                 <button className="h-[52px] px-[35px] py-[12px] bg-white border border-[#00A550] rounded-[100px] flex items-center gap-2 transition-all duration-500 hover:bg-[#00A550] hover:shadow-[0_10px_20px_rgba(0,165,80,0.2)] hover:scale-105 group/btn active:scale-95">
                   <span 
                     className="text-[#00A550] font-medium text-[15px] group-hover/btn:text-white transition-colors"
