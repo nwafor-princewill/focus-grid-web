@@ -63,6 +63,7 @@ const Testimonials: React.FC = () => {
     }
   ];
 
+  // Infinite logic: jumps back to start/end seamlessly
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? testimonialData.length - 1 : prev - 1));
   };
@@ -72,7 +73,6 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    /* ADDED ID="testimonials" HERE */
     <section 
       ref={sectionRef} 
       id="testimonials" 
@@ -80,31 +80,24 @@ const Testimonials: React.FC = () => {
     >
       <style>
         {`
-          @keyframes multiPing {
-            0% { transform: scale(1); opacity: 0.6; }
-            100% { transform: scale(2.2); opacity: 0; }
-          }
           .testimonial-perspective {
             perspective: 1000px;
           }
         `}
       </style>
 
-      <div className={`max-w-[1440px] mx-auto flex flex-col items-center justify-center gap-10 md:gap-16 lg:gap-[65px] py-12 md:py-16 lg:py-20 px-4 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <div className={`max-w-[1440px] mx-auto flex flex-col items-center justify-center py-12 md:py-16 lg:py-20 px-4 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         
         {/* Header Section */}
-        <div className="w-full max-w-[672px] flex flex-col items-center gap-4 md:gap-5">
-          <div className="relative group cursor-pointer">
-            <div className="absolute inset-0 rounded-[100px] border-2 border-[#00A550] opacity-30" style={{ animation: 'multiPing 2s infinite' }}></div>
-            <div className="absolute inset-0 rounded-[100px] border border-[#00A550] opacity-20" style={{ animation: 'multiPing 2s infinite 0.5s' }}></div>
-            <div className="h-[28px] px-5 py-2.5 border border-[#00A550] rounded-[100px] flex items-center justify-center bg-white relative z-10 transition-all duration-500 group-hover:bg-[#E6F6EE]">
-              <span className="text-[12px] font-bold leading-[140%] text-[#00A550] tracking-widest uppercase" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
-                TESTIMONIALS
-              </span>
-            </div>
+        <div className="w-full max-w-[672px] flex flex-col items-center mb-12">
+          {/* PING REMOVED - Added mb-8 for more space */}
+          <div className="h-[28px] px-5 py-2.5 border border-[#00A550] rounded-[100px] flex items-center justify-center bg-white mb-8">
+            <span className="text-[12px] font-bold leading-[140%] text-[#00A550] tracking-widest uppercase" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+              TESTIMONIALS
+            </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-semibold leading-[120%] text-center text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-semibold leading-[120%] text-center text-[#333333] mb-4" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
             What Our Customers Are Saying
           </h2>
 
@@ -114,35 +107,38 @@ const Testimonials: React.FC = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="w-full flex flex-col items-center gap-6 md:gap-8 lg:gap-10 testimonial-perspective">
-          <div className="w-full overflow-hidden px-2 md:px-4">
+        <div className="w-full flex flex-col items-center gap-10 testimonial-perspective">
+          <div className="w-full overflow-hidden">
             <div className="relative">
-              {/* Desktop View */}
-              <div className="hidden lg:flex items-center justify-center">
-                <div 
-                  className="flex items-center transition-transform duration-1000 cubic-bezier(0.23, 1, 0.32, 1)"
-                  style={{ transform: `translateX(calc(-${currentIndex * (100 / testimonialData.length)}% + 33.33%))` }}
-                >
-                  {testimonialData.map((testimonial, index) => {
-                    const isActive = index === currentIndex;
-                    const isPast = index < currentIndex;
+              {/* Desktop View - 3 Card Carousel */}
+              <div className="hidden lg:flex items-center justify-center relative h-[320px] overflow-visible">
+                <div className="flex items-center justify-center gap-8">
+                  {/* Render 3 cards: previous, current, next */}
+                  {[-1, 0, 1].map((offset) => {
+                    const index = (currentIndex + offset + testimonialData.length) % testimonialData.length;
+                    const testimonial = testimonialData[index];
+                    const isActive = offset === 0;
+                    
                     return (
                       <div
-                        key={index}
-                        className={`flex-shrink-0 w-[600px] transition-all duration-700 ${
+                        key={offset}
+                        className={`flex-shrink-0 transition-all duration-700 ease-out ${
                           isActive 
-                          ? 'z-10 scale-100 opacity-100' 
-                          : `scale-90 opacity-30 z-0 mx-[-60px] ${isPast ? 'rotate-y-12' : '-rotate-y-12'}`
+                          ? 'z-10 scale-100 opacity-100 w-[600px]' 
+                          : 'scale-90 opacity-50 z-0 w-[500px]'
                         }`}
+                        style={{
+                          transform: isActive ? 'translateX(0)' : offset < 0 ? 'translateX(-20px)' : 'translateX(20px)'
+                        }}
                       >
-                        <div className={`w-[600px] h-[282px] rounded-[24px] p-10 flex flex-col justify-between border-[3px] transition-all duration-700 ${
+                        <div className={`w-full h-[282px] rounded-[24px] p-10 flex flex-col justify-between border-[3px] transition-all duration-700 ${
                           isActive 
-                          ? 'bg-[#333333] border-[#33B773] shadow-[0_30px_60px_-15px_rgba(0,165,80,0.3)]' 
+                          ? 'bg-[#111111] border-[#33B773] shadow-xl' 
                           : 'bg-[#E6F6EE] border-[#33B773]/20'
                         }`}>
                           <div className="w-full flex items-center justify-between">
                             <div className="flex items-center gap-5">
-                              <div className="w-[70px] h-[70px] rounded-full overflow-hidden flex-shrink-0 border-2 border-[#33B773] shadow-lg">
+                              <div className="w-[70px] h-[70px] rounded-full overflow-hidden flex-shrink-0 border-2 border-[#33B773]">
                                 <img src={testimonial.image} alt="" className="w-full h-full object-cover" />
                               </div>
                               <div className="flex flex-col">
@@ -180,7 +176,7 @@ const Testimonials: React.FC = () => {
                 >
                   {testimonialData.map((testimonial, index) => (
                     <div key={index} className="flex-shrink-0 w-full px-2">
-                      <div className="w-full min-h-[250px] rounded-[24px] p-8 bg-[#333333] border-b-4 border-[#33B773] flex flex-col gap-6 shadow-xl">
+                      <div className="w-full min-h-[250px] rounded-[24px] p-8 bg-[#111111] border-b-4 border-[#33B773] flex flex-col gap-6 shadow-xl">
                         <div className="flex items-center gap-4">
                           <img src={testimonial.image} className="w-[50px] h-[50px] rounded-full object-cover border border-[#33B773]" alt="" />
                           <div>
@@ -197,12 +193,12 @@ const Testimonials: React.FC = () => {
             </div>
           </div>
 
-          {/* Navigation Controls */}
-          <div className="w-full max-w-[1140px] flex justify-center lg:justify-end pr-0 lg:pr-[120px]">
+          {/* Navigation Controls - PLACED AT BOTTOM RIGHT */}
+          <div className="w-full max-w-[1200px] flex justify-center lg:justify-end mt-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={handlePrevious}
-                className="w-14 h-14 bg-white border border-[#E6F6EE] rounded-full flex items-center justify-center transition-all duration-500 hover:bg-[#00A550] group hover:scale-110 active:scale-95 shadow-lg"
+                className="w-14 h-14 bg-[#E6F6EE] rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[#00A550] group"
               >
                 <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
                   <path d="M10 12L6 8L10 4" stroke="currentColor" className="text-[#00A550] group-hover:text-white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -210,7 +206,7 @@ const Testimonials: React.FC = () => {
               </button>
               <button
                 onClick={handleNext}
-                className="w-14 h-14 bg-white border border-[#E6F6EE] rounded-full flex items-center justify-center transition-all duration-500 hover:bg-[#00A550] group hover:scale-110 active:scale-95 shadow-lg"
+                className="w-14 h-14 bg-[#E6F6EE] rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[#00A550] group"
               >
                 <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
                   <path d="M6 4L10 8L6 12" stroke="currentColor" className="text-[#00A550] group-hover:text-white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>

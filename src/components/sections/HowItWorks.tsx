@@ -43,37 +43,19 @@ const HowItWorks: React.FC = () => {
       onMouseMove={handleMouseMove}
       className="relative w-full max-w-[1440px] mx-auto bg-[#F9F9F9] overflow-hidden"
     >
-      <style>
-        {`
-          @keyframes floatArrow {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(-2deg); }
-          }
-          /* High-energy Liquid Wave Animation */
-          @keyframes liquidWave {
-            0% { transform: translateX(-50%) scale(1) skewX(0deg); filter: hue-rotate(0deg); }
-            25% { transform: translateX(-48%) scale(1.05) skewX(2deg); }
-            50% { transform: translateX(-50%) scale(0.98) skewX(-2deg); filter: hue-rotate(15deg); }
-            75% { transform: translateX(-52%) scale(1.05) skewX(1deg); }
-            100% { transform: translateX(-50%) scale(1) skewX(0deg); filter: hue-rotate(0deg); }
-          }
-        `}
-      </style>
-
       {/* Spacing from top */}
       <div className="h-[80px] md:h-[120px] lg:h-[180px] w-full"></div>
       
       <div className="w-full px-4 md:px-8 lg:px-16 xl:px-[102px] relative">
         
-        {/* ARROW9 */}
+        {/* ARROW9 - Static Position, No Animation */}
         <div 
-          className="absolute hidden xl:block z-20 transition-all duration-1000 ease-out"
+          className="absolute hidden xl:block z-20 transition-opacity duration-1000 ease-out"
           style={{ 
             top: '40px', 
             left: '480px',
-            animation: 'floatArrow 4s ease-in-out infinite',
             opacity: isVisible ? 1 : 0,
-            transform: `translate(${mousePos.x * 25}px, ${mousePos.y * 25}px)`
+            transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 20}px)`
           }}
         >
           <img 
@@ -85,13 +67,13 @@ const HowItWorks: React.FC = () => {
 
         <div className="w-full flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-[60px] pb-16 md:pb-20 lg:pb-32 relative">
           
-          {/* Left Side - Image */}
+          {/* Left Side - Image (Removed Scale and Heavy Shadow) */}
           <div className={`w-full lg:w-[590px] aspect-[4/5] md:aspect-square lg:aspect-auto lg:h-[634.85px] flex-shrink-0 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="relative w-full h-full group overflow-hidden rounded-2xl shadow-2xl">
+            <div className="relative w-full h-full overflow-hidden rounded-2xl">
               <img 
                 src={learning} 
                 alt="learning" 
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" 
+                className="w-full h-full object-cover object-top" 
               />
             </div>
           </div>
@@ -141,10 +123,10 @@ const HowItWorks: React.FC = () => {
               ))}
             </div>
 
-            {/* LEARN MORE BUTTON */}
+            {/* LEARN MORE BUTTON (Reduced scale/shadow) */}
             <div className={`relative transition-all duration-700 delay-[1500ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
               <Link to="/how-it-works" className="block w-full">
-                <button className="w-full h-[56px] md:h-[62px] bg-[#E6F6EE] hover:bg-[#00A550] rounded-[20px] flex items-center justify-center gap-3 transition-all duration-500 hover:scale-[1.01] hover:shadow-xl group">
+                <button className="w-full h-[56px] md:h-[62px] bg-[#E6F6EE] hover:bg-[#00A550] rounded-[20px] flex items-center justify-center gap-3 transition-all duration-500 hover:scale-[1.005] group">
                   <span className="text-sm md:text-base font-bold text-[#00A550] group-hover:text-white transition-colors duration-300" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                     LEARN MORE
                   </span>
@@ -156,21 +138,18 @@ const HowItWorks: React.FC = () => {
                 </button>
               </Link>
 
-              {/* LINE9 - CENTERED AND LIVELY */}
+              {/* LINE9 - Shifted well to the left on Desktop, maintained mobile view */}
               <div 
-                className="absolute left-1/2 top-[80px] pointer-events-none"
+                className="absolute left-0 lg:left-[-20%] top-[80px] pointer-events-none transition-opacity duration-1000"
                 style={{ 
                   width: '350px', 
                   opacity: isVisible ? 0.8 : 0,
-                  animation: 'liquidWave 6s ease-in-out infinite',
-                  /* Centers the item regardless of animation drift */
-                  transformOrigin: 'center'
                 }}
               >
                 <img 
                   src={line9} 
                   alt="" 
-                  className="w-full h-auto object-contain" 
+                  className="w-full h-auto object-contain transform lg:-translate-x-12" 
                 />
               </div>
             </div>

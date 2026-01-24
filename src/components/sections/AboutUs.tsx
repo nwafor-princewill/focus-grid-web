@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import imageCopy from '../../assets/images/image copy.png';
 import manPhone from '../../assets/images/man-phone.png';
 import northEast from '../../assets/images/north-east.png';
+import arrow6 from '../../assets/images/arrow6.png';
+import sprinkle1 from '../../assets/images/sprinkle1.png';
 
 const AboutUsSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,25 +30,14 @@ const AboutUsSection: React.FC = () => {
   return (
     <section 
       ref={sectionRef}
-      className="w-full bg-white py-16 md:py-24 lg:py-32 overflow-hidden"
+      className="relative w-full bg-white py-16 md:py-24 lg:py-32 overflow-hidden"
     >
-      {/* Custom Animations */}
-      <style>
-        {`
-          @keyframes multiPing {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(2.5); opacity: 0; }
-          }
-          @keyframes floatSide {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(1deg); }
-          }
-          @keyframes slowSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-        `}
-      </style>
+      {/* Sprinkle Stars - Positioned to ensure visibility */}
+      <img 
+        src={sprinkle1} 
+        alt="" 
+        className="absolute top-10 left-6 md:left-12 w-[60px] h-auto opacity-80 z-20 pointer-events-none" 
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-20 xl:gap-28">
@@ -55,18 +46,10 @@ const AboutUsSection: React.FC = () => {
           <div className="w-full lg:w-1/2 max-w-2xl">
             <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
               
-              {/* CRAZY About Us Badge */}
+              {/* About Us Badge */}
               <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <Link 
-                  to="/about" 
-                  className="relative inline-flex items-center justify-center group"
-                >
-                  {/* Multi-layered Crazy Ping Effect */}
-                  <div className="absolute inset-0 rounded-[100px] border-2 border-[#00A550] opacity-0 group-hover:opacity-100" style={{ animation: 'multiPing 1.5s infinite' }}></div>
-                  <div className="absolute inset-0 rounded-[100px] border border-[#00A550] animate-ping opacity-40"></div>
-                  <div className="absolute inset-0 rounded-[100px] border border-[#00A550] animate-ping opacity-20" style={{ animationDelay: '0.5s' }}></div>
-                  
-                  <div className="relative z-10 h-[32px] px-6 py-2.5 border-2 border-[#00A550] rounded-[100px] bg-white flex items-center justify-center transition-all duration-300 group-hover:bg-[#00A550] group-hover:scale-110">
+                <Link to="/about" className="relative inline-flex items-center justify-center group">
+                  <div className="relative z-10 h-[32px] px-6 py-2.5 border-2 border-[#00A550] rounded-[100px] bg-white flex items-center justify-center transition-all duration-300 group-hover:bg-[#00A550] group-hover:scale-[1.02]">
                     <span 
                       className="text-[12px] font-bold leading-[140%] text-[#00A550] group-hover:text-white tracking-widest uppercase"
                       style={{ fontFamily: 'Funnel Display, sans-serif' }}
@@ -103,11 +86,11 @@ const AboutUsSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* LEARN MORE Button */}
-              <div className={`transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              {/* LEARN MORE Button with Arrow Asset */}
+              <div className={`flex items-center transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                 <Link 
                   to="/about" 
-                  className="inline-flex items-center justify-center gap-3 w-fit h-[54px] rounded-[100px] bg-[#E6F6EE] px-10 py-3 transition-all duration-500 hover:scale-110 hover:shadow-[0_20px_40px_rgba(0,165,80,0.15)] hover:bg-[#00A550] group"
+                  className="inline-flex items-center justify-center gap-3 w-fit h-[54px] rounded-[100px] bg-[#E6F6EE] px-10 py-3 transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(0,165,80,0.1)] hover:bg-[#00A550] group"
                 >
                   <span 
                     className="text-sm font-bold leading-[140%] text-[#00A550] group-hover:text-white transition-colors duration-300"
@@ -116,39 +99,37 @@ const AboutUsSection: React.FC = () => {
                     LEARN MORE
                   </span>
                   <div className="bg-white rounded-full p-1 group-hover:rotate-45 transition-transform duration-300">
-                    <img 
-                        src={northEast} 
-                        alt="" 
-                        className="w-4 h-4" 
-                    />
+                    <img src={northEast} alt="" className="w-4 h-4" />
                   </div>
                 </Link>
+
+                {/* arrow6.png - Shifted further to the right with ml-8 */}
+                <img 
+                  src={arrow6} 
+                  alt="" 
+                  className="hidden md:block opacity-100 ml-8"
+                  style={{ width: '59px', height: '19.4px' }}
+                />
               </div>
             </div>
           </div>
 
-          {/* Right Content - Image Container */}
+          {/* Right Content */}
           <div className={`w-full lg:w-1/2 relative transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'}`}>
-            <div className="relative max-w-lg mx-auto lg:mr-0 lg:ml-auto group">
+            <div className="relative max-w-lg mx-auto lg:mr-0 lg:ml-auto">
               
-              {/* Background Pattern with Slow Spin */}
-              <div className="absolute -inset-4 opacity-20 group-hover:opacity-40 transition-opacity duration-700" style={{ animation: 'slowSpin 20s linear infinite' }}>
+              {/* Background Pattern */}
+              <div className="absolute -inset-4 opacity-20">
                  <img src={imageCopy} alt="" className="w-full h-full object-contain" />
               </div>
 
               <div className="relative w-full aspect-[407/343] max-w-[450px]">
-                {/* Background Shadow Box */}
-                <div className="absolute inset-0 bg-[#E6F6EE] rounded-[40px] rotate-3 -z-10 group-hover:rotate-6 transition-transform duration-500"></div>
-
-                {/* Main Image with Floating Animation */}
-                <div 
-                  className="relative z-10 w-full h-full"
-                  style={{ animation: 'floatSide 6s ease-in-out infinite' }}
-                >
+                {/* Main Image - Removed the green background layer */}
+                <div className="relative z-10 w-full h-full flex items-center justify-center">
                   <img 
                     src={manPhone} 
                     alt="Man using phone" 
-                    className="w-full h-full object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.2)] transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.08)]"
                   />
                 </div>
               </div>

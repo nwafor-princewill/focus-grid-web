@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // REMOVED 'Link' FROM HERE
+import { useNavigate } from 'react-router-dom';
 import focusGridLogo from '../../assets/images/focus-grid-logo.png';
 import facebookIcon from '../../assets/images/facebook.png';
 import instagramIcon from '../../assets/images/instagram.png';
@@ -14,11 +14,6 @@ const Footer: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // Draggable State
-  const [position, setPosition] = useState({ x: 580, y: 65 }); 
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStart = useRef({ x: 0, y: 0 });
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -30,35 +25,6 @@ const Footer: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Drag Logic
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    dragStart.current = {
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    };
-  };
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-      setPosition({
-        x: e.clientX - dragStart.current.x,
-        y: e.clientY - dragStart.current.y,
-      });
-    };
-    const handleMouseUp = () => setIsDragging(false);
-
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    }
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isDragging]);
-
   return (
     <div ref={footerRef} className="w-full bg-[#F9F9F9] relative overflow-hidden">
       <style>
@@ -68,13 +34,6 @@ const Footer: React.FC = () => {
             50% { transform: scale(1.2) translateX(-20px); }
             100% { transform: scale(1.1) translateX(0); }
           }
-          @keyframes floatArrowConstant {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(5px, -8px) rotate(1deg); }
-            75% { transform: translate(-3px, 5px) rotate(-1deg); }
-          }
-          .cursor-grab { cursor: grab; }
-          .cursor-grabbing { cursor: grabbing; }
         `}
       </style>
 
@@ -102,21 +61,19 @@ const Footer: React.FC = () => {
                   </span>
                 </h2>
 
+                {/* ARROW8 - NOW STATIC AND NON-DRAGGABLE */}
                 <div 
-                  onMouseDown={handleMouseDown}
-                  className={`absolute hidden xl:block z-50 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+                  className="absolute hidden xl:block z-50 pointer-events-none"
                   style={{ 
                     width: '201.99px',
                     height: '57.23px',
-                    top: `${position.y}px`,
-                    left: `${position.x}px`,
+                    top: '65px',
+                    left: '580px',
                     opacity: isVisible ? 1 : 0,
-                    transition: isDragging ? 'none' : 'opacity 1s ease-out 1.2s',
+                    transition: 'opacity 1s ease-out 1.2s',
                   }}
                 >
-                  <div style={{ animation: 'floatArrowConstant 5s ease-in-out infinite' }}>
-                    <img src={arrow8} alt="" className="w-full h-full object-contain pointer-events-none" />
-                  </div>
+                  <img src={arrow8} alt="" className="w-full h-full object-contain" />
                 </div>
               </div>
               

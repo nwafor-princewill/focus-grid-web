@@ -51,10 +51,6 @@ const FAQ: React.FC = () => {
     >
       <style>
         {`
-          @keyframes doublePing {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(2); opacity: 0; }
-          }
           .faq-card-transition {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           }
@@ -63,12 +59,9 @@ const FAQ: React.FC = () => {
 
       <div className={`w-full max-w-[1240px] mx-auto flex flex-col gap-8 md:gap-10 items-center transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         
-        {/* FAQs Button with Enhanced Multi-Ping Animation */}
+        {/* FAQs Button - Ping Animations Removed */}
         <Link to="/faqs" className="group relative">
-          <div className="absolute inset-0 rounded-[100px] border-2 border-[#00A550] opacity-40" style={{ animation: 'doublePing 2s infinite' }}></div>
-          <div className="absolute inset-0 rounded-[100px] border border-[#00A550] opacity-20" style={{ animation: 'doublePing 2s infinite 1s' }}></div>
-          
-          <button className="h-[32px] px-6 py-2 border-2 border-[#00A550] rounded-[100px] flex items-center justify-center bg-white relative z-10 group-hover:bg-[#00A550] transition-all duration-500 shadow-sm group-hover:shadow-[0_0_20px_rgba(0,165,80,0.3)]">
+          <button className="h-[32px] px-6 py-2 border-2 border-[#00A550] rounded-[100px] flex items-center justify-center bg-white relative z-10 group-hover:bg-[#00A550] transition-all duration-500">
             <span 
               className="text-[12px] font-bold text-[#00A550] group-hover:text-white uppercase tracking-wider transition-colors duration-300"
               style={{ fontFamily: 'Funnel Display, sans-serif' }}
@@ -106,7 +99,7 @@ const FAQ: React.FC = () => {
                 style={{ transitionDelay: `${(index + 1) * 150}ms` }}
               >
                 <div 
-                  className={`faq-card-transition w-full rounded-[24px] p-6 md:p-10 flex items-start gap-4 md:gap-10 cursor-pointer ${isExpanded ? 'bg-[#00A550] shadow-[0_20px_40px_rgba(0,165,80,0.25)] scale-[1.02] z-20' : 'bg-white/50 hover:bg-white border border-transparent hover:border-[#00A550]/20'}`}
+                  className={`faq-card-transition w-full rounded-[24px] p-6 md:p-10 flex items-start gap-4 md:gap-10 cursor-pointer ${isExpanded ? 'bg-[#00A550] scale-[1.02] z-20' : 'bg-white/50 hover:bg-white border border-transparent hover:border-[#00A550]/20'}`}
                   onClick={() => toggleCard(index + 1)}
                 >
                   {/* Number */}
@@ -138,8 +131,8 @@ const FAQ: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Icon - Pulse and Rotate */}
-                  <div className={`flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-500 ${isExpanded ? 'bg-white/20 rotate-45' : 'bg-[#E6F6EE] rotate-0 group-hover:scale-110'}`}>
+                  {/* Icon - Rotate without Pulse */}
+                  <div className={`flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-500 ${isExpanded ? 'bg-white/20 rotate-45' : 'bg-[#E6F6EE] rotate-0 group-hover:scale-105'}`}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="md:w-6 md:h-6">
                       <path d="M12 5V19M5 12H19" stroke={isExpanded ? "white" : "#00A550"} strokeWidth="2.5" strokeLinecap="round"/>
                     </svg>

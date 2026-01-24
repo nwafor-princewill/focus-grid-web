@@ -55,8 +55,8 @@ const WhatWeDo: React.FC = () => {
             to { transform: rotate(-360deg); }
           }
           @keyframes floatIcon {
-            0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1)); }
-            50% { transform: translateY(-15px) scale(1.05); filter: drop-shadow(0 25px 25px rgba(0,0,0,0.1)); }
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
           }
           @keyframes dashMove {
             to { stroke-dashoffset: -20; }
@@ -64,13 +64,11 @@ const WhatWeDo: React.FC = () => {
           .step-card {
             transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
           }
-          /* New Glow Effect Class */
-          .orbit-glow {
-            transition: all 0.5s ease-in-out;
+          .orbit-border {
+            transition: border-color 0.4s ease-in-out;
           }
-          .group:hover .orbit-glow {
+          .group:hover .orbit-border {
             border-color: #33B773;
-            box-shadow: 0 0 25px rgba(51, 183, 115, 0.5), inset 0 0 15px rgba(51, 183, 115, 0.2);
           }
         `}
       </style>
@@ -78,16 +76,15 @@ const WhatWeDo: React.FC = () => {
       <div className="max-w-[1240px] mx-auto px-4 flex flex-col items-center relative">
         
         {/* Animated Connecting Path (Desktop Only) */}
-        <div className="absolute top-[40%] left-0 w-full hidden lg:block pointer-events-none opacity-40">
+        <div className="absolute top-[40%] left-0 w-full hidden lg:block pointer-events-none opacity-20">
           <svg width="100%" height="100" viewBox="0 0 1200 100" fill="none">
             <path 
               d="M200,50 Q600,-20 1000,50" 
               stroke="#33B773" 
-              strokeWidth="3" 
+              strokeWidth="2" 
               strokeDasharray="10 10"
               style={{ 
-                animation: 'dashMove 1s linear infinite',
-                filter: 'drop-shadow(0 0 5px #33B773)'
+                animation: 'dashMove 1s linear infinite'
               }}
             />
           </svg>
@@ -118,13 +115,13 @@ const WhatWeDo: React.FC = () => {
               className={`flex flex-col items-center text-center group step-card transform ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-90'}`}
               style={{ transitionDelay: step.delay }}
             >
-              {/* Circle Container (The Orbit) with Added Glow Class */}
-              <div className="relative w-[280px] h-[280px] md:w-[291px] md:h-[291px] rounded-full border-[2px] border-[#333333] flex items-center justify-center mb-8 bg-white orbit-glow"
+              {/* Circle Container (The Orbit) */}
+              <div className="relative w-[280px] h-[280px] md:w-[291px] md:h-[291px] rounded-full border-[2px] border-[#333333] flex items-center justify-center mb-8 bg-white orbit-border"
                    style={{ animation: 'rotateOrbit 25s linear infinite' }}>
                 
-                {/* The Green Tag */}
+                {/* The Green Tag - Removed Shadow */}
                 <div 
-                  className="absolute z-20 bg-[#33B773] rounded-[22.94px] px-5 py-2 flex items-center justify-center shadow-lg"
+                  className="absolute z-20 bg-[#33B773] rounded-[22.94px] px-5 py-2 flex items-center justify-center"
                   style={{ 
                     top: '10px', 
                     right: '10px',
@@ -145,7 +142,7 @@ const WhatWeDo: React.FC = () => {
                   <img 
                     src={step.img} 
                     alt={step.tag} 
-                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-125 group-hover:drop-shadow-[0_0_20px_rgba(51,183,115,0.4)]"
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                     style={{ animation: `floatIcon ${3 + index}s ease-in-out infinite` }}
                   />
                 </div>
