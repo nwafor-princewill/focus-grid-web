@@ -5,7 +5,7 @@ import doodle1 from '../../assets/images/doodle1.png';
 import doodle2 from '../../assets/images/doodle2.png';
 import northEastIcon from '../../assets/images/north-east.png';
 import fileOpen from '../../assets/images/file-open.png';
-import logoBackground from '../../assets/images/focus-grid-logo.png'; 
+// logoBackground import removed as per request
 
 const ContactForm: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -88,21 +88,7 @@ const ContactForm: React.FC = () => {
   if (showSuccess) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center p-6 pt-60 relative overflow-hidden">
-        {/* LOGO IN BACKGROUND WITH CREATIVE PULSE */}
-        <style>{`
-          @keyframes logo-float {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.04; }
-            50% { transform: translate(-50%, -52%) scale(1.08); opacity: 0.08; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.04; }
-          }
-          .animate-logo-pulse { animation: logo-float 10s ease-in-out infinite; }
-        `}</style>
-        
-        <img 
-          src={logoBackground} 
-          alt="" 
-          className="absolute top-1/2 left-1/2 w-[800px] md:w-[1100px] h-auto pointer-events-none select-none animate-logo-pulse z-0" 
-        />
+        {/* Background logo animation removed as per request */}
         
         <div className="relative z-10 bg-white/90 backdrop-blur-md rounded-[32px] p-12 text-center max-w-[500px] shadow-2xl border border-[#E6F6EE] animate-in fade-in zoom-in duration-500">
           <div className="w-20 h-20 bg-[#00A550] rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg shadow-[#00A550]/30">
@@ -230,12 +216,14 @@ const ContactForm: React.FC = () => {
         </form>
 
         <div className="mt-24 flex justify-center items-center gap-4">
-            <img src={doodle1} alt="" className="w-12 h-12 hidden md:block animate-bounce" />
+            {/* Bounce animation removed from doodle1 */}
+            <img src={doodle1} alt="" className="w-12 h-12 hidden md:block" />
             <div className="w-full max-w-[650px] bg-white border border-[#E6F6EE] rounded-[24px] p-8 text-center shadow-sm hover:border-[#00A550] hover:ring-4 hover:ring-[#00A550]/5 transition-all duration-300 cursor-default">
                 <h4 className="text-[20px] font-semibold text-[#333333] mb-2" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Prefer Talking Directly?</h4>
                 <p className="text-[14px] text-[#545454]">Reach us at <span className="text-[#00A550] font-medium underline">focusgrid5@gmail.com</span> or call +234 812 537 6775</p>
             </div>
-            <img src={doodle2} alt="" className="w-12 h-12 hidden md:block animate-bounce" />
+            {/* Bounce animation removed from doodle2 */}
+            <img src={doodle2} alt="" className="w-12 h-12 hidden md:block" />
         </div>
       </div>
 

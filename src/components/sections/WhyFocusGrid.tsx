@@ -36,26 +36,11 @@ const WhyFocusGrid: React.FC = () => {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-8px); }
         }
-        @keyframes drift {
-          0% { transform: translate(0, 0) rotate(0deg); }
-          50% { transform: translate(10px, -15px) rotate(8deg); }
-          100% { transform: translate(0, 0) rotate(0deg); }
-        }
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
         .animate-feature-float {
           animation: feature-float 5s infinite ease-in-out;
         }
-        .animate-drift {
-          animation: drift 7s infinite ease-in-out;
-        }
-        .animate-spin-slow {
-          animation: spin-slow 15s linear infinite;
-        }
         .white-sprinkle {
-          filter: brightness(0) invert(1); /* Forces the image to be pure white */
+          filter: brightness(0) invert(1);
           pointer-events: none;
         }
       `}</style>
@@ -68,33 +53,33 @@ const WhyFocusGrid: React.FC = () => {
                    shadow-sm transition-all duration-700 overflow-hidden"
       >
         
-        {/* --- TOP SPRINKLES --- */}
+        {/* --- TOP SPRINKLES (Animations Removed) --- */}
         <img 
           src={sprinkle5} 
           alt="" 
-          className={`absolute top-8 left-10 w-20 h-20 opacity-60 white-sprinkle transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-60' : '-translate-y-10 opacity-0'} animate-drift`}
+          className="absolute top-8 left-10 w-20 h-20 opacity-60 white-sprinkle"
         />
+        {/* Increased size for sprinkle1 */}
         <img 
           src={sprinkle1} 
           alt="" 
-          className="absolute top-10 right-10 w-14 h-14 opacity-50 white-sprinkle animate-spin-slow" 
+          className="absolute top-10 right-10 w-20 h-20 opacity-50 white-sprinkle" 
         />
 
-        {/* --- BOTTOM CORNER SPRINKLES (Enhanced Visibility) --- */}
+        {/* --- BOTTOM CORNER SPRINKLES (Animations Removed) --- */}
         <img 
           src={sprinkle1} 
           alt="" 
-          className="absolute bottom-6 left-6 w-16 h-16 opacity-70 white-sprinkle animate-drift" 
-          style={{ animationDelay: '0.5s' }}
+          className="absolute bottom-6 left-6 w-24 h-24 opacity-70 white-sprinkle" 
         />
         <img 
           src={sprinkle5} 
           alt="" 
-          className="absolute bottom-[-20px] right-4 w-32 h-32 opacity-80 white-sprinkle animate-feature-float" 
+          className="absolute bottom-[-20px] right-4 w-32 h-32 opacity-80 white-sprinkle" 
         />
 
         {/* Header Section */}
-        <div className="text-center z-10 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+        <div className="text-center z-10">
           <h2 
             className="text-[36px] md:text-[45px] font-semibold leading-[120%] text-[#333333] mb-4 relative inline-block"
             style={{ fontFamily: 'Funnel Display, sans-serif' }}
@@ -119,18 +104,18 @@ const WhyFocusGrid: React.FC = () => {
           {features.map((feature, index) => (
             <div 
               key={feature.id}
-              className="flex flex-col items-center gap-2 group transition-all duration-500 hover:-translate-y-2"
+              className="flex flex-col items-center gap-2 group transition-all duration-500 hover:-translate-y-1"
               style={{ width: '150px' }}
             >
               <div 
                 className="relative w-[150px] h-[150px] flex items-center justify-center animate-feature-float"
                 style={{ animationDelay: `${index * 0.15}s` }}
               >
-                <div className="absolute inset-0 bg-[#00A550] opacity-0 group-hover:opacity-10 blur-[30px] rounded-full transition-all duration-700" />
+                <div className="absolute inset-0 bg-[#00A550] opacity-0 group-hover:opacity-5 blur-[20px] rounded-full transition-all duration-700" />
                 <img 
                   src={feature.icon}
                   alt={feature.title}
-                  className="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="w-[150px] flex items-center justify-center">
