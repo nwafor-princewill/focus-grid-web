@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import { uploadFilesToCloudinary } from '../utils/cloudinaryUpload';
 import focusGridLogo from '../assets/images/focus-grid-logo.png';
 import greenCard from '../assets/images/green-card.png';
 import approval from '../assets/images/approval.png';
@@ -20,6 +22,7 @@ const ApplyForInternshipPage: React.FC = () => {
   const [errors, setErrors] = useState<any>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [focusedField, setFocusedField] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const techStackOptions = [
     'Front end development',
@@ -66,9 +69,45 @@ const ApplyForInternshipPage: React.FC = () => {
     formData.gender && 
     formData.techStack;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isFormValid()) return;
-    setShowSuccess(true);
+    
+    setIsSubmitting(true);
+    
+    try {
+      // 1. Upload files to Cloudinary if any
+      let fileLinks = 'No files attached';
+      if (formData.portfolio.length > 0) {
+        const uploadedUrls = await uploadFilesToCloudinary(formData.portfolio);
+        fileLinks = uploadedUrls.map((url, i) => 
+          `File ${i + 1}: ${url}`
+        ).join('\n');
+      }
+
+      // 2. Send email via EmailJS
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID!,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: formData.fullName,
+          from_email: formData.email,
+          phone_number: formData.phoneNumber,
+          gender: formData.gender,
+          tech_stack: formData.techStack,
+          file_links: fileLinks,
+          form_type: 'Internship Application'
+        },
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
+      );
+
+      // 3. Show success
+      setShowSuccess(true);
+    } catch (error) {
+      console.error('Submission failed:', error);
+      alert('Failed to submit application. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (showSuccess) {
@@ -262,13 +301,13 @@ const ApplyForInternshipPage: React.FC = () => {
 
             <button
               onClick={handleSubmit}
-              disabled={!isFormValid()}
+              disabled={!isFormValid() || isSubmitting}
               className={`w-full lg:w-[260px] h-[64px] rounded-2xl font-bold transition-all ml-auto block text-lg shadow-xl
-                ${isFormValid() 
+                ${isFormValid() && !isSubmitting
                   ? 'bg-[#00A550] text-white shadow-[#00A550]/20 hover:scale-[1.02] active:scale-95' 
                   : 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none'}`}
             >
-              Submit Application
+              {isSubmitting ? 'Submitting...' : 'Submit Application'}
             </button>
           </div>
         </div>
@@ -297,22 +336,51 @@ const ApplyForInternshipPage: React.FC = () => {
             </label>
 
             <div className="space-y-4 max-h-[220px] overflow-y-auto mb-10 pr-3 custom-scrollbar">
-              {tempUploadingFiles.map((file, index) => (
-                <div key={index} className="flex items-center justify-between p-5 bg-gray-50 rounded-2xl border border-gray-100 group hover:border-[#00A550]/30 transition-all">
-                  <div className="flex items-center gap-4 truncate">
-                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00A550" strokeWidth="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+              {tempUploadingFiles.map((file, index) => {
+                const isPDF = file.name.toLowerCase().endsWith('.pdf');
+                const isWord = file.name.toLowerCase().endsWith('.doc') || file.name.toLowerCase().endsWith('.docx');
+                const isImage = file.name.toLowerCase().match(/\.(jpg|jpeg|png|gif|webp)$/);
+                
+                return (
+                  <div key={index} className="flex items-center justify-between p-5 bg-gray-50 rounded-2xl border border-gray-100 group hover:border-[#00A550]/30 transition-all">
+                    <div className="flex items-center gap-4 truncate">
+                      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                        {isPDF ? (
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="#DC2626" strokeWidth="2" fill="#FEE2E2"/>
+                            <polyline points="13 2 13 9 20 9" stroke="#DC2626" strokeWidth="2"/>
+                            <text x="7" y="18" fontSize="7" fontWeight="bold" fill="#DC2626">PDF</text>
+                          </svg>
+                        ) : isWord ? (
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="#2563EB" strokeWidth="2" fill="#DBEAFE"/>
+                            <polyline points="13 2 13 9 20 9" stroke="#2563EB" strokeWidth="2"/>
+                            <text x="7" y="18" fontSize="6" fontWeight="bold" fill="#2563EB">DOC</text>
+                          </svg>
+                        ) : isImage ? (
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00A550" strokeWidth="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                          </svg>
+                        ) : (
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00A550" strokeWidth="2">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/>
+                            <polyline points="13 2 13 9 20 9"/>
+                          </svg>
+                        )}
+                      </div>
+                      <div className="truncate">
+                        <p className="text-base font-bold text-[#333333] truncate max-w-[200px] md:max-w-[300px]">{file.name}</p>
+                        <p className="text-xs text-[#8A8A8A] font-medium tracking-wide">{file.size}</p>
+                      </div>
                     </div>
-                    <div className="truncate">
-                      <p className="text-base font-bold text-[#333333] truncate max-w-[200px] md:max-w-[300px]">{file.name}</p>
-                      <p className="text-xs text-[#8A8A8A] font-medium tracking-wide">{file.size}</p>
-                    </div>
+                    <button onClick={() => setTempUploadingFiles(prev => prev.filter((_, i) => i !== index))} className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
                   </div>
-                  <button onClick={() => setTempUploadingFiles(prev => prev.filter((_, i) => i !== index))} className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <button 

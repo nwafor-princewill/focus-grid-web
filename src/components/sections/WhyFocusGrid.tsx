@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 // Asset Imports
 import fastIcon from '../../assets/images/fast.png';
 import workflowIcon from '../../assets/images/workflow.png';
@@ -8,20 +8,6 @@ import sprinkle1 from '../../assets/images/sprinkle1.png';
 import sprinkle5 from '../../assets/images/sprinkle5.png';
 
 const WhyFocusGrid: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.3 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   const features = [
     { id: 1, title: "Fast\nExecution", icon: fastIcon },
     { id: 2, title: "Structured\nWorkflow", icon: workflowIcon },
@@ -47,26 +33,24 @@ const WhyFocusGrid: React.FC = () => {
 
       {/* MAIN CONTAINER */}
       <div 
-        ref={sectionRef}
         className="relative w-full max-w-[1240px] min-h-[530px] bg-[#E6F6EE] rounded-[40px] 
                    pt-[60px] pr-[40px] pb-[80px] pl-[40px] flex flex-col items-center gap-[60px] 
                    shadow-sm transition-all duration-700 overflow-hidden"
       >
         
-        {/* --- TOP SPRINKLES (Animations Removed) --- */}
+        {/* --- TOP SPRINKLES --- */}
         <img 
           src={sprinkle5} 
           alt="" 
           className="absolute top-8 left-10 w-20 h-20 opacity-60 white-sprinkle"
         />
-        {/* Increased size for sprinkle1 */}
         <img 
           src={sprinkle1} 
           alt="" 
           className="absolute top-10 right-10 w-20 h-20 opacity-50 white-sprinkle" 
         />
 
-        {/* --- BOTTOM CORNER SPRINKLES (Animations Removed) --- */}
+        {/* --- BOTTOM CORNER SPRINKLES --- */}
         <img 
           src={sprinkle1} 
           alt="" 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import { Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import { uploadFilesToCloudinary } from '../../utils/cloudinaryUpload';
 // Assets
 import doodle1 from '../../assets/images/doodle1.png';
 import doodle2 from '../../assets/images/doodle2.png';
 import northEastIcon from '../../assets/images/north-east.png';
 import fileOpen from '../../assets/images/file-open.png';
-// logoBackground import removed as per request
 
 const ContactForm: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,6 +14,7 @@ const ContactForm: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [tempUploadingFiles, setTempUploadingFiles] = useState<any[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -64,7 +65,7 @@ const ContactForm: React.FC = () => {
     setShowUploadModal(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     let newErrors: Record<string, string> = {};
     if (!formData.fullName) newErrors.fullName = "Full name is required";
@@ -75,7 +76,45 @@ const ContactForm: React.FC = () => {
       setErrors(newErrors);
       return;
     }
-    setShowSuccess(true);
+
+    setIsSubmitting(true);
+
+    try {
+      // 1. Upload files to Cloudinary if any
+      let fileLinks = 'No files attached';
+      if (formData.portfolio.length > 0) {
+        const uploadedUrls = await uploadFilesToCloudinary(formData.portfolio);
+        fileLinks = uploadedUrls.map((url, i) => 
+          `File ${i + 1}: ${url}`
+        ).join('\n');
+      }
+
+      // 2. Send email via EmailJS
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID!,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: formData.fullName,
+          from_email: formData.email,
+          company: formData.company || 'N/A',
+          address: formData.address || 'N/A',
+          team_size: formData.teamSize || 'N/A',
+          service: formData.service || 'N/A',
+          message: formData.message || 'No message provided',
+          file_links: fileLinks,
+          form_type: 'Contact Form'
+        },
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
+      );
+
+      // 3. Show success
+      setShowSuccess(true);
+    } catch (error) {
+      console.error('Submission failed:', error);
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getInputClass = (field: string) => `
@@ -88,8 +127,6 @@ const ContactForm: React.FC = () => {
   if (showSuccess) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center p-6 pt-60 relative overflow-hidden">
-        {/* Background logo animation removed as per request */}
-        
         <div className="relative z-10 bg-white/90 backdrop-blur-md rounded-[32px] p-12 text-center max-w-[500px] shadow-2xl border border-[#E6F6EE] animate-in fade-in zoom-in duration-500">
           <div className="w-20 h-20 bg-[#00A550] rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg shadow-[#00A550]/30">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
@@ -112,10 +149,10 @@ const ContactForm: React.FC = () => {
         
         <div className="mb-16">
           <h1 className="text-[40px] md:text-[52px] font-semibold text-[#333333] leading-[120%] mb-4" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
-            Let’s build something <span className="text-[#00A550]">great together.</span>
+            Let's build something <span className="text-[#00A550]">great together.</span>
           </h1>
           <p className="text-[16px] text-[#545454] opacity-80 font-light max-w-[580px]">
-            Whether you’re starting a new project, applying for internship or just making an inquiry, this form helps us understand exactly how we can be of service to you.
+            Whether you're starting a new project, applying for internship or just making an inquiry, this form helps us understand exactly how we can be of service to you.
           </p>
         </div>
 
@@ -135,19 +172,19 @@ const ContactForm: React.FC = () => {
 
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium text-[#333333]">Company Name</label>
-              <input type="text" placeholder="Enter company name (if any)" className={getInputClass('company')} onFocus={() => setFocusedField('company')} onBlur={() => setFocusedField('')} />
+              <input type="text" placeholder="Enter company name (if any)" className={getInputClass('company')} onFocus={() => setFocusedField('company')} onBlur={() => setFocusedField('')} onChange={(e) => handleInputChange('company', e.target.value)} />
             </div>
 
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium text-[#333333]">Address</label>
-              <input type="text" placeholder="Enter address or location" className={getInputClass('address')} onFocus={() => setFocusedField('address')} onBlur={() => setFocusedField('')} />
+              <input type="text" placeholder="Enter address or location" className={getInputClass('address')} onFocus={() => setFocusedField('address')} onBlur={() => setFocusedField('')} onChange={(e) => handleInputChange('address', e.target.value)} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                <div className="md:col-span-4 flex flex-col gap-2">
                   <label className="text-sm font-medium text-[#333333]">Team Size</label>
                   <div className="relative w-full">
-                    <select className={getInputClass('teamSize') + " appearance-none cursor-pointer pr-12"} onFocus={() => setFocusedField('teamSize')} onBlur={() => setFocusedField('')}>
+                    <select className={getInputClass('teamSize') + " appearance-none cursor-pointer pr-12"} onFocus={() => setFocusedField('teamSize')} onBlur={() => setFocusedField('')} onChange={(e) => handleInputChange('teamSize', e.target.value)}>
                       <option value="">Select range</option>
                       <option>1-3 people</option>
                       <option>4-6 people</option>
@@ -162,7 +199,7 @@ const ContactForm: React.FC = () => {
                <div className="md:col-span-8 flex flex-col gap-2">
                   <label className="text-sm font-medium text-[#333333]">What type of service(s) do you require? <span className="text-red-500">*</span></label>
                   <div className="relative w-full">
-                    <select className={getInputClass('service') + " appearance-none cursor-pointer pr-12"} onFocus={() => setFocusedField('service')} onBlur={() => setFocusedField('')}>
+                    <select className={getInputClass('service') + " appearance-none cursor-pointer pr-12"} onFocus={() => setFocusedField('service')} onBlur={() => setFocusedField('')} onChange={(e) => handleInputChange('service', e.target.value)}>
                       <option value="">Select at least one</option>
                       <option>Product & software development</option>
                       <option>UI/UX design</option>
@@ -181,7 +218,7 @@ const ContactForm: React.FC = () => {
           <div className="space-y-6">
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium text-[#333333]">What do you need help with? <span className="text-red-500">*</span></label>
-              <textarea placeholder="Enter text" className="w-full h-[140px] p-6 rounded-[16px] bg-[#F9F9F9] border border-gray-200 outline-none focus:border-[#00A550] focus:bg-white transition-all resize-none font-light"></textarea>
+              <textarea placeholder="Enter text" className="w-full h-[140px] p-6 rounded-[16px] bg-[#F9F9F9] border border-gray-200 outline-none focus:border-[#00A550] focus:bg-white transition-all resize-none font-light" onChange={(e) => handleInputChange('message', e.target.value)}></textarea>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -207,22 +244,21 @@ const ContactForm: React.FC = () => {
               <input type="checkbox" className="w-5 h-5 accent-[#00A550] cursor-pointer" id="terms" onChange={(e) => handleInputChange('agreed', e.target.checked)} />
               <label htmlFor="terms" className="text-sm text-[#545454] cursor-pointer">I agree to terms & privacy policy. <span className="text-red-500">*</span></label>
             </div>
+            {errors.agreed && <p className="text-red-500 text-xs">{errors.agreed}</p>}
 
-            <button type="submit" className="w-full h-[60px] bg-[#00A550] text-white rounded-[100px] font-semibold flex items-center justify-center gap-3 hover:bg-[#008f44] transition-all active:scale-95">
-              <span>Send Message</span>
-              <img src={northEastIcon} alt="" className="w-4 h-4 brightness-0 invert" />
+            <button type="submit" disabled={isSubmitting} className="w-full h-[60px] bg-[#00A550] text-white rounded-[100px] font-semibold flex items-center justify-center gap-3 hover:bg-[#008f44] transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+              <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+              {!isSubmitting && <img src={northEastIcon} alt="" className="w-4 h-4 brightness-0 invert" />}
             </button>
           </div>
         </form>
 
         <div className="mt-24 flex justify-center items-center gap-4">
-            {/* Bounce animation removed from doodle1 */}
             <img src={doodle1} alt="" className="w-12 h-12 hidden md:block" />
             <div className="w-full max-w-[650px] bg-white border border-[#E6F6EE] rounded-[24px] p-8 text-center shadow-sm hover:border-[#00A550] hover:ring-4 hover:ring-[#00A550]/5 transition-all duration-300 cursor-default">
                 <h4 className="text-[20px] font-semibold text-[#333333] mb-2" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Prefer Talking Directly?</h4>
                 <p className="text-[14px] text-[#545454]">Reach us at <span className="text-[#00A550] font-medium underline">focusgrid5@gmail.com</span> or call +234 812 537 6775</p>
             </div>
-            {/* Bounce animation removed from doodle2 */}
             <img src={doodle2} alt="" className="w-12 h-12 hidden md:block" />
         </div>
       </div>
@@ -243,19 +279,46 @@ const ContactForm: React.FC = () => {
             </label>
 
             <div className="space-y-3 max-h-[180px] overflow-y-auto mb-8 pr-2">
-              {tempUploadingFiles.map((file, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
-                  <div className="flex items-center gap-3 truncate">
-                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A550" strokeWidth="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+              {tempUploadingFiles.map((file, index) => {
+                const isPDF = file.name.toLowerCase().endsWith('.pdf');
+                const isWord = file.name.toLowerCase().endsWith('.doc') || file.name.toLowerCase().endsWith('.docx');
+                const isImage = file.name.toLowerCase().match(/\.(jpg|jpeg|png|gif|webp)$/);
+                
+                return (
+                  <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
+                    <div className="flex items-center gap-3 truncate">
+                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                        {isPDF ? (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="#DC2626" strokeWidth="2" fill="#FEE2E2"/>
+                            <polyline points="13 2 13 9 20 9" stroke="#DC2626" strokeWidth="2"/>
+                          </svg>
+                        ) : isWord ? (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="#2563EB" strokeWidth="2" fill="#DBEAFE"/>
+                            <polyline points="13 2 13 9 20 9" stroke="#2563EB" strokeWidth="2"/>
+                          </svg>
+                        ) : isImage ? (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A550" strokeWidth="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                          </svg>
+                        ) : (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A550" strokeWidth="2">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/>
+                            <polyline points="13 2 13 9 20 9"/>
+                          </svg>
+                        )}
+                      </div>
+                      <p className="text-sm font-semibold text-[#333333] truncate">{file.name}</p>
                     </div>
-                    <p className="text-sm font-semibold text-[#333333] truncate">{file.name}</p>
+                    <button onClick={() => setTempUploadingFiles(prev => prev.filter((_, i) => i !== index))} className="text-red-400 p-1 hover:text-red-600 transition-colors">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
                   </div>
-                  <button onClick={() => setTempUploadingFiles(prev => prev.filter((_, i) => i !== index))} className="text-red-400 p-1 hover:text-red-600 transition-colors">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <button onClick={handleUploadConfirm} disabled={tempUploadingFiles.length === 0} className="w-full h-14 bg-[#00A550] text-white rounded-xl font-bold hover:bg-[#008f44] transition-all disabled:opacity-50">
