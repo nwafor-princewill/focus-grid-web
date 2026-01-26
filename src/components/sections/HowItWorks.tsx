@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 const HowItWorks: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -21,15 +20,6 @@ const HowItWorks: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!sectionRef.current) return;
-    const { clientX, clientY } = e;
-    const { left, top, width, height } = sectionRef.current.getBoundingClientRect();
-    const x = (clientX - left) / width - 0.5;
-    const y = (clientY - top) / height - 0.5;
-    setMousePos({ x, y });
-  };
-
   const steps = [
     { id: '01', text: 'Tell Us What You Need' },
     { id: '02', text: 'We Match You With the Right Team' },
@@ -40,7 +30,6 @@ const HowItWorks: React.FC = () => {
   return (
     <section 
       ref={sectionRef} 
-      onMouseMove={handleMouseMove}
       className="relative w-full max-w-[1440px] mx-auto bg-[#F9F9F9] overflow-hidden"
     >
       {/* Spacing from top */}
@@ -48,14 +37,13 @@ const HowItWorks: React.FC = () => {
       
       <div className="w-full px-4 md:px-8 lg:px-16 xl:px-[102px] relative">
         
-        {/* ARROW9 - Static Position, No Animation */}
+        {/* ARROW9 - Movement Removed: transform deleted */}
         <div 
           className="absolute hidden xl:block z-20 transition-opacity duration-1000 ease-out"
           style={{ 
             top: '40px', 
             left: '480px',
-            opacity: isVisible ? 1 : 0,
-            transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 20}px)`
+            opacity: isVisible ? 1 : 0
           }}
         >
           <img 
@@ -67,7 +55,7 @@ const HowItWorks: React.FC = () => {
 
         <div className="w-full flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-[60px] pb-16 md:pb-20 lg:pb-32 relative">
           
-          {/* Left Side - Image (Removed Scale and Heavy Shadow) */}
+          {/* Left Side - Image */}
           <div className={`w-full lg:w-[590px] aspect-[4/5] md:aspect-square lg:aspect-auto lg:h-[634.85px] flex-shrink-0 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <div className="relative w-full h-full overflow-hidden rounded-2xl">
               <img 
@@ -123,7 +111,7 @@ const HowItWorks: React.FC = () => {
               ))}
             </div>
 
-            {/* LEARN MORE BUTTON (Reduced scale/shadow) */}
+            {/* LEARN MORE BUTTON */}
             <div className={`relative transition-all duration-700 delay-[1500ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
               <Link to="/how-it-works" className="block w-full">
                 <button className="w-full h-[56px] md:h-[62px] bg-[#E6F6EE] hover:bg-[#00A550] rounded-[20px] flex items-center justify-center gap-3 transition-all duration-500 hover:scale-[1.005] group">
@@ -138,7 +126,7 @@ const HowItWorks: React.FC = () => {
                 </button>
               </Link>
 
-              {/* LINE9 - Shifted well to the left on Desktop, maintained mobile view */}
+              {/* LINE9 */}
               <div 
                 className="absolute left-0 lg:left-[-20%] top-[80px] pointer-events-none transition-opacity duration-1000"
                 style={{ 

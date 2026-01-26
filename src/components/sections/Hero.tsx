@@ -7,14 +7,13 @@ import cursor1 from '../../assets/images/cursor1.png';
 
 const Hero: React.FC = () => {
   return (
-    /* -mt-[120px] pulls the hero UP to the very top behind the sticky navbar */
     <section className="relative w-full h-[750px] overflow-hidden -mt-[120px]">
       <style>
         {`
           @keyframes kenBurns {
-            0% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.1) translate(-1%, -1%); }
-            100% { transform: scale(1) translate(0, 0); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
           }
           @keyframes cursorDance {
             0%, 100% { transform: rotate(-285deg) translate(0, 0) scale(1); }
@@ -32,16 +31,21 @@ const Hero: React.FC = () => {
         `}
       </style>
 
-      {/* Background image now covers the top edge of the screen */}
+      {/* MOBILE FIX: Using two background layers to show both left and right grid lines.
+        On mobile: we show two versions of the image side-by-side.
+        On desktop: we go back to one centered image.
+      */}
       <div 
-        className="absolute inset-0 top-0 w-full h-full bg-cover bg-center opacity-30"
+        className="absolute inset-0 top-0 w-full h-full opacity-30 
+                   bg-[length:100%_100%,100%_100%] md:bg-cover
+                   bg-[position:left_center,right_center] md:bg-center"
         style={{ 
-          backgroundImage: `url(${heroBackground})`,
+          backgroundImage: `url(${heroBackground}), url(${heroBackground})`,
+          backgroundRepeat: 'no-repeat',
           animation: 'kenBurns 20s ease-in-out infinite'
         }}
       />
 
-      {/* pt-[220px] pushes the content down so it's visible below the navbar */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-[220px] md:pt-[240px] px-4">
         <div className="w-full max-w-[751px] flex flex-col items-center gap-10">
           
