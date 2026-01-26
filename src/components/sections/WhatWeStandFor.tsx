@@ -22,18 +22,6 @@ const WhatWeStandFor: React.FC = () => {
       ref={sectionRef} 
       className="w-full py-20 bg-white overflow-hidden"
     >
-      <style>
-        {`
-          .card-lift {
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-          }
-          .card-lift:hover {
-            transform: translateY(-8px);
-            border-color: #00ff7f; /* Brightens slightly on hover */
-          }
-        `}
-      </style>
-
       <div className="max-w-[1440px] mx-auto px-4 flex flex-col items-center">
         
         {/* Header Section */}
@@ -56,9 +44,9 @@ const WhatWeStandFor: React.FC = () => {
         {/* Cards Container */}
         <div className="w-full max-w-[762px] flex flex-col gap-[80px]">
           
-          {/* Vision Card - Added border-[#009649] */}
+          {/* Vision Card */}
           <div 
-            className={`card-lift relative w-full border-2 border-[#009649] rounded-[20px] p-6 md:p-[40px] md:pr-[180px] bg-white transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'}`}
+            className={`relative w-full border-2 border-[#009649] rounded-[20px] p-6 md:p-[40px] md:pr-[180px] bg-white transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'}`}
           >
             <div className="flex flex-col gap-[16px] relative z-10">
               <h3 className="text-[36px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Our Vision</h3>
@@ -79,9 +67,9 @@ const WhatWeStandFor: React.FC = () => {
             </div>
           </div>
 
-          {/* Mission Card - Added border-[#009649] */}
+          {/* Mission Card */}
           <div 
-            className={`card-lift relative w-full border-2 border-[#009649] rounded-[20px] p-6 md:p-[40px] md:pr-[180px] bg-white transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'}`}
+            className={`relative w-full border-2 border-[#009649] rounded-[20px] p-6 md:p-[40px] md:pr-[180px] bg-white transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'}`}
           >
             <div className="flex flex-col gap-[16px] relative z-10">
               <h4 className="text-[36px] font-semibold text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Our Mission</h4>

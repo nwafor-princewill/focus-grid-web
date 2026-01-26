@@ -87,7 +87,7 @@ const Structure: React.FC = () => {
         }}
       />
 
-      {/* Left Sprinkle - Tucked under card */}
+      {/* Left Sprinkle */}
       <div className="absolute left-[10%] bottom-8 w-12 md:w-20 lg:w-24 opacity-60 pointer-events-none z-0">
         <img src={sprinkle5} alt="" className="w-full h-auto" />
       </div>
@@ -110,7 +110,6 @@ const Structure: React.FC = () => {
           </div>
 
           <Link to="/contact">
-            {/* REMOVED shadow-rgba classes completely */}
             <button className="h-[48px] bg-[#00A550] rounded-[100px] px-[30px] py-[10px] flex items-center gap-2 transition-all duration-300 hover:bg-[#008f44] hover:scale-[1.02] active:scale-95 group">
               <span className="text-sm font-medium text-white uppercase" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                 LET'S WORK TOGETHER
@@ -128,9 +127,9 @@ const Structure: React.FC = () => {
             <div 
               key={index}
               style={{ transitionDelay: `${index * 200}ms` }}
-              className={`bg-white/90 backdrop-blur-sm border border-[#00A550]/10 rounded-[12px] p-[30px] flex flex-col gap-6 transition-all duration-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} hover:border-[#00A550] hover:shadow-lg hover:-translate-y-1 group cursor-default`}
+              className={`bg-white/90 backdrop-blur-sm border border-[#00A550] rounded-[12px] p-[30px] flex flex-col gap-6 transition-all duration-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} group cursor-default`}
             >
-              {/* Icon Container - No shine/invert effect */}
+              {/* Icon Container */}
               <div className="w-[40px] h-[40px] bg-[#E6F6EE] rounded-lg p-2 transition-colors duration-300 group-hover:bg-[#00A550]">
                 <img 
                   src={card.icon} 

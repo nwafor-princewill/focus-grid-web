@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
       {/* mt-8 brings the navbar down from the top on mobile views */}
       <div className="max-w-[1240px] mx-auto px-4 relative mt-8 lg:mt-0">
         <div className={`flex items-center justify-between px-5 py-5 transition-all duration-500 rounded-[1000px] 
-            ${scrolled || mobileMenuOpen ? 'bg-white shadow-lg border border-gray-100' : 'bg-[#E6F6EE]/90 backdrop-blur-md border border-transparent'}`}>
+            ${scrolled || mobileMenuOpen ? 'bg-white border border-gray-100' : 'bg-[#E6F6EE]/90 backdrop-blur-md border border-transparent'}`}>
           
           <Link to="/" className="relative z-[70] transition-transform duration-300 hover:scale-105">
             <img src={focusGridLogo} alt="Focus Grid" className="w-[93px] h-[38px] object-contain cursor-pointer" />

@@ -6,7 +6,6 @@ import northEastIcon from '../../assets/images/north-east.png';
 
 const FAQContactCTA: React.FC = () => {
   return (
-    /* Reduced margin-top (mt) and margin-bottom (mb) for mobile specifically */
     <section className="relative w-full bg-white flex justify-center px-4 mt-8 md:mt-20 mb-[80px] md:mb-[160px] overflow-visible">
       {/* --- EXTRA-CONTAINER ANIMATIONS (STARS ONLY) --- */}
       <style>{`
@@ -28,7 +27,7 @@ const FAQContactCTA: React.FC = () => {
       <div 
         className="relative w-full max-w-[1063px] min-h-[301px] bg-white rounded-[20px] 
                    border border-[#33B773]/40 pt-[40px] pb-[40px] md:pt-[20px] md:pb-[25px] flex flex-col items-center 
-                   justify-center gap-[27.43px] shadow-sm hover:shadow-md transition-all duration-700 group overflow-hidden"
+                   justify-center gap-[27.43px] transition-all duration-700 overflow-hidden"
       >
         
         {/* --- STATIC BACKGROUND QUESTION MARKS --- */}
@@ -53,7 +52,7 @@ const FAQContactCTA: React.FC = () => {
           <img 
             src={questionImg} 
             alt="Question" 
-            className="w-[60px] h-[60px] md:w-[70.3px] md:h-[70.3px] object-contain transition-all duration-700 group-hover:rotate-[10deg]"
+            className="w-[60px] h-[60px] md:w-[70.3px] md:h-[70.3px] object-contain"
             style={{ 
                 opacity: 0.45, 
                 mixBlendMode: 'plus-darker' 
@@ -63,7 +62,7 @@ const FAQContactCTA: React.FC = () => {
 
         <div className="flex flex-col items-center gap-2 text-center px-6 relative z-10">
           <h2 
-            className="text-[24px] md:text-[32px] font-medium leading-[140%] text-[#333333] transition-colors duration-500 group-hover:text-[#00A550]"
+            className="text-[24px] md:text-[32px] font-medium leading-[140%] text-[#333333]"
             style={{ fontFamily: 'Funnel Display, sans-serif' }}
           >
             Still Have Questions?
@@ -81,7 +80,7 @@ const FAQContactCTA: React.FC = () => {
           <button 
             className="w-[190px] md:w-[210px] h-[48px] md:h-[52px] bg-[#E6F6EE] rounded-[100px] px-[30px] py-[10px] 
                        flex items-center justify-center gap-3 transition-all duration-300 
-                       hover:bg-[#00A550] hover:shadow-md hover:scale-[1.02] group/btn active:scale-95"
+                       hover:bg-[#00A550] group/btn active:scale-95"
           >
             <span 
               className="text-[13px] md:text-[14px] font-semibold text-[#00A550] group-hover/btn:text-white uppercase tracking-wider transition-colors duration-300"
@@ -92,7 +91,7 @@ const FAQContactCTA: React.FC = () => {
             <img 
               src={northEastIcon} 
               alt="" 
-              className="w-[16px] h-[16px] md:w-[18px] md:h-[18px] transition-all duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 group-hover/btn:brightness-0 group-hover/btn:invert"
+              className="w-[16px] h-[16px] md:w-[18px] md:h-[18px] transition-all duration-300 group-hover/btn:brightness-0 group-hover/btn:invert"
             />
           </button>
         </Link>
