@@ -62,8 +62,8 @@ const HowItWorksHero: React.FC = () => {
       `}</style>
 
       {/* --- HERO TOP SECTION --- */}
-      {/* ONLY CHANGE: Adjusted pb-32 to pb-16 for mobile only */}
-      <section className="relative max-w-[1440px] mx-auto px-6 lg:px-[119px] pt-[220px] md:pt-[240px] lg:pt-[280px] pb-16 md:pb-32 flex flex-col lg:flex-row justify-between items-center gap-12 bg-white">
+      {/* Tweak: Reduced mobile pt-[220px] to pt-[180px] to bring it up on mobile */}
+      <section className="relative max-w-[1440px] mx-auto px-6 lg:px-[119px] pt-[180px] md:pt-[240px] lg:pt-[280px] pb-16 md:pb-32 flex flex-col lg:flex-row justify-between items-center gap-12 bg-white">
         
         <div className="w-full max-w-[650px] z-10">
           <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-[#E6F6EE] border border-[#00A550]/20 text-[#00A550] text-sm font-medium tracking-wide">
@@ -121,7 +121,6 @@ const HowItWorksHero: React.FC = () => {
       </section>
 
       {/* --- GRID SECTION --- */}
-      {/* RESTORED: Exactly your original py-24 */}
       <section className="w-full py-24 relative overflow-hidden bg-white">
         <div 
           className="absolute inset-0 z-0 opacity-15 grayscale pointer-events-none bg-pan-fast"

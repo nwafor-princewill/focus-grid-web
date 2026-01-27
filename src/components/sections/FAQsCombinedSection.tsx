@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import faqBackground from '../../assets/images/faq-background-image.png';
 
 const FAQsCombinedSection: React.FC = () => {
-  // Back to starting with the first card open on all devices
   const [expandedCard, setExpandedCard] = useState<number | null>(1);
 
   const faqData = [
@@ -24,8 +24,15 @@ const FAQsCombinedSection: React.FC = () => {
         }
       `}</style>
 
-      {/* --- GREEN BACKGROUND --- */}
-      <section className="relative w-full h-[600px] md:h-[750px] bg-[#00A550] flex flex-col items-center pt-[160px] md:pt-[180px] overflow-hidden">
+      {/* --- HERO BACKGROUND SECTION --- */}
+      {/* Replaced solid bg-[#00A550] with your new image asset */}
+      <section 
+        className="relative w-full h-[850px] lg:h-[954px] bg-cover bg-center bg-no-repeat flex flex-col items-center pt-[260px] md:pt-[280px] lg:pt-[340px] overflow-hidden -translate-y-[120px] lg:-translate-y-[160px] mb-[-120px] lg:mb-[-160px]"
+        style={{ backgroundImage: `url(${faqBackground})` }}
+      >
+        {/* Subtle overlay to ensure text readability if the image is too bright */}
+        <div className="absolute inset-0 bg-black/10 z-0" />
+
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute top-[20%] left-[10%] w-[300px] md:w-[400px] h-[200px] bg-white/10 blur-[100px] rounded-full animate-cloud" />
           <div className="absolute top-[40%] right-[5%] w-[400px] md:w-[500px] h-[250px] bg-white/15 blur-[120px] rounded-full animate-cloud" style={{ animationDelay: '-5s' }} />
@@ -43,9 +50,8 @@ const FAQsCombinedSection: React.FC = () => {
 
       {/* --- FAQ CONTAINER --- */}
       <div className="px-4 md:px-6 w-full flex flex-col items-center">
-        {/* The -mt-[250px] is the magic that makes it overlap without breaking the next section */}
         <div 
-          className="relative bg-white z-20 flex flex-col items-center -mt-[250px] mb-20"
+          className="relative bg-white z-20 flex flex-col items-center -mt-[350px] lg:-mt-[450px] mb-20"
           style={{
             width: 'min(1240px, 100%)',
             borderRadius: '30px',
@@ -54,7 +60,6 @@ const FAQsCombinedSection: React.FC = () => {
             paddingBottom: '40px'
           }}
         >
-          {/* Heading Area */}
           <div className="flex flex-col items-center gap-4 text-center p-6 md:p-10">
             <h2 className="w-full max-w-[1160px] font-semibold text-2xl md:text-[40px] text-[#333333] leading-tight" style={{ fontFamily: 'Funnel Display' }}>
               Frequently Asked Questions
@@ -64,7 +69,6 @@ const FAQsCombinedSection: React.FC = () => {
             </p>
           </div>
 
-          {/* FAQ Cards List */}
           <div className="w-full flex flex-col gap-4 px-4 md:px-10 mb-10">
             {faqData.map((faq, index) => {
               const isExpanded = expandedCard === index + 1;

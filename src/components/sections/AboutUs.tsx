@@ -32,7 +32,7 @@ const AboutUsSection: React.FC = () => {
       ref={sectionRef}
       className="relative w-full bg-white py-16 md:py-24 lg:py-32 overflow-hidden"
     >
-      {/* Sprinkle Stars - Positioned to ensure visibility */}
+      {/* Sprinkle Stars */}
       <img 
         src={sprinkle1} 
         alt="" 
@@ -78,7 +78,7 @@ const AboutUsSection: React.FC = () => {
                 </p>
                 <div className="flex items-start gap-4 p-4 bg-[#F9F9F9] border-l-4 border-[#00A550] rounded-r-xl">
                     <p 
-                      className="text-base md:text-lg text-[#333333] font-medium italic leading-[140%]"
+                      className="text-sm md:text-[15px] text-[#333333] font-medium leading-[140%]"
                       style={{ fontFamily: 'Funnel Display, sans-serif' }}
                     >
                       "Every project we take on doubles as a classroom where real businesses grow and real people learn by doing."
@@ -86,7 +86,7 @@ const AboutUsSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* LEARN MORE Button with Arrow Asset */}
+              {/* LEARN MORE Button */}
               <div className={`flex items-center transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                 <Link 
                   to="/about" 
@@ -103,7 +103,6 @@ const AboutUsSection: React.FC = () => {
                   </div>
                 </Link>
 
-                {/* arrow6.png - Shifted further to the right with ml-8 */}
                 <img 
                   src={arrow6} 
                   alt="" 
@@ -118,13 +117,11 @@ const AboutUsSection: React.FC = () => {
           <div className={`w-full lg:w-1/2 relative transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'}`}>
             <div className="relative max-w-lg mx-auto lg:mr-0 lg:ml-auto">
               
-              {/* Background Pattern */}
               <div className="absolute -inset-4 opacity-20">
                  <img src={imageCopy} alt="" className="w-full h-full object-contain" />
               </div>
 
               <div className="relative w-full aspect-[407/343] max-w-[450px]">
-                {/* Main Image - Removed the green background layer */}
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
                   <img 
                     src={manPhone} 

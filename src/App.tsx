@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast'; // 1. Import Toaster
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import FAQsPage from './pages/FAQsPage';
@@ -9,8 +10,6 @@ import ContactPage from './pages/ContactPage';
 
 /**
  * ScrollToTop Component
- * This utility ensures that whenever the URL path changes, 
- * the window scrolls back to the very top.
  */
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -25,9 +24,28 @@ const ScrollToTop = () => {
 function App() {
   return (
     <Router>
-      {/* The ScrollToTop component must be inside the Router but outside Routes */}
       <ScrollToTop />
       
+      {/* 2. Place Toaster here so it stays on top of all pages */}
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          // Optional: Styling it to match Focus Grid green
+          duration: 4000,
+          style: {
+            background: '#FFFFFF',
+            color: '#333333',
+            border: '1px solid #E6F6EE',
+          },
+          success: {
+            iconTheme: {
+              primary: '#00A550',
+              secondary: '#FFFFFF',
+            },
+          },
+        }}
+      />
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -35,7 +53,6 @@ function App() {
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/apply" element={<ApplyForInternshipPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );

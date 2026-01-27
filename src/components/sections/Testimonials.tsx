@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 // Importing all testimonial images
 import testimonialPic from '../../assets/images/testimonial-pic.jpg';
 import testimonial1 from '../../assets/images/testimonial1.png';
-import testimonial2 from '../../assets/images/testimonial2.png';
-import testimonial3 from '../../assets/images/testimonial3.png';
+import blackWoman from '../../assets/images/black-woman.png';
+import blackMan from '../../assets/images/black-man.png';
 import testimonial4 from '../../assets/images/testimonial4.png';
 import testimonial5 from '../../assets/images/testimonial5.png';
 
@@ -12,17 +12,6 @@ const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   const testimonialData = [
     {
@@ -32,20 +21,20 @@ const Testimonials: React.FC = () => {
       testimonial: "Focus Grid didn't just build our product — they refined our idea. In 8 weeks, we went from a concept on paper to a functional MVP that impressed investors. Their attention to detail and speed is unmatched."
     },
     {
-      name: "Sarah Jenkins",
+      name: "Chinenye Okafor",
       role: "EdTech Startup | CEO",
-      image: testimonial2,
+      image: blackWoman,
       testimonial: "The level of talent Focus Grid provides is exceptional. They didn't just code; they thought about the user experience. Our platform's engagement grew by 40% within the first month of launch."
     },
     {
-      name: "David Chen",
+      name: "Oluwaseun Adeyemi",
       role: "Creative Director | Global Studio",
-      image: testimonial3,
+      image: blackMan,
       testimonial: "Speed usually sacrifices quality, but not here. Focus Grid delivered a complex design system and website in record time. They are now our go-to partner for all high-stakes digital projects."
     },
     {
       name: "Anita B. Johnson",
-      role: "UI/UX Intern | Focus Grid Academy",
+      role: "UI/UX Intern | Focus Grid Intern Program",
       image: testimonial4,
       testimonial: "The internship program is intense but rewarding. Working on real client deliverables under the guidance of senior mentors taught me more in 3 months than a year of self-study."
     },
@@ -63,14 +52,34 @@ const Testimonials: React.FC = () => {
     }
   ];
 
-  // Infinite logic: jumps back to start/end seamlessly
-  const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? testimonialData.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
+  // Memoize handleNext to fix ESLint dependency warning
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev === testimonialData.length - 1 ? 0 : prev + 1));
-  };
+  }, [testimonialData.length]);
+
+  const handlePrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? testimonialData.length - 1 : prev - 1));
+  }, [testimonialData.length]);
+
+  // Auto-movement logic (moves every 5 seconds)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [handleNext]);
+
+  // Intersection Observer for animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section 
@@ -88,9 +97,7 @@ const Testimonials: React.FC = () => {
 
       <div className={`max-w-[1440px] mx-auto flex flex-col items-center justify-center py-12 md:py-16 lg:py-20 px-4 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         
-        {/* Header Section */}
         <div className="w-full max-w-[672px] flex flex-col items-center mb-12">
-          {/* PING REMOVED - Added mb-8 for more space */}
           <div className="h-[28px] px-5 py-2.5 border border-[#00A550] rounded-[100px] flex items-center justify-center bg-white mb-8">
             <span className="text-[12px] font-bold leading-[140%] text-[#00A550] tracking-widest uppercase" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
               TESTIMONIALS
@@ -106,14 +113,12 @@ const Testimonials: React.FC = () => {
           </p>
         </div>
 
-        {/* Carousel Container */}
         <div className="w-full flex flex-col items-center gap-10 testimonial-perspective">
           <div className="w-full overflow-hidden">
             <div className="relative">
-              {/* Desktop View - 3 Card Carousel */}
+              {/* Desktop Slider */}
               <div className="hidden lg:flex items-center justify-center relative h-[320px] overflow-visible">
                 <div className="flex items-center justify-center gap-8">
-                  {/* Render 3 cards: previous, current, next */}
                   {[-1, 0, 1].map((offset) => {
                     const index = (currentIndex + offset + testimonialData.length) % testimonialData.length;
                     const testimonial = testimonialData[index];
@@ -158,7 +163,7 @@ const Testimonials: React.FC = () => {
                               ))}
                             </div>
                           </div>
-                          <p className={`text-lg font-light leading-[160%] italic ${isActive ? 'text-[#E6E6E6]' : 'text-[#333333]/60'}`} style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                          <p className={`text-lg font-normal leading-[160%] ${isActive ? 'text-[#E6E6E6]' : 'text-[#333333]/60'}`} style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                             "{testimonial.testimonial}"
                           </p>
                         </div>
@@ -168,7 +173,7 @@ const Testimonials: React.FC = () => {
                 </div>
               </div>
 
-              {/* Mobile View */}
+              {/* Mobile Slider */}
               <div className="lg:hidden">
                 <div 
                   className="flex transition-transform duration-500 ease-in-out"
@@ -184,7 +189,7 @@ const Testimonials: React.FC = () => {
                             <p className="text-[#33B773] text-xs font-medium uppercase">{testimonial.role}</p>
                           </div>
                         </div>
-                        <p className="text-[#E6E6E6] font-light leading-relaxed italic">"{testimonial.testimonial}"</p>
+                        <p className="text-[#E6E6E6] font-normal leading-relaxed">"{testimonial.testimonial}"</p>
                       </div>
                     </div>
                   ))}
@@ -193,7 +198,6 @@ const Testimonials: React.FC = () => {
             </div>
           </div>
 
-          {/* Navigation Controls - PLACED AT BOTTOM RIGHT */}
           <div className="w-full max-w-[1200px] flex justify-center lg:justify-end mt-4">
             <div className="flex items-center gap-4">
               <button

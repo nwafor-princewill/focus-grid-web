@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 // Assets
 import doodle1 from '../../assets/images/doodle1.png';
 import doodle2 from '../../assets/images/doodle2.png';
@@ -28,21 +29,18 @@ const ContactForm: React.FC = () => {
 
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Service Mapping to Backend Enums
   const serviceMapping: Record<string, string> = {
     'Product & software development': 'PRODUCT_SOFTWARE_DEVELOPMENT',
     'UI/UX design': 'UI_UX_DESIGN',
-    'Graphic design': 'GRAPHIC_DESIGNER', // Matches the Enum from previous check
+    'Graphic design': 'GRAPHIC_DESIGNER',
     'Branding': 'BRANDING',
     'Internship': 'INTERNSHIP'
   };
 
-  // Team Size Mapping to Numbers
   const getTeamSizeNumber = (val: string) => {
     if (val.includes('1-3')) return 1;
     if (val.includes('4-6')) return 4;
     if (val.includes('10')) return 10;
-    if (val.includes('11')) return 11;
     return 0;
   };
 
@@ -74,14 +72,21 @@ const ContactForm: React.FC = () => {
     setTempUploadingFiles(prev => [...prev, ...newFiles]);
   };
 
+  const removeFile = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      portfolio: prev.portfolio.filter((_, i) => i !== index)
+    }));
+  };
+
   const handleUploadConfirm = () => {
     const files = tempUploadingFiles.map(f => f.file);
     setFormData(prev => ({ ...prev, portfolio: [...prev.portfolio, ...files] }));
     setTempUploadingFiles([]);
     setShowUploadModal(false);
+    toast.success('Files attached successfully');
   };
 
-  // Required Field Validation
   const isFormValid = () => 
     formData.fullName && 
     formData.email && 
@@ -94,18 +99,17 @@ const ContactForm: React.FC = () => {
     if (!isFormValid()) return;
 
     setIsSubmitting(true);
-
     try {
       const data = new FormData();
       data.append('fullName', formData.fullName);
-      data.append('companyName', formData.email); // Per Swagger: companyName field takes the email
+      data.append('companyName', formData.email); 
       data.append('address', formData.address || 'N/A');
       data.append('teamSize', getTeamSizeNumber(formData.teamSize).toString());
       data.append('serviceProvided', serviceMapping[formData.service]);
       data.append('helptext', formData.message);
 
       if (formData.portfolio.length > 0) {
-        data.append('file', formData.portfolio[0]); // Sending the primary file
+        data.append('file', formData.portfolio[0]);
       }
 
       const response = await fetch('https://focusgrid-server.onrender.com/api/v1/service-inquiry', {
@@ -120,8 +124,7 @@ const ContactForm: React.FC = () => {
 
       setShowSuccess(true);
     } catch (error: any) {
-      console.error('Submission failed:', error);
-      alert(`Error: ${error.message}`);
+      toast.error(`Error: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -134,27 +137,19 @@ const ContactForm: React.FC = () => {
       'border-gray-200 bg-[#F9F9F9] hover:border-[#00A550]/30'}
   `;
 
-  if (showSuccess) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center p-6 pt-60 relative overflow-hidden">
-        <div className="relative z-10 bg-white border border-[#E6F6EE] rounded-[32px] p-12 text-center max-w-[500px] animate-in fade-in zoom-in duration-500">
-          <div className="w-20 h-20 bg-[#00A550] rounded-full mx-auto mb-6 flex items-center justify-center">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-          <h2 className="text-3xl font-bold text-[#333333] mb-4" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Message Sent!</h2>
-          <p className="text-[#545454] mb-8 font-light">Thank you for reaching out. Our team will review your inquiry and get back to you within 24 hours.</p>
-          <button onClick={() => setShowSuccess(false)} className="w-full bg-[#00A550] text-white h-[56px] rounded-xl font-medium hover:bg-[#008f44] transition-all active:scale-95">
-              Close
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <section ref={sectionRef} className="relative w-full pt-60 pb-24 px-6 overflow-hidden bg-white">
+    <section ref={sectionRef} className="relative w-full pt-28 md:pt-60 pb-24 px-6 overflow-hidden bg-white">
+      <Toaster position="top-right" />
+      <style>{`
+        textarea::-webkit-scrollbar { display: none; }
+        textarea { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes bounce-slow {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        .animate-bounce-slow { animation: bounce-slow 2s infinite ease-in-out; }
+      `}</style>
+
       <div className={`max-w-[1240px] mx-auto transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         
         <div className="mb-16">
@@ -197,7 +192,6 @@ const ContactForm: React.FC = () => {
                       <option>1-3 people</option>
                       <option>4-6 people</option>
                       <option>over 10 people</option>
-                      <option>&gt;11 people</option>
                     </select>
                     <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#333333]/40">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
@@ -226,7 +220,7 @@ const ContactForm: React.FC = () => {
           <div className="space-y-6">
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium text-[#333333]">What do you need help with? <span className="text-red-500">*</span></label>
-              <textarea placeholder="Enter text" className="w-full h-[140px] p-6 rounded-[16px] bg-[#F9F9F9] border border-gray-200 outline-none focus:border-[#00A550] focus:bg-white transition-all resize-none font-light" onChange={(e) => handleInputChange('message', e.target.value)}></textarea>
+              <textarea placeholder="Enter text" className="w-full h-[140px] p-6 rounded-[16px] bg-[#F9F9F9] border border-gray-200 outline-none focus:border-[#00A550] focus:bg-white transition-all resize-none font-light overflow-y-auto" onChange={(e) => handleInputChange('message', e.target.value)}></textarea>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -236,12 +230,13 @@ const ContactForm: React.FC = () => {
                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A550" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
                 </div>
                 <p className="text-[#333333] font-medium text-xs">Click to upload files</p>
-                {/* Multi-file list display restored */}
                 {formData.portfolio.length > 0 && (
                   <div className="mt-4 flex flex-wrap gap-2 justify-center">
                     {formData.portfolio.map((f, i) => (
-                      <span key={i} className="px-3 py-1 bg-white border border-[#00A550]/20 text-[#00A550] text-[10px] rounded-full">
-                        {f.name}
+                      <span key={i} className="px-3 py-1 bg-white border border-[#00A550]/20 text-[#00A550] text-[10px] rounded-full flex items-center gap-2 shadow-sm">
+                        <span className="truncate max-w-[100px]">{f.name}</span>
+                        {/* Static Red X - No Animation */}
+                        <button onClick={(e) => { e.stopPropagation(); removeFile(i); }} className="text-[#EF4444] hover:scale-125 transition-transform font-bold">✕</button>
                       </span>
                     ))}
                   </div>
@@ -254,7 +249,7 @@ const ContactForm: React.FC = () => {
               <label htmlFor="terms" className="text-sm text-[#545454] cursor-pointer">I agree to terms & privacy policy. <span className="text-red-500">*</span></label>
             </div>
 
-            <button type="submit" disabled={!isFormValid() || isSubmitting} className={`w-full h-[60px] rounded-[100px] font-semibold flex items-center justify-center gap-3 transition-all active:scale-95 ${isFormValid() && !isSubmitting ? 'bg-[#00A550] text-white hover:bg-[#008f44]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>
+            <button type="submit" disabled={!isFormValid() || isSubmitting} className={`w-full h-[60px] rounded-[100px] font-semibold flex items-center justify-center gap-3 transition-all active:scale-95 bg-[#00A550] text-white ${isFormValid() && !isSubmitting ? 'hover:bg-[#008f44]' : 'opacity-50 cursor-not-allowed'}`}>
               <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
               {!isSubmitting && <img src={northEastIcon} alt="" className="w-4 h-4 brightness-0 invert" />}
             </button>
@@ -304,6 +299,26 @@ const ContactForm: React.FC = () => {
 
             <button onClick={handleUploadConfirm} disabled={tempUploadingFiles.length === 0} className="w-full h-14 bg-[#00A550] text-white rounded-xl font-bold hover:bg-[#008f44] transition-all disabled:opacity-50">
               Confirm {tempUploadingFiles.length} {tempUploadingFiles.length === 1 ? 'File' : 'Files'}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* SUCCESS MODAL OVERLAY */}
+      {showSuccess && (
+        <div className="fixed inset-0 bg-[#333333]/40 backdrop-blur-[2px] flex items-center justify-center z-[200] p-6 animate-in fade-in duration-300">
+          <div className="relative bg-white border border-[#00A550] rounded-[32px] p-12 text-center max-w-[500px] shadow-2xl animate-in zoom-in-95 duration-500">
+            {/* Bounce animation remains, but shadow is removed */}
+            <div className="w-20 h-20 bg-[#00A550] rounded-full mx-auto mb-6 flex items-center justify-center animate-bounce-slow">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h2 className="text-3xl font-bold text-[#333333] mb-4" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Thank you!</h2>
+            <p className="text-[#545454] mb-8 font-light leading-relaxed">Your request has been received. Our team will review it and get back to you shortly.</p>
+            {/* Fixed Navigation to Home */}
+            <button onClick={() => { window.location.href = '/'; }} className="w-full bg-[#00A550] text-white h-[56px] rounded-xl font-medium hover:bg-[#008f44] transition-all active:scale-95 shadow-md">
+                Go Back To Home
             </button>
           </div>
         </div>
