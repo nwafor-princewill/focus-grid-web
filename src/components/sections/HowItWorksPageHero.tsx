@@ -62,7 +62,8 @@ const HowItWorksHero: React.FC = () => {
       `}</style>
 
       {/* --- HERO TOP SECTION --- */}
-      <section className="relative max-w-[1440px] mx-auto px-6 lg:px-[119px] pt-[220px] md:pt-[240px] lg:pt-[280px] pb-32 flex flex-col lg:flex-row justify-between items-center gap-12 bg-white">
+      {/* ONLY CHANGE: Adjusted pb-32 to pb-16 for mobile only */}
+      <section className="relative max-w-[1440px] mx-auto px-6 lg:px-[119px] pt-[220px] md:pt-[240px] lg:pt-[280px] pb-16 md:pb-32 flex flex-col lg:flex-row justify-between items-center gap-12 bg-white">
         
         <div className="w-full max-w-[650px] z-10">
           <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-[#E6F6EE] border border-[#00A550]/20 text-[#00A550] text-sm font-medium tracking-wide">
@@ -101,7 +102,6 @@ const HowItWorksHero: React.FC = () => {
           </div>
         </div>
 
-        {/* Updated Image Section: No shadow, no animation, visible Blob */}
         <div className="relative w-full max-w-[450px] h-[450px] flex items-center justify-center">
           <img 
             src={blob1} 
@@ -121,8 +121,8 @@ const HowItWorksHero: React.FC = () => {
       </section>
 
       {/* --- GRID SECTION --- */}
+      {/* RESTORED: Exactly your original py-24 */}
       <section className="w-full py-24 relative overflow-hidden bg-white">
-        {/* Fast moving Background Texture */}
         <div 
           className="absolute inset-0 z-0 opacity-15 grayscale pointer-events-none bg-pan-fast"
           style={{ 
@@ -140,7 +140,6 @@ const HowItWorksHero: React.FC = () => {
             <div className="w-full lg:flex-1 flex flex-col gap-12 relative">
               <div className="absolute left-[25px] md:left-[35px] top-10 bottom-10 w-[2px] bg-gray-100" />
               
-              {/* Spider Line Animation */}
               <div 
                 className="absolute left-[25px] md:left-[35px] top-10 w-[2.5px] bg-[#00A550] transition-all duration-500 ease-out origin-top"
                 style={{ height: `${scrollProgress * 92}%` }}
@@ -167,7 +166,6 @@ const HowItWorksHero: React.FC = () => {
               ))}
             </div>
 
-            {/* Strategy Image Container: Removed animation/shadows */}
             <div className="w-full lg:w-[450px] flex justify-center lg:sticky lg:top-40">
               <div className="relative p-4">
                 <img src={strategyImg} alt="Strategy" className="relative z-10 w-full max-w-[320px] md:max-w-none h-auto object-contain" />
