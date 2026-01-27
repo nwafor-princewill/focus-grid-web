@@ -22,7 +22,8 @@ const AboutHero: React.FC = () => {
       </style>
 
       {/* Main Container */}
-      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-[119px] pt-[220px] md:pt-[240px] lg:pt-[280px] pb-20 relative">
+      {/* Tweak: Changed mobile pt-[220px] to pt-[180px] to move it up */}
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-[119px] pt-[180px] md:pt-[240px] lg:pt-[280px] pb-20 relative">
         
         <div className="flex flex-col lg:flex-row items-start md:items-center lg:items-start justify-between relative">
           
@@ -60,7 +61,7 @@ const AboutHero: React.FC = () => {
                 <img src={sprinkle8} alt="" className="w-full h-full object-contain opacity-100" />
               </div>
 
-              {/* LET'S BUILD Button - Reduced scale, removed shadow */}
+              {/* LET'S BUILD Button */}
               <Link to="/contact">
                 <button className="h-[56px] bg-[#00A550] rounded-[100px] px-[36px] py-[12px] flex items-center gap-2 transition-all duration-500 hover:bg-[#008f44] hover:scale-[1.02] group relative overflow-hidden">
                   <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
@@ -76,7 +77,7 @@ const AboutHero: React.FC = () => {
                 </button>
               </Link>
 
-              {/* APPLY Button - Reduced scale, removed shadow */}
+              {/* APPLY Button */}
               <Link to="/apply">
                 <button className="h-[56px] bg-[#E6F6EE] rounded-[100px] px-[36px] py-[12px] flex items-center gap-2 transition-all duration-500 hover:bg-[#d5f0e4] hover:scale-[1.02] group">
                   <span 
@@ -93,7 +94,7 @@ const AboutHero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Image Section - Removed Animations */}
+          {/* Right Image Section */}
           <div className={`relative mt-20 lg:mt-[-50px] lg:mr-[-20px] transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-10 scale-90'}`}>
             
             {/* Blob Background - Static */}

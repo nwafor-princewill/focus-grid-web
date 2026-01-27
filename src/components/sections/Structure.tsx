@@ -146,12 +146,27 @@ const Structure: React.FC = () => {
                 {card.desc}
               </p>
 
-              <Link to={card.link} className="flex items-center gap-2 group/link w-fit">
-                <span className="text-[14px] font-bold text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
-                  {card.cta}
-                </span>
-                <img src={northEast} alt="" className="w-4 h-4 transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
-              </Link>
+              {/* Conditional Rendering for Internal vs External Links */}
+              {card.isExternal ? (
+                <a 
+                  href={card.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-2 group/link w-fit"
+                >
+                  <span className="text-[14px] font-bold text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                    {card.cta}
+                  </span>
+                  <img src={northEast} alt="" className="w-4 h-4 transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                </a>
+              ) : (
+                <Link to={card.link} className="flex items-center gap-2 group/link w-fit">
+                  <span className="text-[14px] font-bold text-[#00A550]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+                    {card.cta}
+                  </span>
+                  <img src={northEast} alt="" className="w-4 h-4 transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                </Link>
+              )}
             </div>
           ))}
         </div>
