@@ -5,6 +5,7 @@ import doodle1 from '../../assets/images/doodle1.png';
 import doodle2 from '../../assets/images/doodle2.png';
 import northEastIcon from '../../assets/images/north-east.png';
 import fileOpen from '../../assets/images/file-open.png';
+import successModalPic from '../../assets/images/success-modal-pic.png';
 
 const ContactForm: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -258,9 +259,9 @@ const ContactForm: React.FC = () => {
 
         <div className="mt-24 flex justify-center items-center gap-4">
             <img src={doodle1} alt="" className="w-12 h-12 hidden md:block" />
-            <div className="w-full max-w-[650px] bg-white border border-[#E6F6EE] rounded-[24px] p-8 text-center hover:border-[#00A550] hover:ring-4 hover:ring-[#00A550]/5 transition-all duration-300 cursor-default">
-                <h4 className="text-[20px] font-semibold text-[#333333] mb-2" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Prefer Talking Directly?</h4>
-                <p className="text-[14px] text-[#545454]">Reach us at <span className="text-[#00A550] font-medium underline">focusgrid5@gmail.com</span> or call +234 812 537 6775</p>
+            <div className="w-full max-w-[650px] bg-white rounded-[24px] p-8 text-center cursor-pointer" style={{ border: '0.5px solid #00A550' }}>
+                <h4 className="text-[22px] font-semibold text-[#333333] mb-2" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Prefer Talking Directly?</h4>
+                <p className="text-[16px] text-[#545454]">Reach us at <span className="text-[#00A550] font-medium underline">focusgrid5@gmail.com</span> or call +234 812 537 6775</p>
             </div>
             <img src={doodle2} alt="" className="w-12 h-12 hidden md:block" />
         </div>
@@ -304,21 +305,36 @@ const ContactForm: React.FC = () => {
         </div>
       )}
 
-      {/* SUCCESS MODAL OVERLAY */}
+      {/* SUCCESS MODAL OVERLAY - Updated to match Figma design */}
       {showSuccess && (
         <div className="fixed inset-0 bg-[#333333]/40 backdrop-blur-[2px] flex items-center justify-center z-[200] p-6 animate-in fade-in duration-300">
-          <div className="relative bg-white border border-[#00A550] rounded-[32px] p-12 text-center max-w-[500px] shadow-2xl animate-in zoom-in-95 duration-500">
-            {/* Bounce animation remains, but shadow is removed */}
-            <div className="w-20 h-20 bg-[#00A550] rounded-full mx-auto mb-6 flex items-center justify-center animate-bounce-slow">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
+          <div className="relative bg-white border border-[#00A550] rounded-[20px] p-10 text-center w-full max-w-[452px] animate-in zoom-in-95 duration-500 flex flex-col items-center gap-10" style={{ boxShadow: '0px 4px 8px 3px rgba(51, 183, 115, 0.2)' }}>
+            {/* Success Image */}
+            <div className="w-[200px] h-[175.82px] flex items-center justify-center">
+              <img src={successModalPic} alt="Success" className="w-full h-full object-contain" />
             </div>
-            <h2 className="text-3xl font-bold text-[#333333] mb-4" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Thank you!</h2>
-            <p className="text-[#545454] mb-8 font-light leading-relaxed">Your request has been received. Our team will review it and get back to you shortly.</p>
-            {/* Fixed Navigation to Home */}
-            <button onClick={() => { window.location.href = '/'; }} className="w-full bg-[#00A550] text-white h-[56px] rounded-xl font-medium hover:bg-[#008f44] transition-all active:scale-95 shadow-md">
+            
+            {/* Thank you text */}
+            <h2 className="text-[24px] font-semibold leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+              Thank you!
+            </h2>
+            
+            {/* Description text */}
+            <p className="text-[14px] font-normal leading-[140%] text-center text-[#545454] max-w-[292px]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+              Your request has been received. Our team will review it and get back to you shortly.
+            </p>
+            
+            {/* Go Back To Home Button */}
+            <button 
+              onClick={() => { window.location.href = '/'; }} 
+              className="w-[202px] h-[48px] bg-[#00A550] text-white rounded-[100px] px-[30px] py-[10px] flex items-center justify-center gap-2 hover:bg-[#008f44] transition-all"
+            >
+              <span className="text-[14px] font-medium leading-[140%]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                 Go Back To Home
+              </span>
+              <svg width="14" height="10" viewBox="0 0 16 12" fill="none" className="translate-y-[-1px]">
+                <path d="M1.33334 6H14.6667M14.6667 6L9.33334 1M14.6667 6L9.33334 11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
           </div>
         </div>

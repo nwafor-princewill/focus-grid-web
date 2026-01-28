@@ -5,6 +5,7 @@ import focusGridLogo from '../assets/images/focus-grid-logo.png';
 import greenCard from '../assets/images/green-card.png';
 import approval from '../assets/images/approval.png';
 import fileOpen from '../assets/images/file-open.png';
+import successModalPic from '../assets/images/success-modal-pic.png';
 
 const ApplyForInternshipPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -331,19 +332,36 @@ const ApplyForInternshipPage: React.FC = () => {
         </div>
       )}
 
-      {/* Success Modal */}
+      {/* Success Modal - Updated to match ContactForm design */}
       {showSuccess && (
-        <div className="fixed inset-0 bg-[#333333]/40 backdrop-blur-[2px] flex items-center justify-center z-[200] p-6">
-          <div className="relative bg-white border border-[#00A550] rounded-[32px] p-12 text-center max-w-[500px]">
-            <div className="w-20 h-20 bg-[#00A550] rounded-full mx-auto mb-6 flex items-center justify-center animate-bounce-subtle">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
+        <div className="fixed inset-0 bg-[#333333]/40 backdrop-blur-[2px] flex items-center justify-center z-[200] p-6 animate-in fade-in duration-300">
+          <div className="relative bg-white border border-[#00A550] rounded-[20px] p-10 text-center w-full max-w-[452px] animate-in zoom-in-95 duration-500 flex flex-col items-center gap-10" style={{ boxShadow: '0px 4px 8px 3px rgba(51, 183, 115, 0.2)' }}>
+            {/* Success Image */}
+            <div className="w-[200px] h-[175.82px] flex items-center justify-center">
+              <img src={successModalPic} alt="Success" className="w-full h-full object-contain" />
             </div>
-            <h2 className="text-3xl font-bold text-[#333333] mb-4" style={{ fontFamily: 'Funnel Display, sans-serif' }}>Application Sent!</h2>
-            <p className="text-[#545454] mb-8 font-light leading-relaxed">We've received your application. Our team will review it soon.</p>
-            <button onClick={() => { window.location.href = '/'; }} className="w-full bg-[#00A550] text-white h-[56px] rounded-xl font-medium hover:bg-[#008f44] transition-all active:scale-95">
+            
+            {/* Application Sent text */}
+            <h2 className="text-[24px] font-semibold leading-[140%] text-[#333333]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+              Application Sent!
+            </h2>
+            
+            {/* Description text */}
+            <p className="text-[12px] font-normal leading-[140%] text-center text-[#545454] max-w-[292px]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
+              We've received your application. Our team will review it soon.
+            </p>
+            
+            {/* Go Back To Home Button */}
+            <button 
+              onClick={() => { window.location.href = '/'; }} 
+              className="w-[202px] h-[48px] bg-[#00A550] text-white rounded-[100px] px-[30px] py-[10px] flex items-center justify-center gap-2 hover:bg-[#008f44] transition-all"
+            >
+              <span className="text-[14px] font-medium leading-[140%]" style={{ fontFamily: 'Funnel Display, sans-serif' }}>
                 Go Back To Home
+              </span>
+              <svg width="14" height="10" viewBox="0 0 16 12" fill="none" className="translate-y-[-1px]">
+                <path d="M1.33334 6H14.6667M14.6667 6L9.33334 1M14.6667 6L9.33334 11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
           </div>
         </div>
